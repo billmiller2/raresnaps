@@ -1,4 +1,4 @@
-//exports.create = (req, res) => res.render('users/createUser.pug', { title: 'create user' })
-exports.create = (req, res) => res.render('createUser.pug', { title: 'create user' })
+exports.createUserForm = (req, res) => res.render('createUser.pug', { title: 'user created' })
+exports.create = (req, res) => res.render('userCreated.pug', { title: 'create user' })
 exports.login = (req, res) => res.send('login')
 
