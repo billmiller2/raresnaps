@@ -4,8 +4,17 @@ block content
   div.container
     div.row
       div.col-md-auto
-        h1= "Create User"
-    div.row
-      div.col-md-auto
-        button.btn.btn-primary= "create"
+        h1= 'Create User'
+        form(action='/users/create' method='post')
+          div.form-group
+            label(for='username')= 'Username'
+            input(type='text' name='username' autofocus).form-control
+
+            label(for='password')= 'Password'
+            input(type='password' name='password').form-control
+
+            label(for='confirm_password')= 'Confirm Password'
+            input(type='password' name='confirm_password').form-control
+
+          button(type='submit').btn.btn-primary= 'Create'
 
