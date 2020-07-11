@@ -5,4 +5,8 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/public/stylesheets/bootstrap.min.css')
   body
+    if errors
+      div.container
+        each error in errors
+          div.alert.alert-danger= error.msg
     block content
