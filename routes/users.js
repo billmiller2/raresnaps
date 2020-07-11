@@ -1,10 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-var usersController = require('../controllers/usersController')
+const usersController = require('../controllers/usersController')
+const usersValidator = require('../lib/validators/usersValidator')
 
 router.get('/login', usersController.login)
 router.get('/create', usersController.createUserForm)
-router.post('/create', usersController.create)
+router.post('/create', usersValidator.create, usersController.create)
 
-module.exports = router;
+module.exports = router
+
