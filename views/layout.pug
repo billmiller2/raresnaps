@@ -10,4 +10,8 @@ html
       div.container
         each error in errors
           div.alert.alert-danger= error.msg
+    if sessionFlash && sessionFlash.message
+      div.container
+        div.alert.alert-success= sessionFlash.message
     block content
+

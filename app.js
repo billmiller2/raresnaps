@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var session = require('express-session')
 var logger = require('morgan');
 require('dotenv').config()
 
@@ -9,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var sessionStore = new session.MemoryStore
 
 var mongoose = require('mongoose')
 var mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.rkfh3.mongodb.net/raresnaps?retryWrites=true&w=majority`
@@ -23,7 +25,20 @@ app.set('view engine', 'pug')
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
+app.use(session({
+    cookie: { maxAge: 60000 },
+    store: sessionStore,
+    saveUninitialized: true,
+    resave: 'true',
+    secret: 'secret'
+}))
+app.use((req, res, next) => {
+    res.locals.sessionFlash = req.session.sessionFlash
+    delete req.session.sessionFlash
+    next()
+})
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 

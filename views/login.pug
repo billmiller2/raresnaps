@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  div.container
+    div.row
+      div.col-md-auto
+        h1= 'Login'
+        form(action='/users/login' method='post')
+          div.form-group
+            label(for='username')= 'Username'
+            input(type='text' name='username' autofocus).form-control
+
+            label(for='password')= 'Password'
+            input(type='password' name='password').form-control
+
+          button(type='submit').btn.btn-primary= 'Login'
+

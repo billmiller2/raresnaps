@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator')
+const { User } = require('../models/user.js')
 
 exports.createUserForm = (req, res) => res.render('createUser.pug', { title: 'create user' })
 
@@ -11,8 +12,6 @@ exports.create = (req, res) => {
             errors: errors.array()
         })
     } else {
-        const User = require('../models/user.js')
-
         const user = new User({
             username: req.body.username,
             password: req.body.password
@@ -20,9 +19,15 @@ exports.create = (req, res) => {
         user.save((err) => {
             // handle err
 
-            res.render('userCreated.pug', { title: 'user created' })
+            req.session.sessionFlash = {
+                type: 'success',
+                message: 'User Created'
+            }
+
+            res.redirect(301, '/users/login')
         })
     }
 }
-exports.login = (req, res) => res.send('login')
+
+exports.login = (req, res) => res.render('login.pug', { title: 'raresnaps login' })
 
