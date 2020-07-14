@@ -8,6 +8,7 @@
     "local": "DEBUG=express:* npm run dev"
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "bootstrap": "^4.5.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
