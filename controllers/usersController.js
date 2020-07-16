@@ -35,4 +35,17 @@ exports.create = (req, res) => {
     }
 }
 
-exports.login = (req, res) => res.render('login.pug', { title: 'raresnaps login' })
+exports.loginForm = (req, res) => res.render('login.pug', { title: 'raresnaps login' })
+
+exports.login = (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        res.render('login.pug', {
+            title: 'raresnaps login',
+            errors: errors.array()
+        })
+    } else {
+        res.redirect(301, '/users/login')
+    }
+}
