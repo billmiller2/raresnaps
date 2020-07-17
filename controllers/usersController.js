@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator')
 const { User } = require('../models/user.js')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 exports.createUserForm = (req, res) => res.render('createUser.pug', { title: 'create user' })
 
@@ -46,6 +47,13 @@ exports.login = (req, res) => {
             errors: errors.array()
         })
     } else {
-        res.redirect(301, '/users/login')
+        const payload = { username: req.body.username }
+        const options = { expiresIn: 1800 }
+        const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
+            // handle err
+
+            res.cookie('token', token)
+            res.redirect(301, '/')
+        })
     }
 }
