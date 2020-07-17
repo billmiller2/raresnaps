@@ -9,10 +9,16 @@ exports.create = (req, res) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        res.render('createUser.pug', {
-            title: 'create user',
-            errors: errors.array()
+        req.session.sessionFlash = []
+
+        errors.array().forEach((error, i) => {
+            req.session.sessionFlash.push({
+                type: 'alert-danger',
+                message: error.msg
+            })
         })
+
+        res.redirect(301, '/users/create')
     } else {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
             // handle err
@@ -25,10 +31,10 @@ exports.create = (req, res) => {
             user.save((err) => {
                 // handle err
 
-                req.session.sessionFlash = {
-                    type: 'success',
+                req.session.sessionFlash = [{
+                    type: 'alert-success',
                     message: 'User Created'
-                }
+                }]
 
                 res.redirect(301, '/users/login')
             })
