@@ -8,6 +8,7 @@ html
     div.container
       nav.navbar.navbar-light(style="background-color: #a17188")
         a.navbar-brand(style="color: #ffffff")= "raresnaps"
+      hr
     if errors
       div.container
         each error in errors
@@ -17,5 +18,4 @@ html
         each flash in sessionFlash
           div.alert(class=flash.type)= flash.message
     div.container
-      hr
     block content
