@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 exports.createUserForm = (req, res) => res.render('createUser.pug', { title: 'create user' })
 
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -17,7 +17,7 @@ exports.create = (req, res) => {
 
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
-            throw new Error(err)
+            next(err)
         }
 
         const user = new User({
@@ -27,7 +27,7 @@ exports.create = (req, res) => {
 
         user.save((err) => {
             if (err) {
-                throw new Error(err)
+                next(err)
             }
 
             req.session.sessionFlash = [{
@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 
 exports.loginForm = (req, res) => res.render('login.pug', { title: 'raresnaps login' })
 
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -55,7 +55,7 @@ exports.login = (req, res) => {
         const options = { expiresIn: 1800 }
         const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
             if (err) {
-                throw new Error(err)
+                next(err)
             }
             req.session.sessionFlash = [{
                 type: 'alert-success',
