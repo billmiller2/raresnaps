@@ -35,7 +35,7 @@ exports.create = (req, res) => {
                 message: 'User Created'
             }]
 
-            res.redirect(301, '/users/login')
+            res.redirect(303, '/users/login')
         })
     })
 }
@@ -63,7 +63,7 @@ exports.login = (req, res) => {
             }]
 
             res.cookie('token', token)
-            res.redirect(301, '/')
+            res.redirect(303, '/')
         })
     }
 }
