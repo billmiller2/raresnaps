@@ -9,37 +9,35 @@ exports.create = (req, res) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        req.session.sessionFlash = []
-
-        errors.array().forEach((error, i) => {
-            req.session.sessionFlash.push({
-                type: 'alert-danger',
-                message: error.msg
-            })
-        })
-
-        res.redirect(301, '/users/create')
-    } else {
-        bcrypt.hash(req.body.password, 10, (err, hash) => {
-            // handle err
-
-            const user = new User({
-                username: req.body.username,
-                password: hash
-            })
-
-            user.save((err) => {
-                // handle err
-
-                req.session.sessionFlash = [{
-                    type: 'alert-success',
-                    message: 'User Created'
-                }]
-
-                res.redirect(301, '/users/login')
-            })
+        return res.status(422).render('createUser.pug', {
+            title: 'create user',
+            errors: errors.array()
         })
     }
+
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            throw new Error(err)
+        }
+
+        const user = new User({
+            username: req.body.username,
+            password: hash
+        })
+
+        user.save((err) => {
+            if (err) {
+                throw new Error(err)
+            }
+
+            req.session.sessionFlash = [{
+                type: 'alert-success',
+                message: 'User Created'
+            }]
+
+            res.redirect(301, '/users/login')
+        })
+    })
 }
 
 exports.loginForm = (req, res) => res.render('login.pug', { title: 'raresnaps login' })
@@ -48,7 +46,7 @@ exports.login = (req, res) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        res.render('login.pug', {
+        return res.status(422).render('login.pug', {
             title: 'raresnaps login',
             errors: errors.array()
         })
@@ -56,7 +54,13 @@ exports.login = (req, res) => {
         const payload = { username: req.body.username }
         const options = { expiresIn: 1800 }
         const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
-            // handle err
+            if (err) {
+                throw new Error(err)
+            }
+            req.session.sessionFlash = [{
+                type: 'alert-success',
+                message: 'logged in'
+            }]
 
             res.cookie('token', token)
             res.redirect(301, '/')
