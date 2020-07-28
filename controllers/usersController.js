@@ -67,3 +67,8 @@ exports.login = (req, res, next) => {
         })
     }
 }
+
+exports.logout = (req, res, next) => {
+    res.clearCookie('token')
+    res.redirect(303, '/users/login')
+}
