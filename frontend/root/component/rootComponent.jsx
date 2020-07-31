@@ -1,7 +1,7 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-export const Root = ()  => {
+export const RootComponent = ()  => {
     return (
         <div className='container'>
             <nav

@@ -4,11 +4,11 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { store } from './store'
 
-import { Root } from './root/root.jsx'
+import { RootContainer } from './root/container/root.jsx'
 
 render(
     <Provider store={store}>
-        <Root/>
+        <RootContainer />
     </Provider>,
     document.getElementById('app')
 )
