@@ -72,3 +72,15 @@ exports.logout = (req, res, next) => {
     res.clearCookie('token')
     res.redirect(303, '/users/login')
 }
+
+exports.user = (req, res, next) => {
+    const token = req.cookies.token
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            res.redirect('/users/login')
+        }
+
+        res.send(200, decoded)
+    })
+}
