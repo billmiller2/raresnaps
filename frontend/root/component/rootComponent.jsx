@@ -1,7 +1,9 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-export const RootComponent = ()  => {
+export const RootComponent = (props)  => {
+    const { user } = { ...props }
+
     return (
         <div className='container'>
             <nav
@@ -15,7 +17,7 @@ export const RootComponent = ()  => {
                         backgroundColor: '#a17188',
                         borderColor: 'white'
                     }}>
-                        User
+                        { user.username }
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
