@@ -1,11 +1,4 @@
-import { REQUEST_USER, RECEIVE_USER} from './action'
-
-// export const requestUser = function() {
-//     return {
-//         type: REQUEST_USER,
-//         payload: {}
-//     }
-// }
+import { RECEIVE_USER} from './types'
 
 export const requestUser = () =>
     (dispatch) => fetch('/users/user')

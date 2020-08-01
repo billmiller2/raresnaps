@@ -1,14 +1,12 @@
 import { connect } from 'react-redux'
 
-import { requestUser } from '../action/creator'
+import { requestUser } from '../../users/actions/creators'
 import { RootComponent } from '../component/rootComponent.jsx'
 
-const mapStateToProps = (state) => {
-    return state
-}
+const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => {
-    // dispatch(requestUser())
+    dispatch(requestUser())
 
     return {}
 }
