@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { requestUser } from '../../users/actions/creators'
-import { RootComponent } from '../component/rootComponent.jsx'
+import { RootComponent } from '../component/root.jsx'
 
 const mapStateToProps = (state) => state
 
