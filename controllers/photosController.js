@@ -13,7 +13,8 @@ exports.show = (req, res, next) => {
         }
 
         let objectData = data.Body.toString('base64')
+        let response = { photo: objectData }
 
-        res.send(200, objectData)
+        res.send(200, response)
     })
 }
