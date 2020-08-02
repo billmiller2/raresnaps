@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 
-import { requestUser } from '../../users/actions/creators'
-import { requestPhoto } from '../../photos/actions/creators'
-import { RootComponent } from '../component/root.jsx'
+import { requestUser } from '../../users/actions'
+import { requestPhoto } from '../../photos/actions'
+import { RootComponent } from '../components'
 
 const mapStateToProps = (state) => state
 

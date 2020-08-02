@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import { RECEIVE_USER } from './root/action/action'
-import { RECEIVE_PHOTO } from './photos/actions/types'
-import { requestUser } from './root/action/creator'
+import { RECEIVE_PHOTO } from './photos/actions'
+import { RECEIVE_USER, requestUser } from './users/actions'
 
 let initialState = {
     user: {

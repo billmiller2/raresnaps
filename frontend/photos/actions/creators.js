@@ -1,4 +1,4 @@
-import { RECEIVE_PHOTO } from './types'
+import { RECEIVE_PHOTO } from './'
 import { PHOTO } from '../routes'
 
 export const requestPhoto = () =>

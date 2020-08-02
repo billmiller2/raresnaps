@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Nav } from './nav.jsx'
+import { Nav } from './'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
