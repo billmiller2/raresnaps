@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import { RECEIVE_PHOTO } from './photos/actions'
+import { REQUEST_PHOTO, RECEIVE_PHOTO } from './photos/actions'
 import { REQUEST_USER, RECEIVE_USER  } from './users/actions'
 
 let initialState = {
@@ -9,7 +9,10 @@ let initialState = {
         isFetching: false,
         username: ''
     },
-    photo: ''
+    photo: {
+        isFetching: false,
+        photo: ''
+    }
 }
 
 let rootReducer = (state = initialState, action) => {
@@ -29,10 +32,20 @@ let rootReducer = (state = initialState, action) => {
                     username: action.payload.username
                 }
             }
+        case REQUEST_PHOTO:
+            return {
+                ...state,
+                photo: {
+                    isFetching: true
+                }
+            }
         case RECEIVE_PHOTO:
             return {
                 ...state,
-                photo: action.payload.photo
+                photo: {
+                    isFetching: false,
+                    photo: action.payload.photo
+                }
             }
         default:
             return state

@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 
 import { fetchUser } from '../../users/actions'
-import { requestPhoto } from '../../photos/actions'
+import { fetchPhoto } from '../../photos/actions'
 import { RootComponent } from '../components'
 
 const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => {
     dispatch(fetchUser())
-    dispatch(requestPhoto())
+    dispatch(fetchPhoto())
 
     return {}
 }

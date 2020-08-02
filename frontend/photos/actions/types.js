@@ -1,1 +1,2 @@
+export const REQUEST_PHOTO = 'REQUEST_PHOTO'
 export const RECEIVE_PHOTO = 'RECEIVE_PHOTO'
