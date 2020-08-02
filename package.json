@@ -8,6 +8,7 @@
     "local": "DEBUG=express:* npm run dev"
   },
   "dependencies": {
+    "aws-sdk": "^2.725.0",
     "bcrypt": "~3.0.6",
     "bootstrap": "^4.5.0",
     "cookie-parser": "~1.4.4",
