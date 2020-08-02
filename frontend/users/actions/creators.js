@@ -1,10 +1,20 @@
-import { RECEIVE_USER} from './types'
+import { REQUEST_USER, RECEIVE_USER} from './types'
 import { USER } from '../routes'
 
-export const requestUser = () =>
-    (dispatch) => fetch(USER)
-        .then(response => response.json())
-        .then(user => dispatch(receiveUser(user)))
+export const fetchUser = () =>
+    (dispatch) => {
+        dispatch(requestUser())
+
+        return fetch(USER)
+            .then(response => response.json())
+            .then(user => dispatch(receiveUser(user)))
+    }
+
+export const requestUser = () => {
+    return {
+        type: REQUEST_USER
+    }
+}
 
 export const receiveUser = (user) => {
     return {
