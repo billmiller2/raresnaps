@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Nav } from './'
-import { Photo } from '../../photos/components'
+import { Photos } from '../../photos/components'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
@@ -10,7 +10,7 @@ export const RootComponent = (props)  => {
         <div className='container'>
             <Nav username={user.username} />
             <hr />
-            <Photo photo={photo} />
+            <Photos photos={photo.photos} />
         </div>
     )
 }
