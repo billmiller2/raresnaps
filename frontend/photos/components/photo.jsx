@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Photo = (props) => {
-    const { photo } = { ...props }
+    const { photo, col } = { ...props }
 
     if (photo.isFetching) {
         return <span>Loading</span>
@@ -14,6 +14,11 @@ export const Photo = (props) => {
     }
 
     return (
-        <img alt='photo' src={src} />
+        <div className={col}>
+            <img
+                alt='photo'
+                src={src}
+                style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        </div>
     )
 }

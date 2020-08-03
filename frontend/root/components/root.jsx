@@ -10,7 +10,7 @@ export const RootComponent = (props)  => {
         <div className='container'>
             <Nav username={user.username} />
             <hr />
-            <Photos photos={photo.photos} />
+            <Photos photos={photo.photos} isFetching={photo.isFetching} />
         </div>
     )
 }

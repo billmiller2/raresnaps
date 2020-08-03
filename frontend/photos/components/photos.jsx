@@ -3,20 +3,20 @@ import React from 'react'
 import { Photo } from './'
 
 export const Photos = (props) => {
-    const { photos } = { ...props }
+    const { photos, isFetching } = { ...props }
 
-    if (photos.isFetching) {
+    if (isFetching) {
         return <span>Loading</span>
     }
 
     let photoComponents = []
 
     photos.forEach((photo, i) => photoComponents.push(
-        <Photo key={i} photo={photo} />)
+        <Photo key={i} photo={photo} col="col-md-4" />)
     )
 
     return (
-        <div>
+        <div className="row">
             { photoComponents }
         </div>
     )
