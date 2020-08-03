@@ -16,7 +16,7 @@ export const Photos = (props) => {
     )
 
     return (
-        <div className="row">
+        <div className="row d-flex flex-wrap align-items-center">
             { photoComponents }
         </div>
     )
