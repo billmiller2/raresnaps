@@ -1,2 +1,2 @@
-export const PHOTO = '/photos/{id}'
-export const PHOTOS = '/photos'
+export const PHOTO = '/api/photos/{id}'
+export const PHOTOS = '/api/photos'
