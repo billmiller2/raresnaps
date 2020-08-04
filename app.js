@@ -9,6 +9,7 @@ require('dotenv').config()
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var photosRouter = require('./routes/api/photos');
+var apiUsersRouter = require('./routes/api/users');
 
 var app = express();
 var sessionStore = new session.MemoryStore
@@ -48,6 +49,7 @@ app.use('/public/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/photos', photosRouter);
+app.use('/api/users', apiUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
