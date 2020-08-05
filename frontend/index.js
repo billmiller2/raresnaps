@@ -1,13 +1,16 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
 import { store } from './store'
-import { RootContainer } from './root/containers'
+import { App } from './app.jsx'
 
 render(
     <Provider store={store}>
-        <RootContainer />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>,
     document.getElementById('app')
 )
