@@ -1,9 +1,9 @@
 import React from 'react'
 
 export const Photo = (props) => {
-    const { photo, col } = { ...props }
+    const { photo, col, isFetching } = { ...props }
 
-    if (photo.isFetching) {
+    if (isFetching) {
         return <span>Loading</span>
     }
 
