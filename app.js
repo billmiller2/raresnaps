@@ -6,9 +6,12 @@ var session = require('express-session')
 var logger = require('morgan');
 require('dotenv').config()
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var photosRouter = require('./routes/api/photos');
+var photosRouter = require('./routes/photos');
+
+var apiPhotosRouter = require('./routes/api/photos');
 var apiUsersRouter = require('./routes/api/users');
 
 var app = express();
@@ -48,7 +51,8 @@ app.use('/public/js', express.static(__dirname + '/node_modules/jquery/dist'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/photos', photosRouter);
+app.use('/photos', photosRouter);
+app.use('/api/photos', apiPhotosRouter);
 app.use('/api/users', apiUsersRouter);
 
 // catch 404 and forward to error handler

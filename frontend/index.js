@@ -4,12 +4,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import { store } from './store'
-import { App } from './app.jsx'
+import { RootContainer } from './root/containers'
 
 render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <RootContainer />
         </BrowserRouter>
     </Provider>,
     document.getElementById('app')

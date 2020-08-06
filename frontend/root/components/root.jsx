@@ -1,7 +1,9 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
 import { Nav } from './'
 import { Photos } from '../../photos/components'
+import { PhotoContainer } from '../../photos/containers'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
@@ -10,7 +12,14 @@ export const RootComponent = (props)  => {
         <div className='container'>
             <Nav username={user.username} />
             <hr />
-            <Photos photos={photo.photos} isFetching={photo.isFetching} />
+            <Switch>
+                <Route path='/photos/view/:photoId'>
+                    <PhotoContainer />
+                </Route>
+                <Route path='/'>
+                    <Photos photos={photo.photos} isFetching={photo.isFetching} />
+                </Route>
+            </Switch>
         </div>
     )
 }
