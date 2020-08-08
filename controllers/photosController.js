@@ -31,7 +31,7 @@ exports.index = (req, res, next) => {
                 photos.push(data.Body.toString('base64'))
 
                 if (photos.length === photoCount) {
-                    res.send(200, { photos: photos })
+                    res.status(200).send({ photos: photos })
                 }
             })
         }
@@ -52,6 +52,12 @@ exports.show = (req, res, next) => {
         let objectData = data.Body.toString('base64')
         let response = { photo: objectData }
 
-        res.send(200, response)
+        res.status(200).send(response)
     })
+}
+
+exports.add = (req, res, next) => {
+    console.log(req.file)
+
+    res.status(200).send({ photo: 'asfd' })
 }

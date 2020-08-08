@@ -58,10 +58,12 @@ export const receivePhotos = (photos) => {
 export const uploadPhoto = (file) =>
     (dispatch) => {
         dispatch(addPhoto())
+        const formData = new FormData()
+        formData.append('photo', file)
 
         return fetch(UPLOAD_PHOTO, {
                 method: 'POST',
-                body: file
+                body: formData
             })
             .then(response => response.json())
             .then(photo => dispatch(receivePhoto(photo)))
