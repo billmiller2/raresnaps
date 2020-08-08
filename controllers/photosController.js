@@ -57,7 +57,17 @@ exports.show = (req, res, next) => {
 }
 
 exports.add = (req, res, next) => {
-    console.log(req.file)
+    const params = {
+        Body: Buffer.from(req.file.buffer, 'binary'),
+        Bucket: 'dev-raresnaps',
+        Key: req.file.originalname
+    }
+
+    s3.putObject(params, function(err, data) {
+        if (err) {
+            return next(err)
+        }
+    })
 
     res.status(200).send({ photo: 'asfd' })
 }

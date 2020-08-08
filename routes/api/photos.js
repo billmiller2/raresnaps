@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 const photosController = require('../../controllers/photosController')
 const authenticate = require('../../lib/middleware/auth')
