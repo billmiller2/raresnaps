@@ -55,11 +55,14 @@ export const receivePhotos = (photos) => {
     }
 }
 
-export const uploadPhoto = () =>
+export const uploadPhoto = (file) =>
     (dispatch) => {
         dispatch(addPhoto())
 
-        return fetch(UPLOAD_PHOTO)
+        return fetch(UPLOAD_PHOTO, {
+                method: 'POST',
+                body: file
+            })
             .then(response => response.json())
             .then(photo => dispatch(receivePhoto(photo)))
     }

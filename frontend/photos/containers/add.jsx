@@ -7,7 +7,7 @@ const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClick: () => dispatch(uploadPhoto())
+        onSubmit: (file) => dispatch(uploadPhoto(file))
     }
 }
 
