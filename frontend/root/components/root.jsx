@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import { Nav } from './'
 import { Photos } from '../../photos/components'
-import { PhotoContainer } from '../../photos/containers'
+import { PhotoContainer, AddPhotoContainer } from '../../photos/containers'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
@@ -13,6 +13,9 @@ export const RootComponent = (props)  => {
             <Nav username={user.username} />
             <hr />
             <Switch>
+                <Route path='/photos/add'>
+                    <AddPhotoContainer />
+                </Route>
                 <Route path='/photos/view/:photoId'>
                     <PhotoContainer />
                 </Route>

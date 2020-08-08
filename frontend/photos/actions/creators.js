@@ -2,9 +2,14 @@ import {
     REQUEST_PHOTO,
     RECEIVE_PHOTO,
     REQUEST_PHOTOS,
-    RECEIVE_PHOTOS
+    RECEIVE_PHOTOS,
+    ADD_PHOTO
 } from './'
-import { PHOTO, PHOTOS } from '../routes'
+import { 
+    PHOTO, 
+    PHOTOS,
+    UPLOAD_PHOTO
+} from '../routes'
 
 export const fetchPhoto = () =>
     (dispatch) => {
@@ -47,5 +52,20 @@ export const receivePhotos = (photos) => {
     return {
         type: RECEIVE_PHOTOS,
         payload: photos
+    }
+}
+
+export const uploadPhoto = () =>
+    (dispatch) => {
+        dispatch(addPhoto())
+
+        return fetch(UPLOAD_PHOTO)
+            .then(response => response.json())
+            .then(photo => dispatch(receivePhoto(photo)))
+    }
+
+export const addPhoto = () => {
+    return {
+        type: ADD_PHOTO
     }
 }
