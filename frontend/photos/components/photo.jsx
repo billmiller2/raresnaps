@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const Photo = (props) => {
-    const { photo, col, isFetching } = { ...props }
+    const { photo, col, isFetching, fetchPhoto } = { ...props }
+    const { photoId } = useParams()
+
+    useEffect(() => {
+        fetchPhoto(photoId)
+    }, [])
 
     if (isFetching) {
         return <span>Loading</span>

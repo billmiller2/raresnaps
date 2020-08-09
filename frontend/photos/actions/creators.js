@@ -5,17 +5,17 @@ import {
     RECEIVE_PHOTOS,
     ADD_PHOTO
 } from './'
-import { 
-    PHOTO, 
+import {
+    PHOTO,
     PHOTOS,
     UPLOAD_PHOTO
 } from '../routes'
 
-export const fetchPhoto = () =>
+export const fetchPhoto = (photoId) =>
     (dispatch) => {
         dispatch(requestPhoto())
 
-        return fetch(PHOTO)
+        return fetch(PHOTO + photoId)
             .then(response => response.json())
             .then(photo => dispatch(receivePhoto(photo)))
     }

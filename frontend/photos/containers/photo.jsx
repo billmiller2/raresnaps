@@ -12,9 +12,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    dispatch(fetchPhoto())
-
-    return {}
+    return {
+        fetchPhoto: (photoId) => dispatch(fetchPhoto(photoId))
+    }
 }
 
 export const PhotoContainer = connect(
