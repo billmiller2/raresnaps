@@ -1,5 +1,6 @@
 const aws = require('aws-sdk');
 const s3 = new aws.S3();
+const { Photo } = require('../models/photo.js')
 
 exports.index = (req, res, next) => {
     const listParams = {
@@ -67,7 +68,24 @@ exports.add = (req, res, next) => {
         if (err) {
             return next(err)
         }
+
+        const photo = new Photo({
+            key: req.file.originalname
+        })
+
+        photo.save((err) => {
+            if (err) {
+                next(err)
+            }
+
+            req.session.sessionFlash = [{
+                type: 'alert-success',
+                message: 'Photo added'
+            }]
+
+            // res.redirect(303, '/')
+        })
     })
 
-    res.status(200).send({ photo: 'asfd' })
+    res.status(200).send({ photo: req.file.originalname })
 }
