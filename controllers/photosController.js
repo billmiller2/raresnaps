@@ -3,26 +3,21 @@ const s3 = new aws.S3();
 const { Photo } = require('../models/photo.js')
 
 exports.index = (req, res, next) => {
-    const listParams = {
-        Bucket: 'dev-raresnaps',
-        // MaxKeys: 10
-    }
-
     let photos = []
 
-    s3.listObjectsV2(listParams, function(err, data) {
+    Photo.find((err, data) => {
         if (err) {
             return next(err)
         }
 
-        let getParams = {
+        const getParams = {
             Bucket: 'dev-raresnaps',
         }
 
-        const photoCount = data.Contents.length
+        const photoCount = data.length
 
         for (let i = 0; i < photoCount; i++) {
-            getParams.Key = data.Contents[i].Key
+            getParams.Key = data[i].key
 
             s3.getObject(getParams, function(err, data) {
                 if (err) {
