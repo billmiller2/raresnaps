@@ -40,20 +40,26 @@ exports.index = (req, res, next) => {
 }
 
 exports.show = (req, res, next) => {
-    const getParams = {
-        Bucket: 'dev-raresnaps',
-        Key: 'IMG_1610.JPG'
-    }
-
-    s3.getObject(getParams, function(err, data) {
+    Photo.findById(req.params.id, (err, photo) => {
         if (err) {
-            return err
+            return next(err)
         }
 
-        let objectData = data.Body.toString('base64')
-        let response = { photo: objectData }
+        const getParams = {
+            Bucket: 'dev-raresnaps',
+            Key: photo.key
+        }
 
-        res.status(200).send(response)
+        s3.getObject(getParams, function(err, data) {
+            if (err) {
+                return err
+            }
+
+            let objectData = data.Body.toString('base64')
+            let response = { photo: objectData }
+
+            res.status(200).send(response)
+        })
     })
 }
 
