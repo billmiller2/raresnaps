@@ -45,6 +45,12 @@ exports.show = (req, res, next) => {
             return next(err)
         }
 
+        if (!photo) {
+            return res.status(200).send({
+                photo: ''
+            })
+        }
+
         const getParams = {
             Bucket: 'dev-raresnaps',
             Key: photo.key

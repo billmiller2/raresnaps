@@ -6,11 +6,17 @@ export const Photo = (props) => {
     const { photoId } = useParams()
 
     useEffect(() => {
-        fetchPhoto(photoId)
+        if (fetchPhoto) {
+            fetchPhoto(photoId)
+        }
     }, [])
 
     if (isFetching) {
         return <span>Loading</span>
+    }
+
+    if (!photo) {
+        return <span>Not Found</span>
     }
 
     let src = ''
