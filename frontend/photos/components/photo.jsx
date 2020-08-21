@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Row from 'react-bootstrap/Row'
 import { useParams } from 'react-router-dom'
 
 export const Photo = (props) => {
@@ -26,11 +27,13 @@ export const Photo = (props) => {
     }
 
     return (
-        <div className={col}>
-            <img
-                alt='photo'
-                src={src}
-                style={{ maxWidth: '100%', maxHeight: '100%' }} />
-        </div>
+        <Row>
+            <div className={col}>
+                <img
+                    alt='photo'
+                    src={src}
+                    style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            </div>
+        </Row>
     )
 }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import styled from 'styled-components'
 
 const Input = styled.input`
@@ -16,22 +18,26 @@ export const AddPhoto = (props) => {
     const [file, setValue] = useState('')
 
     return (
-        <form 
-            encType='multipart/form-data' 
-            onSubmit={(e) => {
-                e.preventDefault()
+        <Row>
+            <Col xs={12}>
+                <form 
+                    encType='multipart/form-data' 
+                    onSubmit={(e) => {
+                        e.preventDefault()
 
-                return onSubmit(file)
-            }}>
-            <Input
-                type='file'
-                accept="image/png, image/jpeg"
-                className='btn btn-default'
-                onChange={(e) => setValue(e.target.files[0])}>
-            </Input>
-            <Submit className="btn" type="submit">
-                Upload
-            </Submit>
-        </form>
+                        return onSubmit(file)
+                    }}>
+                    <Input
+                        type='file'
+                        accept="image/png, image/jpeg"
+                        className='btn btn-default'
+                        onChange={(e) => setValue(e.target.files[0])}>
+                    </Input>
+                    <Submit className="btn" type="submit">
+                        Upload
+                    </Submit>
+                </form>
+            </Col>
+        </Row>
     )
 }

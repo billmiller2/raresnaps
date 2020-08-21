@@ -1,4 +1,5 @@
 import React from 'react'
+import Container from 'react-bootstrap/Container'
 import { Switch, Route } from 'react-router-dom'
 
 import { Nav } from './'
@@ -9,7 +10,7 @@ export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
 
     return (
-        <div className='container'>
+        <Container>
             <Nav username={user.username} />
             <hr />
             <Switch>
@@ -23,6 +24,6 @@ export const RootComponent = (props)  => {
                     <Photos photos={photo.photos} isFetching={photo.isFetching} />
                 </Route>
             </Switch>
-        </div>
+        </Container>
     )
 }
