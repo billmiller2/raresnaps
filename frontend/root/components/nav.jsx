@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { AddPhotoContainer } from '../../photos/containers'
 
 const MauveNav = styled(Navbar)`
-    background-color: #a17188
+    background-color: #a17188;
 `
 
 export const Nav = (props) =>
