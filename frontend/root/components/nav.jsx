@@ -1,12 +1,17 @@
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Navbar from 'react-bootstrap/Navbar'
+
+import styled from 'styled-components'
 
 import { AddPhotoContainer } from '../../photos/containers'
 
+const MauveNav = styled(Navbar)`
+    background-color: #a17188
+`
+
 export const Nav = (props) =>
-    <nav
-        className='navbar navbar-light'
-        style={{backgroundColor: '#a17188'}}>
+    <MauveNav expand='lg'>
         <a className='navbar-brand' style={{color: '#ffffff'}}>
             raresnaps
         </a>
@@ -25,4 +30,4 @@ export const Nav = (props) =>
                 </Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
-    </nav>
+    </MauveNav>
