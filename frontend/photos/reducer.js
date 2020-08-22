@@ -7,7 +7,7 @@ import {
 
 let initialState = {
     isFetching: false,
-    photos: []
+    photos: {}
 }
 
 export const photosReducer = (state = initialState, action) => {
@@ -21,7 +21,7 @@ export const photosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                photo: action.payload.photo
+                photos: action.payload.photos
             }
         case REQUEST_PHOTOS:
             return {

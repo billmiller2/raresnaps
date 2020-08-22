@@ -22,7 +22,7 @@ export const Photo = (props) => {
     let src = ''
 
     if (photo) {
-        src = `data:image/png;base64, ${photo}`
+        src = `data:image/png;base64, ${photo.data}`
     }
 
     return (

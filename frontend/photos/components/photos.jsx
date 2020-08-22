@@ -13,7 +13,7 @@ export const Photos = (props) => {
 
     let photoComponents = []
 
-    photos.forEach((photo, i) => photoComponents.push(
+    Object.values(photos).forEach((photo, i) => photoComponents.push(
         <Col key={i} xs={12} md={4}>
             <Photo photo={photo} />
         </Col>

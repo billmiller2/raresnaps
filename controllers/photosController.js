@@ -3,7 +3,7 @@ const s3 = new aws.S3();
 const { Photo } = require('../models/photo.js')
 
 exports.index = (req, res, next) => {
-    let photos = []
+    let photos = {}
 
     Photo.find((err, data) => {
         if (err) {
@@ -17,6 +17,8 @@ exports.index = (req, res, next) => {
         const photoCount = data.length
 
         for (let i = 0; i < photoCount; i++) {
+            const photoId = data[i]._id
+
             getParams.Key = data[i].key
 
             s3.getObject(getParams, function(err, data) {
@@ -24,9 +26,11 @@ exports.index = (req, res, next) => {
                     return next(err)
                 }
 
-                photos.push(data.Body.toString('base64'))
+                photos[photoId] = {
+                    data: data.Body.toString('base64')
+                }
 
-                if (photos.length === photoCount) {
+                if (Object.keys(photos).length === photoCount) {
                     res.status(200).send({ photos: photos })
                 }
             })
@@ -57,7 +61,13 @@ exports.show = (req, res, next) => {
             }
 
             let objectData = data.Body.toString('base64')
-            let response = { photo: objectData }
+            let response = { 
+                photos: {
+                    [photo._id]: {
+                        data: objectData
+                    }
+                }
+            }
 
             res.status(200).send(response)
         })

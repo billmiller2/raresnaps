@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { fetchPhoto } from '../../photos/actions'
 import { Photo } from '../components'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
     return {
-        photo: state.photo.photo,
+        photo: state.photo.photos[props.photoId],
         isFetching: state.photo.isFetching
     }
 }
