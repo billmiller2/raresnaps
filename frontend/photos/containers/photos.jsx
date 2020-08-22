@@ -1,17 +1,16 @@
 import { connect } from 'react-redux'
 
-import { fetchUser } from '../../users/actions'
-import { RootComponent } from '../components'
+import { fetchPhotos } from '../../photos/actions'
+import { Photos } from '../components'
 
 const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => {
-    dispatch(fetchUser())
-
+    dispatch(fetchPhotos())
     return {}
 }
 
-export const RootContainer = connect(
+export const PhotosContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(RootComponent)
+)(Photos)

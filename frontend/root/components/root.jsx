@@ -6,7 +6,7 @@ import { Nav } from './'
 import {
     ADD_PHOTO_ROUTE,
     AddPhotoContainer,
-    Photos,
+    PhotosContainer,
     VIEW_PHOTO_ROUTE,
     ViewPhoto
 } from '../../photos'
@@ -26,7 +26,7 @@ export const RootComponent = (props)  => {
                     <ViewPhoto />
                 </Route>
                 <Route path='/'>
-                    <Photos photos={photo.photos} isFetching={photo.isFetching} />
+                    <PhotosContainer photos={photo.photos} isFetching={photo.isFetching} />
                 </Route>
             </Switch>
         </Container>
