@@ -5,7 +5,6 @@ import { Photo } from '../components'
 
 const mapStateToProps = (state) => {
     return {
-        col: 'col-md-6',
         photo: state.photo.photo,
         isFetching: state.photo.isFetching
     }

@@ -3,8 +3,13 @@ import Container from 'react-bootstrap/Container'
 import { Switch, Route } from 'react-router-dom'
 
 import { Nav } from './'
-import { Photos } from '../../photos/components'
-import { PhotoContainer, AddPhotoContainer } from '../../photos/containers'
+import {
+    ADD_PHOTO_ROUTE,
+    AddPhotoContainer,
+    Photos,
+    VIEW_PHOTO_ROUTE,
+    ViewPhoto
+} from '../../photos'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
@@ -14,11 +19,11 @@ export const RootComponent = (props)  => {
             <Nav username={user.username} />
             <hr />
             <Switch>
-                <Route path='/photos/add'>
+                <Route path={ADD_PHOTO_ROUTE}>
                     <AddPhotoContainer />
                 </Route>
-                <Route path='/photos/view/:photoId'>
-                    <PhotoContainer />
+                <Route path={VIEW_PHOTO_ROUTE}>
+                    <ViewPhoto />
                 </Route>
                 <Route path='/'>
                     <Photos photos={photo.photos} isFetching={photo.isFetching} />

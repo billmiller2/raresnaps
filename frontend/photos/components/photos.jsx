@@ -1,4 +1,6 @@
 import React from 'react'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 import { Photo } from './'
 
@@ -12,12 +14,14 @@ export const Photos = (props) => {
     let photoComponents = []
 
     photos.forEach((photo, i) => photoComponents.push(
-        <Photo key={i} photo={photo} col="col-md-4" />)
-    )
+        <Col xs={12} md={4}>
+            <Photo key={i} photo={photo} />
+        </Col>
+    ))
 
     return (
-        <div className="row d-flex flex-wrap align-items-center">
+        <Row className='d-flex flex-wrap align-items-center'>
             { photoComponents }
-        </div>
+        </Row >
     )
 }
