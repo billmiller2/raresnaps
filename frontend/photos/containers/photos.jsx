@@ -6,8 +6,9 @@ import { Photos } from '../components'
 const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => {
-    dispatch(fetchPhotos())
-    return {}
+    return {
+        fetchPhotos: () => dispatch(fetchPhotos())
+    }
 }
 
 export const PhotosContainer = connect(

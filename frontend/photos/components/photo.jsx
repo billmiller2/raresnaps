@@ -8,7 +8,7 @@ export const Photo = (props) => {
     const { photoId } = useParams()
 
     useEffect(() => {
-        if (fetchPhoto) {
+        if (fetchPhoto && !photo) {
             fetchPhoto(photoId)
         }
     }, [])
