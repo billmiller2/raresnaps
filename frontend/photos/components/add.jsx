@@ -8,9 +8,14 @@ const Input = styled.input`
     color: #ffffff;
 `
 const Submit = styled(Button)`
-    background-color: #a17188;
+    background-color: #ffffff;
     border: 1px solid;
-    color: #ffffff;
+    color: #a17188;
+    &:hover {
+        background-color: #a17188;
+        color: #ffffff;
+        border-color: #a17188;
+    }
 `
 
 export const AddPhoto = (props) => {
