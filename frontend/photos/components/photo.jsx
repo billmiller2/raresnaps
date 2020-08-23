@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { Loading } from '../../common'
+
 export const Photo = (props) => {
     const { photo, isFetching, fetchPhoto } = { ...props }
     const { photoId } = useParams()
@@ -12,7 +14,7 @@ export const Photo = (props) => {
     }, [])
 
     if (isFetching) {
-        return <span>Loading</span>
+        return <Loading />
     }
 
     if (!photo) {

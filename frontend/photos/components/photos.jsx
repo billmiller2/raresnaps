@@ -4,12 +4,13 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 import { Photo } from './'
+import { Loading } from '../../common'
 
 export const Photos = (props) => {
     const { photos, isFetching } = { ...props }
 
     if (isFetching) {
-        return <span>Loading</span>
+        return <Loading />
     }
 
     let photoComponents = []
