@@ -10,7 +10,7 @@ export const Photos = (props) => {
     const { photos, isFetching, fetchPhotos } = { ...props }
 
     useEffect(() => {
-        if (fetchPhotos) {
+        if (fetchPhotos && !Object.keys(photos).length) {
             fetchPhotos()
         }
     }, [])
