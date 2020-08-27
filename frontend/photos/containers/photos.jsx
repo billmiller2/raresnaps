@@ -3,11 +3,17 @@ import { connect } from 'react-redux'
 import { fetchPhotos } from '../../photos/actions'
 import { Photos } from '../components'
 
-const mapStateToProps = (state) => state
+const mapStateToProps = (state) => {
+    const { cursor } = { ...state.photo }
+
+    return {
+        cursor: cursor
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchPhotos: () => dispatch(fetchPhotos())
+        fetchPhotos: (cursor) => dispatch(fetchPhotos(cursor))
     }
 }
 

@@ -7,11 +7,17 @@ import { Photo } from './'
 import { Loading } from '../../common'
 
 export const Photos = (props) => {
-    const { photos, isFetching, fetchPhotos } = { ...props }
+    const { photos, cursor, isFetching, fetchPhotos } = { ...props }
 
     useEffect(() => {
         if (fetchPhotos && !Object.keys(photos).length) {
-            fetchPhotos()
+            fetchPhotos(cursor)
+        }
+    }, [])
+
+    useEffect(() => {
+        window.onscroll = (e) => {
+            //const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight
         }
     }, [])
 
@@ -30,6 +36,8 @@ export const Photos = (props) => {
             </Col>
         )
     }
+
+    const handleScroll = (e) => console.log(e)
 
     return (
         <Row className='d-flex flex-wrap align-items-center'>

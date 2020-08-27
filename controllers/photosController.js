@@ -4,38 +4,53 @@ const { Photo } = require('../models/photo.js')
 
 exports.index = (req, res, next) => {
     let photos = {}
+    let where = {}
 
-    Photo.find((err, data) => {
-        if (err) {
-            return next(err)
+    if (req.query.cursor) {
+        where = {
+            $lt: cursor
         }
+    }
 
-        const getParams = {
-            Bucket: 'dev-raresnaps',
-        }
+    Photo
+        .find(where)
+        .sort({ _id: 'desc' })
+        .limit(6)
+        .exec((err, data) => {
+            if (err) {
+                return next(err)
+            }
 
-        const photoCount = data.length
+            const getParams = {
+                Bucket: 'dev-raresnaps',
+            }
 
-        for (let i = 0; i < photoCount; i++) {
-            const photoId = data[i]._id
+            const photoCount = data.length
+            const cursor = data[photoCount - 1]._id
 
-            getParams.Key = data[i].key
+            for (let i = 0; i < photoCount; i++) {
+                const photoId = data[i]._id
 
-            s3.getObject(getParams, function(err, data) {
-                if (err) {
-                    return next(err)
-                }
+                getParams.Key = data[i].key
 
-                photos[photoId] = {
-                    data: data.Body.toString('base64')
-                }
+                s3.getObject(getParams, function(err, data) {
+                    if (err) {
+                        return next(err)
+                    }
 
-                if (Object.keys(photos).length === photoCount) {
-                    res.status(200).send({ photos: photos })
-                }
-            })
-        }
-    })
+                    photos[photoId] = {
+                        data: data.Body.toString('base64')
+                    }
+
+                    if (Object.keys(photos).length === photoCount) {
+                        res.status(200).send({ 
+                            photos: photos,
+                            cursor: cursor
+                        })
+                    }
+                })
+            }
+        })
 }
 
 exports.show = (req, res, next) => {
