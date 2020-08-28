@@ -6,15 +6,17 @@ exports.index = (req, res, next) => {
     let photos = {}
     let where = {}
 
-    if (req.query.cursor) {
+    if (req.query.since) {
         where = {
-            $lt: cursor
+            createdAt: {
+                $lt: new Date(req.query.since)
+            }
         }
     }
 
     Photo
         .find(where)
-        .sort({ _id: 'desc' })
+        .sort({ createdAt: 'desc' })
         .limit(6)
         .exec((err, data) => {
             if (err) {
@@ -26,28 +28,37 @@ exports.index = (req, res, next) => {
             }
 
             const photoCount = data.length
-            const cursor = data[photoCount - 1]._id
 
-            for (let i = 0; i < photoCount; i++) {
-                const photoId = data[i]._id
+            if (photoCount) {
+                const since = data[photoCount - 1].createdAt
+                console.log(data)
 
-                getParams.Key = data[i].key
+                for (let i = 0; i < photoCount; i++) {
+                    const photoId = data[i]._id
 
-                s3.getObject(getParams, function(err, data) {
-                    if (err) {
-                        return next(err)
-                    }
+                    getParams.Key = data[i].key
 
-                    photos[photoId] = {
-                        data: data.Body.toString('base64')
-                    }
+                    s3.getObject(getParams, function(err, data) {
+                        if (err) {
+                            return next(err)
+                        }
 
-                    if (Object.keys(photos).length === photoCount) {
-                        res.status(200).send({ 
-                            photos: photos,
-                            cursor: cursor
-                        })
-                    }
+                        photos[photoId] = {
+                            data: data.Body.toString('base64')
+                        }
+
+                        if (Object.keys(photos).length === photoCount) {
+                            res.status(200).send({ 
+                                photos: photos,
+                                since: since
+                            })
+                        }
+                    })
+                }
+            } else {
+                res.status(200).send({
+                    photos: [],
+                    since: ''
                 })
             }
         })
