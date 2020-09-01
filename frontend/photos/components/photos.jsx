@@ -2,9 +2,14 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import styled from 'styled-components'
 
 import { Photo } from './'
 import { Loading } from '../../common'
+
+const LoadingContainer = styled.div`
+    min-height: 60px;
+`
 
 export const Photos = (props) => {
     const { photos, since, isFetching, fetchPhotos } = { ...props }
@@ -43,7 +48,9 @@ export const Photos = (props) => {
         <Row className='d-flex flex-wrap align-items-center'>
             { photoComponents }
         </Row >
-        { isFetching && <Loading /> }
+        <LoadingContainer>
+            { isFetching && <Loading /> }
+        </LoadingContainer>
         </>
     )
 }
