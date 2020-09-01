@@ -33,11 +33,17 @@ export const receivePhoto = (photo) => {
     }
 }
 
-export const fetchPhotos = () =>
+export const fetchPhotos = (since) =>
     (dispatch) => {
-        dispatch(requestPhotos())
+        dispatch(requestPhotos(since))
+        
+        let url = PHOTOS
 
-        return fetch(PHOTOS)
+        if (since) {
+            url += '?since=' + since
+        }
+
+        return fetch(url)
             .then(response => response.json())
             .then(photos => dispatch(receivePhotos(photos)))
     }

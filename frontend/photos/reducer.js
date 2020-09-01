@@ -7,7 +7,7 @@ import {
 
 let initialState = {
     isFetching: false,
-    cursor: '',
+    since: '',
     photos: {}
 }
 
@@ -33,8 +33,11 @@ export const photosReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                cursor: action.payload.cursor,
-                photos: action.payload.photos
+                since: action.payload.since,
+                photos: {
+                    ...state.photos,
+                    ...action.payload.photos
+                }
             }
         default:
             return state

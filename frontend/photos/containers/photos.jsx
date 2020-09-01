@@ -4,16 +4,16 @@ import { fetchPhotos } from '../../photos/actions'
 import { Photos } from '../components'
 
 const mapStateToProps = (state) => {
-    const { cursor } = { ...state.photo }
+    const { since } = { ...state.photo }
 
     return {
-        cursor: cursor
+        since: since
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchPhotos: (cursor) => dispatch(fetchPhotos(cursor))
+        fetchPhotos: (since) => dispatch(fetchPhotos(since))
     }
 }
 

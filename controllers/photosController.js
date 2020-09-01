@@ -31,7 +31,6 @@ exports.index = (req, res, next) => {
 
             if (photoCount) {
                 const since = data[photoCount - 1].createdAt
-                console.log(data)
 
                 for (let i = 0; i < photoCount; i++) {
                     const photoId = data[i]._id
@@ -57,7 +56,7 @@ exports.index = (req, res, next) => {
                 }
             } else {
                 res.status(200).send({
-                    photos: [],
+                    photos: {},
                     since: ''
                 })
             }
