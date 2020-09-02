@@ -24,8 +24,9 @@ export const Photos = (props) => {
         window.onscroll = (e) => {
             const scroll = e.target.scrollingElement
             const bottom = scroll.scrollHeight - scroll.scrollTop === scroll.clientHeight
+            const path = window.location.pathname
 
-            if (bottom) {
+            if (bottom && path === '/') {
                 fetchPhotos(since)
             }
         }
