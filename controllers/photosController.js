@@ -125,9 +125,11 @@ exports.add = (req, res, next) => {
                 message: 'Photo added'
             }]
 
-            // res.redirect(303, '/')
+            res.status(200).send({ photos: {
+                [photo._id]: {
+                    data: params.Body.toString('base64')
+                }
+            }})
         })
     })
-
-    res.status(200).send({ photo: req.file.originalname })
 }

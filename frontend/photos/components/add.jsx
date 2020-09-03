@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -19,8 +20,13 @@ const Submit = styled(Button)`
 `
 
 export const AddPhoto = (props) => {
-    const { onSubmit } = { ...props }
+    const { onSubmit } = props
     const [file, setValue] = useState('')
+    const [id, setId] = useState(0)
+
+    if (id) {
+        return <Redirect to={'/photos/view' + id} />
+    }
 
     return (
         <Row>
@@ -31,6 +37,9 @@ export const AddPhoto = (props) => {
                         e.preventDefault()
 
                         return onSubmit(file)
+                            .then((action) => {
+                                setId(Object.keys(action.payload.photos)[0])
+                            })
                     }}>
                     <Input
                         type='file'
