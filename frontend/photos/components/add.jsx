@@ -8,16 +8,8 @@ import styled from 'styled-components'
 const Input = styled.input`
     color: #ffffff;
 `
-const Submit = styled(Button)`
-    background-color: #ffffff;
-    border: 1px solid;
-    color: #a17188;
-    &:hover {
-        background-color: #a17188;
-        color: #ffffff;
-        border-color: #a17188;
-    }
-`
+
+import { LightMauveButton } from '../../common'
 
 export const AddPhoto = (props) => {
     const { onSubmit } = props
@@ -47,9 +39,9 @@ export const AddPhoto = (props) => {
                         className='btn btn-default'
                         onChange={(e) => setValue(e.target.files[0])}>
                     </Input>
-                    <Submit className="btn" type="submit">
+                    <LightMauveButton type="submit">
                         Upload
-                    </Submit>
+                    </LightMauveButton>
                 </form>
             </Col>
         </Row>
