@@ -118,7 +118,7 @@ exports.add = (req, res, next) => {
 
         photo.save((err) => {
             if (err) {
-                next(err)
+                return next(err)
             }
 
             req.session.sessionFlash = [{
