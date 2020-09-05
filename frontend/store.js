@@ -1,12 +1,14 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
-import { usersReducer } from './users'
 import { photosReducer } from './photos'
+import { tagsReducer } from './tags'
+import { usersReducer } from './users'
 
 const rootReducer = combineReducers({
-    user: usersReducer,
-    photo: photosReducer
+    photo: photosReducer,
+    tag: tagsReducer,
+    user: usersReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk))

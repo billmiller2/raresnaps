@@ -1,4 +1,4 @@
-import { ADD_TAG } from './'
+import { ADD_TAG, RECEIVE_TAG } from './'
 import { POST_TAG } from '../routes'
 
 export const addTag = () => {
@@ -16,5 +16,12 @@ export const saveTag = (tag) =>
                 body: JSON.stringify({tag: tag})
             })
             .then(response => response.json())
-            //.then(tag => dispatch(receiveTag(tag)))
+            .then(tag => dispatch(receiveTag(tag)))
     }
+
+export const receiveTag = (tags) => {
+    return {
+        type: RECEIVE_TAG,
+        payload: tags
+    }
+}
