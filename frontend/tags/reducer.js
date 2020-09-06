@@ -1,4 +1,4 @@
-import { RECEIVE_TAG, } from './actions'
+import { RECEIVE_TAG, RECEIVE_TAGS } from './actions'
 
 let initialState = {
     tags: {}
@@ -7,6 +7,7 @@ let initialState = {
 export const tagsReducer = (state = initialState, action) => {
     switch (action.type) {
         case RECEIVE_TAG:
+        case RECEIVE_TAGS:
             return {
                 ...state,
                 tags: {

@@ -1,5 +1,10 @@
-import { ADD_TAG, RECEIVE_TAG } from './'
-import { POST_TAG } from '../routes'
+import { 
+    ADD_TAG, 
+    REQUEST_TAGS,
+    RECEIVE_TAGS,
+    RECEIVE_TAG 
+} from './'
+import { POST_TAG, TAGS } from '../routes'
 
 export const addTag = () => {
     return {
@@ -28,3 +33,25 @@ export const receiveTag = (tags) => {
         payload: tags
     }
 }
+
+export const receiveTags = (tags) => {
+    return {
+        type: RECEIVE_TAGS,
+        payload: tags
+    }
+}
+
+export const requestTags = () => {
+    return {
+        type: REQUEST_TAGS
+    }
+}
+
+export const fetchTags = () =>
+    (dispatch) => {
+        dispatch(requestTags())
+
+        return fetch(TAGS)
+            .then(response => response.json())
+            .then(tags => dispatch(receiveTags(tags)))
+    }

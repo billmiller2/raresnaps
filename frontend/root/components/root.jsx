@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import Container from 'react-bootstrap/Container'
 import { Switch, Route } from 'react-router-dom'
 
@@ -10,9 +11,15 @@ import {
     VIEW_PHOTO_ROUTE,
     ViewPhoto
 } from '../../photos'
+import { fetchTags } from '../../tags'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchTags())
+    }, [])
 
     return (
         <Container>
