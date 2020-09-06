@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { LightMauveButton } from '../../common'
 
 export const AddTag = (props) => {
-    const { onSubmit } = props
+    const { onSubmit, photoId } = props
     const [tag, setTag] = useState('')
 
     return (
@@ -11,7 +11,7 @@ export const AddTag = (props) => {
             onSubmit={(e) => {
                 e.preventDefault()
 
-                return onSubmit(tag)
+                return onSubmit(tag, photoId)
             }}>
             <input
                 className='mr-2'

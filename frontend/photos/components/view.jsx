@@ -15,7 +15,7 @@ export const ViewPhoto = () => {
                 <PhotoContainer photoId={photoId} />
             </Col>
             <Col xs={12} md={6}>
-                <AddTagContainer />
+                <AddTagContainer photoId={photoId} />
             </Col>
         </Row>
     )
