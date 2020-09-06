@@ -35,6 +35,7 @@ exports.index = (req, res, next) => {
 
                 for (let i = 0; i < photoCount; i++) {
                     const photoId = data[i]._id
+                    const tags = data[i].tags
 
                     getParams.Key = data[i].key
 
@@ -44,7 +45,8 @@ exports.index = (req, res, next) => {
                         }
 
                         photos[photoId] = {
-                            data: data.Body.toString('base64')
+                            data: data.Body.toString('base64'),
+                            tags: tags
                         }
 
                         if (Object.keys(photos).length === photoCount) {
