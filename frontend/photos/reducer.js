@@ -3,6 +3,7 @@ import {
     RECEIVE_PHOTO,
     REQUEST_PHOTOS,
     RECEIVE_PHOTOS,
+    UPDATE_TAGS
 } from './actions'
 
 let initialState = {
@@ -28,6 +29,20 @@ export const photosReducer = (state = initialState, action) => {
                 photos: {
                     ...state.photos,
                     ...action.payload.photos
+                }
+            }
+        case UPDATE_TAGS:
+            const photoId = action.payload.photoId
+            const tags = [ ...state.photos[photoId].tags, action.payload.tags ]
+
+            return {
+                ...state,
+                photos: {
+                    ...state.photos,
+                    [photoId]: {
+                        ...state.photos[photoId],
+                        tags: tags
+                    }
                 }
             }
         default:

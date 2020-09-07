@@ -3,7 +3,8 @@ import {
     RECEIVE_PHOTO,
     REQUEST_PHOTOS,
     RECEIVE_PHOTOS,
-    ADD_PHOTO
+    ADD_PHOTO,
+    UPDATE_TAGS
 } from './'
 import {
     PHOTO,
@@ -78,5 +79,15 @@ export const uploadPhoto = (file) =>
 export const addPhoto = () => {
     return {
         type: ADD_PHOTO
+    }
+}
+
+export const updateTags = (photoId, tags) => {
+    return {
+        type: UPDATE_TAGS,
+        payload: {
+            photoId: photoId,
+            tags: tags
+        }
     }
 }

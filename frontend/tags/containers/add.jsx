@@ -9,7 +9,6 @@ const mapStateToProps = (state) => state
 const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (tag, photoId) => dispatch(saveTag(tag, photoId))
-            .then(() => dispatch(fetchPhoto(photoId)))
     }
 }
 

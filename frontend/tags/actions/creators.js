@@ -5,6 +5,7 @@ import {
     RECEIVE_TAG 
 } from './'
 import { POST_TAG, TAGS } from '../routes'
+import { updateTags } from '../../photos'
 
 export const addTag = () => {
     return {
@@ -24,13 +25,20 @@ export const saveTag = (tag, photoId) =>
                 })
             })
             .then(response => response.json())
-            .then(tag => dispatch(receiveTag(tag)))
+            .then(json => dispatch(receiveTag(json.photoId, json.tags)))
+            .then(response => dispatch(updateTags(
+                response.payload.photoId, 
+                Object.keys(response.payload.tags)
+            )))
     }
 
-export const receiveTag = (tags) => {
+export const receiveTag = (photoId, tags) => {
     return {
         type: RECEIVE_TAG,
-        payload: tags
+        payload: {
+            photoId: photoId,
+            tags: tags
+        }
     }
 }
 

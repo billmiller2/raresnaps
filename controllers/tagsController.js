@@ -45,11 +45,14 @@ exports.add = (req, res, next) => {
                     message: 'Tag added'
                 }]
 
-                res.status(200).send({ tags: {
-                    [tag._id]: {
-                        name: req.body.tag
+                res.status(200).send({ 
+                    photoId: photo._id,
+                    tags: {
+                        [tag._id]: {
+                            name: req.body.tag
+                        }
                     }
-                }})
+                })
             })
         })
     })
