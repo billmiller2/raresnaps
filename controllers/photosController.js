@@ -92,7 +92,8 @@ exports.show = (req, res, next) => {
             let response = { 
                 photos: {
                     [photo._id]: {
-                        data: objectData
+                        data: objectData,
+                        tags: photo.tags
                     }
                 }
             }

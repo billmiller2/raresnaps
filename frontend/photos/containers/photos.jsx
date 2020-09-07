@@ -4,7 +4,6 @@ import { fetchPhotos } from '../../photos/actions'
 import { Photos } from '../components'
 
 const mapStateToProps = (state) => {
-    console.log(state)
     const { since } = { ...state.photo }
 
     return {

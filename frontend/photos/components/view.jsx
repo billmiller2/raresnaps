@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 import { PhotoContainer } from '../'
-import { AddTagContainer } from '../../tags'
+import { AddTagContainer, TagsContainer } from '../../tags'
 
 export const ViewPhoto = () => {
     const { photoId } = useParams()
@@ -15,7 +15,16 @@ export const ViewPhoto = () => {
                 <PhotoContainer photoId={photoId} />
             </Col>
             <Col xs={12} md={6}>
-                <AddTagContainer photoId={photoId} />
+                <Row className='mb-3'>
+                    <Col xs={12}>
+                        <AddTagContainer photoId={photoId} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <TagsContainer photoId={photoId} />
+                    </Col>
+                </Row>
             </Col>
         </Row>
     )

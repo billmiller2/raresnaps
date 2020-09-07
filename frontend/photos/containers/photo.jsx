@@ -4,8 +4,10 @@ import { fetchPhoto } from '../../photos/actions'
 import { Photo } from '../components'
 
 const mapStateToProps = (state, props) => {
+    const photo = state.photo.photos[props.photoId]
+
     return {
-        photo: state.photo.photos[props.photoId],
+        photo: photo,
         isFetching: state.photo.isFetching
     }
 }
