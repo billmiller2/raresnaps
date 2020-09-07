@@ -40,10 +40,6 @@ exports.add = (req, res, next) => {
                 if (err) {
                     return next(err)
                 }
-                req.session.sessionFlash = [{
-                    type: 'alert-success',
-                    message: 'Tag added'
-                }]
 
                 res.status(200).send({ 
                     photoId: photo._id,
