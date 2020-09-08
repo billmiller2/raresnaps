@@ -3,11 +3,6 @@ import { Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import styled from 'styled-components'
-
-const Input = styled.input`
-    color: #ffffff;
-`
 
 import { LightMauveButton } from '../../common'
 
@@ -33,15 +28,18 @@ export const AddPhoto = (props) => {
                                 setId(Object.keys(action.payload.photos)[0])
                             })
                     }}>
-                    <Input
-                        type='file'
-                        accept="image/png, image/jpeg"
-                        className='btn btn-default'
-                        onChange={(e) => setValue(e.target.files[0])}>
-                    </Input>
-                    <LightMauveButton type="submit">
-                        Upload
-                    </LightMauveButton>
+                    <div className='d-flex justify-content-center'>
+                        <LightMauveButton>
+                        <input
+                            type='file'
+                            accept="image/png, image/jpeg"
+                            onChange={(e) => setValue(e.target.files[0])}
+                            required />
+                        </LightMauveButton>
+                        <LightMauveButton className='ml-1' type="submit">
+                            Upload Photo
+                        </LightMauveButton>
+                    </div>
                 </form>
             </Col>
         </Row>
