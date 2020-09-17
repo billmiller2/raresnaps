@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator')
+
 const { Photo } = require('../models/photo.js')
 const { Tag } = require('../models/tag.js')
 
@@ -20,8 +22,18 @@ exports.index = (req, res, next) => {
 }
 
 exports.add = (req, res, next) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        return res.status(422).send({
+            errors: errors.array()
+        })
+    }
+
+    const tagName = req.body.tag.toLowerCase()
+
     const tag = new Tag({
-        name: req.body.tag
+        name: tagName
     })
 
     tag.save((err) => {
@@ -45,7 +57,7 @@ exports.add = (req, res, next) => {
                     photoId: photo._id,
                     tags: {
                         [tag._id]: {
-                            name: req.body.tag
+                            name: tagName
                         }
                     }
                 })

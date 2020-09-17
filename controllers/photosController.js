@@ -124,11 +124,6 @@ exports.add = (req, res, next) => {
                 return next(err)
             }
 
-            req.session.sessionFlash = [{
-                type: 'alert-success',
-                message: 'Photo added'
-            }]
-
             res.status(200).send({ photos: {
                 [photo._id]: {
                     data: params.Body.toString('base64')

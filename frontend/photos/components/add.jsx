@@ -12,7 +12,7 @@ export const AddPhoto = (props) => {
     const [id, setId] = useState(0)
 
     if (id) {
-        return <Redirect to={'/photos/view' + id} />
+        return <Redirect to={'/photos/view/' + id} />
     }
 
     return (

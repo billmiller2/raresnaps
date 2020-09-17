@@ -24,12 +24,19 @@ export const saveTag = (tag, photoId) =>
                     tag: tag
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return Promise.reject(response)
+                }
+
+                return response.json()
+            })
             .then(json => dispatch(receiveTag(json.photoId, json.tags)))
             .then(response => dispatch(updateTags(
                 response.payload.photoId, 
                 Object.keys(response.payload.tags)
             )))
+            .catch(error => console.log(error))
     }
 
 export const receiveTag = (photoId, tags) => {
