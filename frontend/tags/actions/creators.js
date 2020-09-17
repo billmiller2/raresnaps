@@ -36,7 +36,7 @@ export const saveTag = (tag, photoId) =>
                 response.payload.photoId, 
                 Object.keys(response.payload.tags)
             )))
-            .catch(error => console.log(error))
+            .catch(error => alert(error.status + ' ' + error.statusText))
     }
 
 export const receiveTag = (photoId, tags) => {

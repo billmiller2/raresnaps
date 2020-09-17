@@ -16,9 +16,10 @@ export const AddTag = (props) => {
             }}>
             <input
                 className='mr-2'
+                onChange={(e) => setTag(e.target.value)}
+                required
                 type='text'
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}>
+                value={tag}>
             </input>
             <LightMauveButton type="submit">
                 Add Tag
