@@ -4,24 +4,44 @@ block content
   div.container
     div.row
       div.col-md-auto
-        form(action='/users/create' method='post' onsubmit="return validatePasswordMatch()")
+        form(action='/users/create' method='post' onsubmit="return validatePassword()")
           div.form-group
-            label(for='username')= 'Username'
-            input(type='text' name='username' required autofocus).form-control
+            div
+              label(for='username')= 'Username'
+              input(type='text' name='username' required autofocus).form-control
 
-            label(for='password')= 'Password'
-            input(type='password' name='password' id="createPassword" required).form-control
+            div
+              label(for='password')= 'Password'
+              input(
+                type='password' 
+                name='password' 
+                id="createPassword" 
+                  oninput="validateLength();"
+                  required
+              ).form-control
+              div.invalid-feedback#passwordLengthInvalid= "password must be eight characters"
+              div.valid-feedback#passwordLengthValid= "long enough bud"
 
-            label(for='confirm_password')= 'Confirm Password'
-            input(type='password' name='confirm_password' id="confirmCreatePassword" oninput="validatePasswordMatch()" required).form-control
-            div.invalid-feedback= "password confirmation does not match"
-            div.valid-feedback= "password confirmation matches"
+            div
+              label(for='confirm_password')= 'Confirm Password'
+              input(
+                  type='password' 
+                  name='confirm_password' 
+                  id="confirmCreatePassword" 
+                  oninput="validatePasswordMatch();" 
+                  required
+              ).form-control
+              div.invalid-feedback#confMatchInvalid= "password confirmation does not match"
+              div.valid-feedback#confMatchValid= "password confirmation matches"
 
           button(type='submit').btn.btn-primary= 'Create'
         hr
         a.btn.btn-link.btn-light(href="/users/login")= 'Login'
 
   script.
+    function validatePassword() {
+        return validatePasswordMatch() && validateLength()
+    }
     function validatePasswordMatch() {
         var password = document.getElementById('createPassword')
         var confirmPassword = document.getElementById('confirmCreatePassword')
@@ -33,6 +53,20 @@ block content
         } else {
             confirmPassword.classList.remove('is-invalid')
             confirmPassword.classList.add('is-valid')
+            return true
+        }
+    }
+    function validateLength() {
+        var password = document.getElementById('createPassword')
+
+        if (password.value.length !== 8) {
+            password.classList.add('is-invalid')
+            password.classList.remove('is-valid')
+            return false
+        } else {
+            password.classList.remove('is-invalid')
+            password.classList.add('is-valid')
+            return true
         }
     }
 
