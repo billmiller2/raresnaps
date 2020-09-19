@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/stylesheets', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/public/stylesheets', express.static(__dirname + '/node_modules/ladda/dist'));
 app.use('/public/js', express.static(__dirname + '/node_modules/react'));
 app.use('/public/js', express.static(__dirname + '/node_modules/jquery/dist'));
 

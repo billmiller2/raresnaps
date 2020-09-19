@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import * as Ladda from 'ladda'
 
 import { LightMauveButton } from '../../common'
 
@@ -21,10 +22,13 @@ export const AddPhoto = (props) => {
                 <form 
                     encType='multipart/form-data' 
                     onSubmit={(e) => {
+                        const submit = Ladda.create(document.querySelector('#addPhotoButton'))
                         e.preventDefault()
+                        submit.start()
 
                         return onSubmit(file)
                             .then((action) => {
+                                submit.stop()
                                 setId(Object.keys(action.payload.photos)[0])
                             })
                     }}>
@@ -36,7 +40,11 @@ export const AddPhoto = (props) => {
                             onChange={(e) => setValue(e.target.files[0])}
                             required />
                         </LightMauveButton>
-                        <LightMauveButton className='ml-1' type="submit">
+                        <LightMauveButton 
+                            className='ml-1 ladda-button' 
+                            data-style='zoom-in'
+                            id='addPhotoButton'
+                            type="submit">
                             Upload Photo
                         </LightMauveButton>
                     </div>
