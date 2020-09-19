@@ -126,7 +126,8 @@ exports.add = (req, res, next) => {
 
             res.status(200).send({ photos: {
                 [photo._id]: {
-                    data: params.Body.toString('base64')
+                    data: params.Body.toString('base64'),
+                    tags: []
                 }
             }})
         })
