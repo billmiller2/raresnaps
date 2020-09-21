@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { decodeHtml } from '../../common'
+
 const Span = styled.span`
     background-color: #ffffff;
     border: 1px solid;
@@ -15,6 +17,6 @@ export const Tag = (props) => {
     const { tag } = props
 
     return (
-        <Span className='mr-1 mb-1'>{tag.name}</Span>
+        <Span className='mr-1 mb-1'>{decodeHtml(tag.name)}</Span>
     )
 }
