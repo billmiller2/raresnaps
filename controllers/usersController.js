@@ -57,10 +57,6 @@ exports.login = (req, res, next) => {
             if (err) {
                 next(err)
             }
-            req.session.sessionFlash = [{
-                type: 'alert-success',
-                message: 'logged in'
-            }]
 
             res.cookie('token', token)
             res.redirect(303, '/')
