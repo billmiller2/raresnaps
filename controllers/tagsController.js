@@ -32,37 +32,54 @@ exports.add = (req, res, next) => {
 
     const tagName = req.body.tag.toLowerCase()
 
-    const tag = new Tag({
+    const newTag = new Tag({
         name: tagName
     })
 
-    tag.save((err) => {
-        if (err) {
-            return next(err)
-        }
-
-        Photo.findById(req.body.photoId, (err, photo) => {
-            if (err) {
-                return next(err)
-            }
-
-            photo.tags.push(tag)
-
-            photo.save((err) => {
+    Tag.findOne({ name: tagName }, (err, existing) => {
+        const findPhotoAndSendResponse = (tag) => {
+            Photo.findById(req.body.photoId, (err, photo) => {
                 if (err) {
                     return next(err)
                 }
 
-                res.status(200).send({ 
-                    photoId: photo._id,
-                    tags: {
-                        [tag._id]: {
-                            name: tagName
+                if (!photo.tags.includes(tag._id)) {
+                    photo.tags.push(tag)
+
+                    photo.save((err) => {
+                        if (err) {
+                            return next(err)
                         }
-                    }
-                })
+
+                        res.status(200).send({ 
+                            photoId: photo._id,
+                            tags: {
+                                [tag._id]: {
+                                    name: tagName
+                                }
+                            }
+                        })
+                    })
+                } else {
+                    res.status(200).send({ 
+                        photoId: photo._id,
+                        tags: {}
+                    })
+                }
             })
-        })
+        }
+
+        if (existing) {
+            findPhotoAndSendResponse(existing)
+        } else {
+            newTag.save((err) => {
+                if (err) {
+                    return next(err)
+                }
+
+                findPhotoAndSendResponse(newTag)
+            })
+        }
     })
 }
 

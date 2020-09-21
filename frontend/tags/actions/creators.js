@@ -31,11 +31,21 @@ export const saveTag = (tag, photoId) =>
 
                 return response.json()
             })
-            .then(json => dispatch(receiveTag(json.photoId, json.tags)))
-            .then(response => dispatch(updateTags(
-                response.payload.photoId, 
-                Object.keys(response.payload.tags)
-            )))
+            .then(json => {
+                if (Object.keys(json.tags).length === 0) {
+                    return false
+                }
+
+                return dispatch(receiveTag(json.photoId, json.tags))
+            })
+            .then(response => {
+                if (response) {
+                    dispatch(updateTags(
+                        response.payload.photoId, 
+                        Object.keys(response.payload.tags)
+                   ))
+               }
+            })
             .catch(error => alert(error.status + ' ' + error.statusText))
     }
 
