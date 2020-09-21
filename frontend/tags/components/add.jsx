@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import * as Ladda from 'ladda'
+import styled from 'styled-components'
 
 import { LightMauveButton } from '../../common'
+
+const Input = styled.input`
+    &:required {
+        box-shadow: none;
+    }
+`
 
 export const AddTag = (props) => {
     const { onSubmit, photoId } = props
@@ -21,13 +28,13 @@ export const AddTag = (props) => {
                         setTag('')
                     })
             }}>
-            <input
+            <Input
                 className='mr-2'
                 onChange={(e) => setTag(e.target.value)}
                 required
                 type='text'
                 value={tag}>
-            </input>
+            </Input>
             <LightMauveButton 
                 className='ladda-button'
                 data-style='expand-right'
