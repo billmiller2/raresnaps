@@ -52,7 +52,7 @@ exports.login = (req, res, next) => {
         })
     } else {
         const payload = { username: req.body.username }
-        const options = { expiresIn: 1800 }
+        const options = { expiresIn: '1d' }
         const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
             if (err) {
                 next(err)
