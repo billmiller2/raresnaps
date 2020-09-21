@@ -21,7 +21,7 @@ export const AddTag = (props) => {
                 const submit = Ladda.create(document.querySelector('#addTagButton'))
                 submit.start()
 
-                return onSubmit(tag, photoId)
+                return onSubmit(tag.trim(), photoId)
                     .then(() => {
                         submit.stop()
                         submit.remove()
@@ -30,7 +30,7 @@ export const AddTag = (props) => {
             }}>
             <Input
                 className='mr-2'
-                onChange={(e) => setTag(e.target.value)}
+                onChange={(e) => setTag(e.target.value.trimLeft())}
                 required
                 type='text'
                 value={tag}>
