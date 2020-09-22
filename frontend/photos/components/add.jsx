@@ -4,8 +4,15 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import * as Ladda from 'ladda'
+import styled from 'styled-components'
 
 import { LightMauveButton } from '../../common'
+
+const Input = styled.input`
+    &:required {
+        box-shadow: none;
+    }
+`
 
 export const AddPhoto = (props) => {
     const { onSubmit } = props
@@ -34,7 +41,7 @@ export const AddPhoto = (props) => {
                     }}>
                     <div className='d-flex justify-content-center'>
                         <LightMauveButton>
-                        <input
+                        <Input
                             type='file'
                             accept="image/png, image/jpeg"
                             onChange={(e) => setValue(e.target.files[0])}
