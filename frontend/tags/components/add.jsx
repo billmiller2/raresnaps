@@ -13,6 +13,10 @@ const Input = styled.input`
         border-color: #ffffff !important;
         box-shadow: 0 0 5px !important;
     }
+    &::selection {
+        background-color: #a17188;
+        color: #ffffff;
+    }
 `
 
 export const AddTag = (props) => {
