@@ -5,8 +5,13 @@ import styled from 'styled-components'
 import { LightMauveButton } from '../../common'
 
 const Input = styled.input`
+    color: #a17188 !important;
     &:required {
         box-shadow: none;
+    }
+    &:focus {
+        border-color: #ffffff !important;
+        box-shadow: 0 0 5px !important;
     }
 `
 
