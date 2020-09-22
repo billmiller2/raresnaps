@@ -13,6 +13,13 @@ const MauveNav = styled(Navbar)`
     background-color: #a17188;
 `
 
+const Item = styled(Dropdown.Item)`
+    &:active {
+        background-color: #a17188;
+        color: #ffffff;
+    }
+`
+
 export const Nav = (props) =>
     <MauveNav expand='lg'>
         <Navbar.Brand href='/' style={{color: '#ffffff'}}>
@@ -28,13 +35,13 @@ export const Nav = (props) =>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href={ ADD_PHOTO_ROUTE }>
+                    <Item href={ ADD_PHOTO_ROUTE }>
                         Add Photo
-                    </Dropdown.Item>
+                    </Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item href={ LOGOUT_ROUTE }>
+                    <Item href={ LOGOUT_ROUTE }>
                         Logout
-                    </Dropdown.Item>
+                    </Item>
                 </Dropdown.Menu>
             </Dropdown>
         </BootstrapNav>
