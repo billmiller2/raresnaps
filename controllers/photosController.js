@@ -104,10 +104,11 @@ exports.show = (req, res, next) => {
 }
 
 exports.add = (req, res, next) => {
+    const key = (+new Date()).toString()
     const params = {
         Body: Buffer.from(req.file.buffer, 'binary'),
         Bucket: 'dev-raresnaps',
-        Key: req.file.originalname
+        Key: key
     }
 
     s3.putObject(params, function(err, data) {
@@ -116,7 +117,7 @@ exports.add = (req, res, next) => {
         }
 
         const photo = new Photo({
-            key: req.file.originalname
+            key: key
         })
 
         photo.save((err) => {
