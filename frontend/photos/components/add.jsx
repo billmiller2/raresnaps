@@ -49,7 +49,7 @@ export const AddPhoto = (props) => {
                         </LightMauveButton>
                         <LightMauveButton 
                             className='ml-1 ladda-button' 
-                            data-style='zoom-in'
+                            data-style='expand-right'
                             id='addPhotoButton'
                             type="submit">
                             Upload Photo
