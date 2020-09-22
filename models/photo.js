@@ -9,6 +9,10 @@ var PhotoSchema = new Schema({
     tags: [{
         type: Schema.Types.ObjectId,
         ref: 'Tag'
+    }],
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
     }]
 }, {
     timestamps: true

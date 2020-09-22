@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var photosRouter = require('./routes/photos');
 
+var apiCommentsRouter = require('./routes/api/comments');
 var apiPhotosRouter = require('./routes/api/photos');
 var apiTagsRouter = require('./routes/api/tags');
 var apiUsersRouter = require('./routes/api/users');
@@ -53,6 +54,7 @@ app.use('/public/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/photos', photosRouter);
+app.use('/api/comments', apiCommentsRouter);
 app.use('/api/photos', apiPhotosRouter);
 app.use('/api/tags', apiTagsRouter);
 app.use('/api/users', apiUsersRouter);
