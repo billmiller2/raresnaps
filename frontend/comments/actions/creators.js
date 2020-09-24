@@ -31,7 +31,7 @@ export const saveComment = (comment, photoId) =>
 
                 return response.json()
             })
-            .then(json => dispatch(receiveTag(json.photoId, json.comments)))
+            .then(json => dispatch(receiveComment(json.photoId, json.comments)))
             //.then(response => {
                 //if (response) {
                     //dispatch(updateTags(
@@ -43,3 +43,12 @@ export const saveComment = (comment, photoId) =>
             .catch(error => alert(error.status + ' ' + error.statusText))
     }
 
+export const receiveComment = (photoId, comments) => {
+    return {
+        type: RECEIVE_COMMENT,
+        payload: {
+            photoId: photoId,
+            comments: comments
+        }
+    }
+}
