@@ -34,25 +34,31 @@ exports.add = (req, res, next) => {
         comment: req.body.comment
     })
 
-    Photo.findById(req.body.photoId, (err, photo) => {
+    comment.save(err => {
         if (err) {
             return next(err)
         }
 
-        photo.comments.push(comment)
-
-        photo.save((err) => {
+        Photo.findById(req.body.photoId, (err, photo) => {
             if (err) {
                 return next(err)
             }
 
-            res.status(200).send({ 
-                photoId: photo._id,
-                comments: {
-                    [comment._id]: {
-                        comment: req.body.comment
-                    }
+            photo.comments.push(comment)
+
+            photo.save((err) => {
+                if (err) {
+                    return next(err)
                 }
+
+                res.status(200).send({ 
+                    photoId: photo._id,
+                    comments: {
+                        [comment._id]: {
+                            comment: req.body.comment
+                        }
+                    }
+                })
             })
         })
     })

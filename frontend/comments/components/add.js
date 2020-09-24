@@ -1,39 +1,38 @@
 import React, { useState } from 'react'
 import * as Ladda from 'ladda'
 
-import { Input, LightMauveButton } from '../../common'
+import { TextArea, LightMauveButton } from '../../common'
 
-export const AddTag = (props) => {
+export const AddComment = (props) => {
     const { onSubmit, photoId } = props
-    const [tag, setTag] = useState('')
+    const [comment, setComment] = useState('')
 
     return (
         <form 
             onSubmit={(e) => {
                 e.preventDefault()
-                const submit = Ladda.create(document.querySelector('#addTagButton'))
+                const submit = Ladda.create(document.querySelector('#addCommentButton'))
                 submit.start()
 
-                return onSubmit(tag.trim(), photoId)
+                return onSubmit(comment.trim(), photoId)
                     .then(() => {
                         submit.stop()
                         submit.remove()
-                        setTag('')
+                        setComment('')
                     })
             }}>
-            <Input
+            <TextArea
                 className='mr-2'
-                onChange={(e) => setTag(e.target.value.trimLeft())}
+                onChange={(e) => setComment(e.target.value.trimLeft())}
                 required
-                type='text'
-                value={tag}>
-            </Input>
+                value={comment}>
+            </TextArea>
             <LightMauveButton 
-                className='ladda-button'
+                className='ladda-button mt-2 float-right'
                 data-style='expand-right'
-                id='addTagButton' 
+                id='addCommentButton' 
                 type="submit">
-                Add Tag
+                Add Comment
             </LightMauveButton>
         </form>
     )
