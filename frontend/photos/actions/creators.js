@@ -4,7 +4,8 @@ import {
     REQUEST_PHOTOS,
     RECEIVE_PHOTOS,
     ADD_PHOTO,
-    UPDATE_TAGS
+    UPDATE_TAGS,
+    UPDATE_COMMENTS
 } from './'
 import {
     PHOTO,
@@ -88,6 +89,16 @@ export const updateTags = (photoId, tags) => {
         payload: {
             photoId: photoId,
             tags: tags
+        }
+    }
+}
+
+export const updateComments = (photoId, comments) => {
+    return {
+        type: UPDATE_COMMENTS,
+        payload: {
+            photoId: photoId,
+            comments: comments
         }
     }
 }

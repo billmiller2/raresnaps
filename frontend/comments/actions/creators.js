@@ -5,6 +5,7 @@ import {
     RECEIVE_COMMENT
 } from './'
 import { COMMENTS, POST_COMMENT } from '../'
+import { updateComments } from '../../photos'
 
 export const addComment = () => {
     return {
@@ -32,14 +33,14 @@ export const saveComment = (comment, photoId) =>
                 return response.json()
             })
             .then(json => dispatch(receiveComment(json.photoId, json.comments)))
-            //.then(response => {
-                //if (response) {
-                    //dispatch(updateTags(
-                        //response.payload.photoId, 
-                        //Object.keys(response.payload.tags)
-                   //))
-               //}
-            //})
+            .then(response => {
+                if (response) {
+                    dispatch(updateComments(
+                        response.payload.photoId, 
+                        Object.keys(response.payload.comments)
+                   ))
+               }
+            })
             .catch(error => alert(error.status + ' ' + error.statusText))
     }
 
