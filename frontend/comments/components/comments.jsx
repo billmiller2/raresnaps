@@ -6,7 +6,7 @@ export const Comments = (props) => {
     const { comments } = props
     let commentComponents = []
 
-    comments.forEach((comment, i) => {
+    comments.reverse().forEach((comment, i) => {
         commentComponents.push(
             <Comment key={i} comment={comment} />
         )
