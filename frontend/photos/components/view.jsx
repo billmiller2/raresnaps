@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 import { PhotoContainer } from '../'
-import { AddCommentContainer } from '../../comments'
+import { AddCommentContainer, CommentsContainer } from '../../comments'
 import { AddTagContainer, TagsContainer } from '../../tags'
 
 export const ViewPhoto = () => {
@@ -26,9 +26,14 @@ export const ViewPhoto = () => {
                         <TagsContainer photoId={photoId} />
                     </Col>
                 </Row>
-                <Row>
+                <Row className='mb-3'>
                     <Col xs={12}>
                         <AddCommentContainer photoId={photoId} />
+                    </Col>
+                </Row>
+                <Row className='mb-3'>
+                    <Col xs={12}>
+                        <CommentsContainer photoId={photoId} />
                     </Col>
                 </Row>
             </Col>

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 
-import { saveTag } from '../../tags/actions'
 import { Tags } from '../components'
 
 const mapStateToProps = (state, props) => {

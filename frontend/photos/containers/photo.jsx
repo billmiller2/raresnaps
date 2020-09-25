@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 
+import { fetchComments } from '../../comments'
 import { fetchPhoto } from '../../photos/actions'
 import { Photo } from '../components'
 
@@ -13,6 +14,8 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
+    dispatch(fetchComments())
+
     return {
         fetchPhoto: (photoId) => dispatch(fetchPhoto(photoId))
     }

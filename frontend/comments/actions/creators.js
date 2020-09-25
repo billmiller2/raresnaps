@@ -4,7 +4,7 @@ import {
     RECEIVE_COMMENTS,
     RECEIVE_COMMENT
 } from './'
-import { POST_COMMENT } from '../'
+import { COMMENTS, POST_COMMENT } from '../'
 
 export const addComment = () => {
     return {
@@ -52,3 +52,25 @@ export const receiveComment = (photoId, comments) => {
         }
     }
 }
+
+export const receiveComments = (comments) => {
+    return {
+        type: RECEIVE_COMMENTS,
+        payload: comments
+    }
+}
+
+export const requestComments = () => {
+    return {
+        type: REQUEST_COMMENTS,
+    }
+}
+
+export const fetchComments = () =>
+    (dispatch) => {
+        dispatch(requestComments())
+
+        return fetch(COMMENTS)
+            .then(response => response.json())
+            .then(comments => dispatch(receiveComments(comments)))
+    }

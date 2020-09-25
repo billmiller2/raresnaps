@@ -35,6 +35,7 @@ exports.index = (req, res, next) => {
 
                 for (let i = 0; i < photoCount; i++) {
                     const photoId = data[i]._id
+                    const comments = data[i].comments
                     const tags = data[i].tags
 
                     getParams.Key = data[i].key
@@ -45,6 +46,7 @@ exports.index = (req, res, next) => {
                         }
 
                         photos[photoId] = {
+                            comments: comments,
                             data: data.Body.toString('base64'),
                             tags: tags
                         }
@@ -92,6 +94,7 @@ exports.show = (req, res, next) => {
             let response = { 
                 photos: {
                     [photo._id]: {
+                        comments: photo.comments,
                         data: objectData,
                         tags: photo.tags
                     }
