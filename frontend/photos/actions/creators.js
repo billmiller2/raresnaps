@@ -1,3 +1,5 @@
+const queryString = require('query-string')
+
 import {
     REQUEST_PHOTO,
     RECEIVE_PHOTO,
@@ -39,13 +41,17 @@ export const fetchPhotos = (since) =>
     (dispatch) => {
         dispatch(requestPhotos(since))
         
-        let url = PHOTOS
+        let params = {}
 
         if (since) {
-            url += '?since=' + since
+            params.since = since
         }
 
-        return fetch(url)
+        params.tag = 'orn'
+
+        const query = queryString.stringify(params)
+
+        return fetch(PHOTOS + '?' + query)
             .then(response => response.json())
             .then(photos => dispatch(receivePhotos(photos)))
     }

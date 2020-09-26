@@ -8,64 +8,64 @@ exports.index = (req, res, next) => {
     let where = {}
 
     if (req.query.since) {
-        where = {
-            createdAt: {
-                $lt: new Date(req.query.since)
-            }
+        where.createdAt = {
+            $lt: new Date(req.query.since)
         }
     }
 
-    Photo
-        .find(where)
-        .sort({ createdAt: 'desc' })
-        .limit(6)
-        .exec((err, data) => {
-            if (err) {
-                return next(err)
-            }
+    let query = Photo.find(where).sort({ createdAt: 'desc' }).limit(6)
 
-            const getParams = {
-                Bucket: 'dev-raresnaps',
-            }
+    if (req.query.tag) {
+        query.populate({ path: 'tags', match: { name: req.query.tag }})
+    }
 
-            const photoCount = data.length
+    query.exec((err, data) => {
+        if (err) {
+            return next(err)
+        }
 
-            if (photoCount) {
-                const since = data[photoCount - 1].createdAt
+        const getParams = {
+            Bucket: 'dev-raresnaps',
+        }
 
-                for (let i = 0; i < photoCount; i++) {
-                    const photoId = data[i]._id
-                    const comments = data[i].comments
-                    const tags = data[i].tags
+        const photoCount = data.length
 
-                    getParams.Key = data[i].key
+        if (photoCount) {
+            const since = data[photoCount - 1].createdAt
 
-                    s3.getObject(getParams, function(err, data) {
-                        if (err) {
-                            return next(err)
-                        }
+            for (let i = 0; i < photoCount; i++) {
+                const photoId = data[i]._id
+                const comments = data[i].comments
+                const tags = data[i].tags
 
-                        photos[photoId] = {
-                            comments: comments,
-                            data: data.Body.toString('base64'),
-                            tags: tags
-                        }
+                getParams.Key = data[i].key
 
-                        if (Object.keys(photos).length === photoCount) {
-                            res.status(200).send({ 
-                                photos: photos,
-                                since: since
-                            })
-                        }
-                    })
-                }
-            } else {
-                res.status(200).send({
-                    photos: {},
-                    since: ''
+                s3.getObject(getParams, function(err, data) {
+                    if (err) {
+                        return next(err)
+                    }
+
+                    photos[photoId] = {
+                        comments: comments,
+                        data: data.Body.toString('base64'),
+                        tags: tags
+                    }
+
+                    if (Object.keys(photos).length === photoCount) {
+                        res.status(200).send({ 
+                            photos: photos,
+                            since: since
+                        })
+                    }
                 })
             }
-        })
+        } else {
+            res.status(200).send({
+                photos: {},
+                since: ''
+            })
+        }
+    })
 }
 
 exports.show = (req, res, next) => {
