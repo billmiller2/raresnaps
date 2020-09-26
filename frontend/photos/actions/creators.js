@@ -47,7 +47,7 @@ export const fetchPhotos = (since) =>
             params.since = since
         }
 
-        params.tag = 'orn'
+        //params.tag = '5f6a8186f864c32f54f97467'
 
         const query = queryString.stringify(params)
 

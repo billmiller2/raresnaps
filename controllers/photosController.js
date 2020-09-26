@@ -13,11 +13,13 @@ exports.index = (req, res, next) => {
         }
     }
 
-    let query = Photo.find(where).sort({ createdAt: 'desc' }).limit(6)
-
     if (req.query.tag) {
-        query.populate({ path: 'tags', match: { name: req.query.tag }})
+        where.tags = {
+            $all: [req.query.tag]
+        }
     }
+
+    let query = Photo.find(where).sort({ createdAt: 'desc' }).limit(6)
 
     query.exec((err, data) => {
         if (err) {
