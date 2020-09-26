@@ -16,7 +16,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchPhoto: (photoId) => dispatch(fetchPhoto(photoId)),
-        fetchComments: () => dispatch(fetchComments())
+        fetchComments: (comments) => dispatch(fetchComments(comments))
     }
 }
 

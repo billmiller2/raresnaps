@@ -11,10 +11,15 @@ export const Photo = (props) => {
         if (fetchPhoto && !photo) {
             fetchPhoto(photoId)
         }
-        if (fetchComments) {
-            fetchComments()
-        }
     }, [])
+
+    const comments = typeof photo !== 'undefined' ? photo.comments : []
+
+    useEffect(() => {
+        if (fetchComments && comments.length > 0) {
+            fetchComments(comments)
+        }
+    }, [JSON.stringify(comments)])
 
     if (isFetching) {
         return <Loading />

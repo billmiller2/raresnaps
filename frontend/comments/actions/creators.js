@@ -1,3 +1,5 @@
+const queryString = require('query-string')
+
 import { 
     ADD_COMMENT, 
     REQUEST_COMMENTS,
@@ -67,11 +69,13 @@ export const requestComments = () => {
     }
 }
 
-export const fetchComments = () =>
+export const fetchComments = (comments) =>
     (dispatch) => {
         dispatch(requestComments())
 
-        return fetch(COMMENTS)
+        const query = queryString.stringify({ comments }, { arrayFormat: 'bracket' })
+
+        return fetch(COMMENTS + '?' + query)
             .then(response => response.json())
             .then(comments => dispatch(receiveComments(comments)))
     }

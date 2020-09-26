@@ -4,7 +4,7 @@ const { Comment } = require('../models/comment.js')
 const { Photo } = require('../models/photo.js')
 
 exports.index = (req, res, next) => {
-    Comment.find((err, data) => {
+    Comment.find({ '_id': { $in: req.query.comments }}, (err, data) => {
         if (err) {
             return next(err)
         }
