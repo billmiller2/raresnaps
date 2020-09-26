@@ -16,7 +16,7 @@ const mapStateToProps = (state, props) => {
     }
 
     return {
-        comments: comments
+        comments
     }
 }
 

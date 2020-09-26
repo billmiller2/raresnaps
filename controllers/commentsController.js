@@ -12,12 +12,10 @@ exports.index = (req, res, next) => {
         let comments = {}
 
         data.forEach((comment, i) => {
-            comments[data[i]._id] = {
-                comment: data[i].comment
-            }
+            comments[data[i]._id] = data[i]
         })
 
-        res.status(200).send({ comments: comments })
+        res.status(200).send({ comments })
     })
 }
 
@@ -54,9 +52,7 @@ exports.add = (req, res, next) => {
                 res.status(200).send({ 
                     photoId: photo._id,
                     comments: {
-                        [comment._id]: {
-                            comment: req.body.comment
-                        }
+                        [comment._id]: comment
                     }
                 })
             })
