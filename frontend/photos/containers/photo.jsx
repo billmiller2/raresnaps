@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 
 import { fetchComments } from '../../comments'
-import { fetchPhoto } from '../../photos/actions'
-import { Photo } from '../components'
+import { fetchPhoto, Photo } from '../../photos'
 
 const mapStateToProps = (state, props) => {
     const photo = state.photo.photos[props.photoId]

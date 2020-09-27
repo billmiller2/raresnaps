@@ -1,8 +1,14 @@
-import { REQUEST_TAGS, RECEIVE_TAG, RECEIVE_TAGS } from './actions'
+import { 
+    REQUEST_TAGS, 
+    RECEIVE_TAG, 
+    RECEIVE_TAGS,
+    SELECT_TAG
+} from './actions'
 
 let initialState = {
     isFetching: false,
-    tags: {}
+    tags: {},
+    selected: ''
 }
 
 export const tagsReducer = (state = initialState, action) => {
@@ -21,6 +27,11 @@ export const tagsReducer = (state = initialState, action) => {
                     ...state.tags,
                     ...action.payload.tags
                 }
+            }
+        case SELECT_TAG:
+            return {
+                ...state,
+                selected: action.payload
             }
         default:
             return state

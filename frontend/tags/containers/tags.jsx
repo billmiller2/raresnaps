@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { Tags } from '../components'
+import { Tags, selectTag } from '../'
 
 const mapStateToProps = (state, props) => {
     const { photoId } = props
@@ -14,8 +14,17 @@ const mapStateToProps = (state, props) => {
     }
 
     return {
-        tags: tags
+        tags
     }
 }
 
-export const TagsContainer = connect(mapStateToProps)(Tags)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        selectTag: (tagId) => dispatch(selectTag(tagId))
+    }
+}
+
+export const TagsContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Tags)

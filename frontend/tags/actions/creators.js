@@ -2,7 +2,8 @@ import {
     ADD_TAG, 
     REQUEST_TAGS,
     RECEIVE_TAGS,
-    RECEIVE_TAG 
+    RECEIVE_TAG,
+    SELECT_TAG
 } from './'
 import { POST_TAG, TAGS } from '../routes'
 import { updateTags } from '../../photos'
@@ -12,6 +13,14 @@ export const addTag = () => {
         type: ADD_TAG
     }
 }
+
+export const selectTag = (tagId) => {
+    return {
+        type: SELECT_TAG,
+        payload: tagId
+    }
+}
+
 export const saveTag = (tag, photoId) =>
     (dispatch) => {
         return fetch(POST_TAG, {

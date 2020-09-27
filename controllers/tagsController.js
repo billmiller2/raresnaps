@@ -12,9 +12,7 @@ exports.index = (req, res, next) => {
         let tags = {}
 
         data.forEach((tag, i) => {
-            tags[data[i]._id] = {
-                name: data[i].name
-            }
+            tags[data[i]._id] = data[i]
         })
 
         res.status(200).send({ tags: tags })
@@ -54,9 +52,7 @@ exports.add = (req, res, next) => {
                         res.status(200).send({ 
                             photoId: photo._id,
                             tags: {
-                                [tag._id]: {
-                                    name: tagName
-                                }
+                                [tag._id]: tag
                             }
                         })
                     })
