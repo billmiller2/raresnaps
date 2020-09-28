@@ -37,7 +37,7 @@ export const receivePhoto = (photo) => {
     }
 }
 
-export const fetchPhotos = (since) =>
+export const fetchPhotos = (since, tagId) =>
     (dispatch) => {
         dispatch(requestPhotos(since))
         
@@ -47,7 +47,9 @@ export const fetchPhotos = (since) =>
             params.since = since
         }
 
-        //params.tag = '5f6a8186f864c32f54f97467'
+        if (tagId) {
+            params.tag = tagId
+        }
 
         const query = queryString.stringify(params)
 

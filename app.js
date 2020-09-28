@@ -19,7 +19,7 @@ var app = express();
 var sessionStore = new session.MemoryStore
 
 var mongoose = require('mongoose')
-var mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.rkfh3.mongodb.net/raresnaps?retryWrites=true&w=majority`
+var mongoDB = 'mongodb://127.0.0.1:27017/raresnaps-dev'
 mongoose.connect(mongoDB, { useNewUrlParser: true })
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))

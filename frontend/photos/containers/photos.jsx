@@ -4,16 +4,18 @@ import { fetchPhotos } from '../../photos/actions'
 import { Photos } from '../components'
 
 const mapStateToProps = (state) => {
-    const { since } = { ...state.photo }
+    const { since } = state.photo
+    const { selected } = state.tag
 
     return {
-        since: since
+        since,
+        selected
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchPhotos: (since) => dispatch(fetchPhotos(since))
+        fetchPhotos: (since, tagId) => dispatch(fetchPhotos(since, tagId))
     }
 }
 

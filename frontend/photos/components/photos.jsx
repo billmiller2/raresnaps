@@ -12,13 +12,19 @@ const LoadingContainer = styled.div`
 `
 
 export const Photos = (props) => {
-    const { photos, since, isFetching, fetchPhotos } = { ...props }
+    const { photos, since, isFetching, fetchPhotos, selected } = props
 
     useEffect(() => {
         if (fetchPhotos && !Object.keys(photos).length) {
-            fetchPhotos(since)
+            fetchPhotos(since, selected)
         }
-    }, [])
+    }, [since])
+
+    useEffect(() => {
+        if (selected) {
+            fetchPhotos('', selected)
+        }
+    }, [selected])
 
     useEffect(() => {
         window.onscroll = (e) => {
@@ -27,7 +33,7 @@ export const Photos = (props) => {
             const path = window.location.pathname
 
             if (bottom && path === '/') {
-                fetchPhotos(since)
+                fetchPhotos(since, selected)
             }
         }
     })
@@ -35,13 +41,15 @@ export const Photos = (props) => {
     let photoComponents = []
 
     for (const [id, photo] of Object.entries(photos)) {
-        photoComponents.push(
-            <Col key={id} xs={12} md={4}>
-                <Link to={'/photos/view/' + id}>
-                    <Photo photo={photo} />
-                </Link>
-            </Col>
-        )
+        if (!selected || photo.tags.includes(selected)) {
+            photoComponents.push(
+                <Col key={id} xs={12} md={4}>
+                    <Link to={'/photos/view/' + id}>
+                        <Photo photo={photo} />
+                    </Link>
+                </Col>
+            )
+        }
     }
 
     return (

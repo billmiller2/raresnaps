@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { decodeHtml, LightMauveButton } from '../../common'
@@ -17,10 +18,12 @@ export const Tag = (props) => {
     const { tag, selectTag } = props
 
     return (
-        <LightMauveButton 
-            className='mr-1 mb-1'
-            onClick={() => selectTag(tag._id)}>
-            {decodeHtml(tag.name)}
-        </LightMauveButton>
+        <Link to='/'>
+            <LightMauveButton 
+                className='mr-1 mb-1'
+                onClick={() => selectTag(tag._id) }>
+                {decodeHtml(tag.name)}
+            </LightMauveButton>
+        </Link>
     )
 }
