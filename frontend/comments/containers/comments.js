@@ -7,7 +7,7 @@ const mapStateToProps = (state, props) => {
     const photo = state.photo.photos[photoId]
     let comments = []
 
-    if (typeof photo !== 'undefined') {
+    if (typeof photo !== 'undefined' && typeof photo.comments !== 'undefined') {
         photo.comments.forEach(commentId => {
             if (typeof state.comment.comments[commentId] !== 'undefined') {
                 comments.push(state.comment.comments[commentId])

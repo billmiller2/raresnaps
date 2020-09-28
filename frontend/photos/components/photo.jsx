@@ -13,7 +13,9 @@ export const Photo = (props) => {
         }
     }, [])
 
-    const comments = typeof photo !== 'undefined' ? photo.comments : []
+    const comments = (typeof photo !== 'undefined' && typeof photo.comments !== 'undefined')
+        ? photo.comments 
+        : []
 
     useEffect(() => {
         if (fetchComments && comments.length > 0) {
