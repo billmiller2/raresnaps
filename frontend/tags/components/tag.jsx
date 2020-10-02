@@ -15,13 +15,13 @@ const Span = styled.span`
 `
 
 export const Tag = (props) => {
-    const { tag, selectTag } = props
+    const { tag, selectTag, selectId } = props
 
     return (
         <Link to='/'>
             <LightMauveButton 
                 className='mr-1 mb-1'
-                onClick={() => selectTag(tag._id) }>
+                onClick={() => selectTag(selectId) }>
                 {decodeHtml(tag.name)}
             </LightMauveButton>
         </Link>

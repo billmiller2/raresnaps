@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -6,7 +7,7 @@ import styled from 'styled-components'
 
 import { Photo } from './'
 import { Loading } from '../../common'
-import { Tag } from '../../tags'
+import { Tag, selectTag } from '../../tags'
 
 const LoadingContainer = styled.div`
     min-height: 60px;
@@ -53,11 +54,17 @@ export const Photos = (props) => {
         }
     }
 
+    const dispatch = useDispatch()
+
     return (
         <>
         <Row className='mb-3'>
             <Col xs='12'>
-                { tag && <Tag tag={tag} onSelect={ (tagId) => {} } /> }
+                { tag && 
+                    <Tag 
+                        tag={tag} 
+                        selectId=''
+                        selectTag={ (tagId) => dispatch(selectTag(tagId)) } /> }
             </Col>
         </Row>
         <Row className='d-flex flex-wrap align-items-center'>
