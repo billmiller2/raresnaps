@@ -62,6 +62,7 @@ export const Photos = (props) => {
             <Col xs='12'>
                 { tag && 
                     <Tag 
+                        dismissible={true}
                         tag={tag} 
                         selectId=''
                         selectTag={ (tagId) => dispatch(selectTag(tagId)) } /> }

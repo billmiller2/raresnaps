@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -15,14 +16,15 @@ const Span = styled.span`
 `
 
 export const Tag = (props) => {
-    const { tag, selectTag, selectId } = props
+    const { tag, selectTag, selectId, dismissible } = props
 
     return (
         <Link to='/'>
             <LightMauveButton 
                 className='mr-1 mb-1'
                 onClick={() => selectTag(selectId) }>
-                {decodeHtml(tag.name)}
+                { dismissible && decodeHtml('&#10006;  ') }
+                { decodeHtml(tag.name) }
             </LightMauveButton>
         </Link>
     )
