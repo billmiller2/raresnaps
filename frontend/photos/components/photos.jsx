@@ -6,13 +6,14 @@ import styled from 'styled-components'
 
 import { Photo } from './'
 import { Loading } from '../../common'
+import { Tag } from '../../tags'
 
 const LoadingContainer = styled.div`
     min-height: 60px;
 `
 
 export const Photos = (props) => {
-    const { photos, since, isFetching, fetchPhotos, selected } = props
+    const { photos, since, isFetching, fetchPhotos, selected, tag } = props
 
     useEffect(() => {
         if (fetchPhotos && !Object.keys(photos).length) {
@@ -54,6 +55,11 @@ export const Photos = (props) => {
 
     return (
         <>
+        <Row className='mb-3'>
+            <Col xs='12'>
+                { tag && <Tag tag={tag} onSelect={ (tagId) => {} } /> }
+            </Col>
+        </Row>
         <Row className='d-flex flex-wrap align-items-center'>
             { photoComponents }
         </Row >

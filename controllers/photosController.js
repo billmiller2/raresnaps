@@ -3,7 +3,6 @@ const s3 = new aws.S3();
 const { Photo } = require('../models/photo.js')
 
 exports.index = (req, res, next) => {
-
     let photos = {}
     let where = {}
 

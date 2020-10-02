@@ -7,9 +7,16 @@ const mapStateToProps = (state) => {
     const { since } = state.photo
     const { selected } = state.tag
 
+    let tag = ''
+
+    if (typeof state.tag.tags[selected] !== 'undefined') {
+        tag = state.tag.tags[selected]
+    }
+
     return {
         since,
-        selected
+        selected,
+        tag
     }
 }
 
