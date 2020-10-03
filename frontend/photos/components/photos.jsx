@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { Photo } from './'
 import { Loading } from '../../common'
-import { Tag, selectTag } from '../../tags'
+import { Tag, SearchTag, selectTag } from '../../tags'
 
 const LoadingContainer = styled.div`
     min-height: 60px;
@@ -58,8 +58,9 @@ export const Photos = (props) => {
 
     return (
         <>
-        <Row className='mb-3'>
-            <Col xs='12'>
+        <Row className='mb-5'>
+            <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+                <SearchTag />
                 { tag && 
                     <Tag 
                         dismissible={true}
