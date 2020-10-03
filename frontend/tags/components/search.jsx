@@ -7,7 +7,9 @@ import { searchTag } from '../'
 import { Input, LightMauveButton } from '../../common'
 
 const Form = styled.form`
-    display: inline
+    display: inline;
+    overflow: hidden;
+    white-space: nowrap;
 `
 
 export const SearchTag = (props) => {
