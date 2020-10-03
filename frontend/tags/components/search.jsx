@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import * as Ladda from 'ladda'
 import styled from 'styled-components'
 
+import { searchTag } from '../'
 import { Input, LightMauveButton } from '../../common'
 
 const Form = styled.form`
@@ -9,18 +11,18 @@ const Form = styled.form`
 `
 
 export const SearchTag = (props) => {
-    const { onSubmit } = props
     const [tag, setTag] = useState('')
+    const dispatch = useDispatch()
 
     return (
         <Form 
             className='mr-2'
             onSubmit={(e) => {
                 e.preventDefault()
-                const submit = Ladda.create(document.querySelector('#addTagButton'))
+                const submit = Ladda.create(document.querySelector('#searchTagButton'))
                 submit.start()
 
-                return onSubmit(tag.trim(), photoId)
+                return dispatch(searchTag(tag.trim()))
                     .then(() => {
                         submit.stop()
                         submit.remove()
@@ -37,7 +39,7 @@ export const SearchTag = (props) => {
             <LightMauveButton 
                 className='ladda-button'
                 data-style='expand-right'
-                id='addTagButton' 
+                id='searchTagButton' 
                 type="submit">
                 Search Tag
             </LightMauveButton>

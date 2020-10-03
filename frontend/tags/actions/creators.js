@@ -5,7 +5,7 @@ import {
     RECEIVE_TAG,
     SELECT_TAG
 } from './'
-import { POST_TAG, TAGS } from '../routes'
+import { POST_TAG, TAGS, SEARCH } from '../routes'
 import { updateTags } from '../../photos'
 
 export const addTag = () => {
@@ -20,6 +20,17 @@ export const selectTag = (tagId) => {
         payload: tagId
     }
 }
+
+export const searchTag = (name) =>
+    (dispatch) => {
+        return fetch(SEARCH + name)
+            .then(response => response.json())
+            .then(tag => {
+                if (tag) {
+                    dispatch(selectTag(tag.tagId))
+                }
+            })
+    }
 
 export const saveTag = (tag, photoId) =>
     (dispatch) => {

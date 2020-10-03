@@ -19,6 +19,24 @@ exports.index = (req, res, next) => {
     })
 }
 
+exports.search = (req, res, next) => {
+    Tag.findOne({ name: req.params.name.toLowerCase() }, (err, tag) => {
+        if (err) {
+            return next(err)
+        }
+
+        if (!tag) {
+            return res.status(200).send({
+                tag: ''
+            })
+        }
+
+        return res.status(200).send({
+            tagId: tag._id
+        })
+    })
+}
+
 exports.add = (req, res, next) => {
     const errors = validationResult(req)
 
