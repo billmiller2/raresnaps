@@ -8,7 +8,7 @@ export const Tags = (props) => {
 
     tags.forEach(tag => {
         tagComponents.push(
-            <Tag key={tag.name} tag={tag} selectTag={selectTag} selectId={tag._id} />
+            <Tag key={tag.name} tag={tag} onClick={selectTag} />
         )
     })
 

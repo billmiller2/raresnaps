@@ -37,7 +37,7 @@ export const receivePhoto = (photo) => {
     }
 }
 
-export const fetchPhotos = (since, tagId) =>
+export const fetchPhotos = (since, tagIds) =>
     (dispatch) => {
         dispatch(requestPhotos(since))
         
@@ -47,11 +47,15 @@ export const fetchPhotos = (since, tagId) =>
             params.since = since
         }
 
-        if (tagId) {
-            params.tag = tagId
+        if (tagIds) {
+            params.tags = []
+
+            tagIds.forEach(tagId => {
+                params.tags.push(tagId)
+            })
         }
 
-        const query = queryString.stringify(params)
+        const query = queryString.stringify(params, { arrayFormat: 'bracket' })
 
         return fetch(PHOTOS + '?' + query)
             .then(response => response.json())

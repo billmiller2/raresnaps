@@ -7,14 +7,14 @@ import styled from 'styled-components'
 
 import { Photo } from './'
 import { Loading } from '../../common'
-import { Tag, SearchTag, selectTag } from '../../tags'
+import { Tag, SearchTag, selectTag, removeSelectedTag } from '../../tags'
 
 const LoadingContainer = styled.div`
     min-height: 60px;
 `
 
 export const Photos = (props) => {
-    const { photos, since, isFetching, fetchPhotos, selected, tag } = props
+    const { photos, since, isFetching, fetchPhotos, selected, tags } = props
 
     useEffect(() => {
         if (fetchPhotos && !Object.keys(photos).length) {
@@ -26,7 +26,7 @@ export const Photos = (props) => {
         if (selected) {
             fetchPhotos('', selected)
         }
-    }, [selected])
+    }, [JSON.stringify(selected)])
 
     useEffect(() => {
         window.onscroll = (e) => {
@@ -43,7 +43,7 @@ export const Photos = (props) => {
     let photoComponents = []
 
     for (const [id, photo] of Object.entries(photos)) {
-        if (!selected || photo.tags.includes(selected)) {
+        if (!selected.length || selected.every(tagId => photo.tags.includes(tagId))) {
             photoComponents.push(
                 <Col key={id} xs={12} md={4}>
                     <Link to={'/photos/view/' + id}>
@@ -61,12 +61,15 @@ export const Photos = (props) => {
         <Row className='mb-5'>
             <Col xs='12' className='d-flex flex-wrap justify-content-center'>
                 <SearchTag />
-                { tag && 
-                    <Tag 
-                        dismissible={true}
-                        tag={tag} 
-                        selectId=''
-                        selectTag={ (tagId) => dispatch(selectTag(tagId)) } /> }
+                { tags.length > 0 && 
+                    tags.map(tag => 
+                        <Tag 
+                            dismissible={true}
+                            key={tag._id}
+                            onClick={ (tagId) => dispatch(removeSelectedTag(tagId)) }
+                            tag={tag} />
+                    )
+                }
             </Col>
         </Row>
         <Row className='d-flex flex-wrap align-items-center'>

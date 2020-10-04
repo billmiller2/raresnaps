@@ -7,16 +7,18 @@ const mapStateToProps = (state) => {
     const { since } = state.photo
     const { selected } = state.tag
 
-    let tag = ''
+    let tags = []
 
-    if (typeof state.tag.tags[selected] !== 'undefined') {
-        tag = state.tag.tags[selected]
-    }
+    selected.forEach(tagId => {
+        if (typeof state.tag.tags[tagId] !== 'undefined') {
+            tags.push(state.tag.tags[tagId])
+        }
+    })
 
     return {
         since,
         selected,
-        tag
+        tags
     }
 }
 

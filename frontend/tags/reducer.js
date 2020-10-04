@@ -2,13 +2,14 @@ import {
     REQUEST_TAGS, 
     RECEIVE_TAG, 
     RECEIVE_TAGS,
-    SELECT_TAG
+    SELECT_TAG,
+    REMOVE_SELECTED_TAG
 } from './actions'
 
 let initialState = {
     isFetching: false,
     tags: {},
-    selected: ''
+    selected: []
 }
 
 export const tagsReducer = (state = initialState, action) => {
@@ -31,7 +32,12 @@ export const tagsReducer = (state = initialState, action) => {
         case SELECT_TAG:
             return {
                 ...state,
-                selected: action.payload
+                selected: [action.payload, ...state.selected]
+            }
+        case REMOVE_SELECTED_TAG:
+            return {
+                ...state,
+                selected: state.selected.filter(tagId => tagId !== action.payload)
             }
         default:
             return state

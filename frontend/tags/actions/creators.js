@@ -3,7 +3,8 @@ import {
     REQUEST_TAGS,
     RECEIVE_TAGS,
     RECEIVE_TAG,
-    SELECT_TAG
+    SELECT_TAG,
+    REMOVE_SELECTED_TAG
 } from './'
 import { POST_TAG, TAGS, SEARCH } from '../routes'
 import { updateTags } from '../../photos'
@@ -17,6 +18,13 @@ export const addTag = () => {
 export const selectTag = (tagId) => {
     return {
         type: SELECT_TAG,
+        payload: tagId
+    }
+}
+
+export const removeSelectedTag = (tagId) => {
+    return {
+        type: REMOVE_SELECTED_TAG,
         payload: tagId
     }
 }

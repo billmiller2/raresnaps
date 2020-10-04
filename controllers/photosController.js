@@ -12,9 +12,9 @@ exports.index = (req, res, next) => {
         }
     }
 
-    if (req.query.tag) {
+    if (req.query.tags) {
         where.tags = {
-            $all: [req.query.tag]
+            $all: req.query.tags
         }
     }
 
