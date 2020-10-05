@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { Photo } from './'
 import { Loading } from '../../common'
-import { Tag, SearchTag, selectTag, removeSelectedTag } from '../../tags'
+import { Tag, SearchTag, RandomTagContainer, selectTag, removeSelectedTag } from '../../tags'
 
 const LoadingContainer = styled.div`
     min-height: 60px;
@@ -58,9 +58,18 @@ export const Photos = (props) => {
 
     return (
         <>
-        <Row className='mb-5'>
+        <Row className='mb-3'>
             <Col xs='12' className='d-flex flex-wrap justify-content-center'>
                 <SearchTag />
+            </Col>
+        </Row>
+        <Row className='mb-3'>
+            <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+                <RandomTagContainer tags={tags} />
+            </Col>
+        </Row>
+        <Row className='mb-5'>
+            <Col xs='12' className='d-flex flex-wrap justify-content-center'>
                 { tags.length > 0 && 
                     tags.map(tag => 
                         <Tag 

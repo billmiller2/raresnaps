@@ -29,6 +29,17 @@ export const removeSelectedTag = (tagId) => {
     }
 }
 
+export const randomTag = (tags, selected) =>
+    (dispatch) => {
+        const keys = Object.keys(tags).filter(tagId => !selected.includes(tagId))
+
+        if (keys.length > 0) {
+            const idx = Math.floor(Math.random() * keys.length)
+
+            return dispatch(selectTag(keys[idx]))
+        }
+    }
+
 export const searchTag = (name) =>
     (dispatch) => {
         return fetch(SEARCH + name)

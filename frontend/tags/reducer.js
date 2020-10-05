@@ -1,9 +1,9 @@
 import { 
-    REQUEST_TAGS, 
     RECEIVE_TAG, 
     RECEIVE_TAGS,
-    SELECT_TAG,
-    REMOVE_SELECTED_TAG
+    REMOVE_SELECTED_TAG,
+    REQUEST_TAGS, 
+    SELECT_TAG
 } from './actions'
 
 let initialState = {
@@ -32,7 +32,7 @@ export const tagsReducer = (state = initialState, action) => {
         case SELECT_TAG:
             return {
                 ...state,
-                selected: [action.payload, ...state.selected]
+                selected: [...state.selected, action.payload]
             }
         case REMOVE_SELECTED_TAG:
             return {
