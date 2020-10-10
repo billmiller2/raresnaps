@@ -45,8 +45,10 @@ export const searchTag = (name) =>
         return fetch(SEARCH + name)
             .then(response => response.json())
             .then(tag => {
-                if (tag) {
+                if (tag.tagId) {
                     dispatch(selectTag(tag.tagId))
+                } else {
+                    alert('Tag not found')
                 }
             })
     }
