@@ -7,8 +7,11 @@ block content
         form(action='/users/create' method='post' onsubmit="return validatePassword()")
           div.form-group
             div
+              label(for='group')= 'Group'
+              input(type='text' name='group' required autofocus).form-control
+
               label(for='username')= 'Username'
-              input(type='text' name='username' required autofocus).form-control
+              input(type='text' name='username' required).form-control
 
             div
               label(for='password')= 'Password'

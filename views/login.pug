@@ -6,8 +6,11 @@ block content
       div.col-md-auto
         form(action='/users/login' method='post')
           div.form-group
+            label(for='group')= 'Group'
+            input(type='text' name='group' required autofocus).form-control
+
             label(for='username')= 'Username'
-            input(type='text' name='username' required autofocus).form-control
+            input(type='text' name='username' required).form-control
 
             label(for='password')= 'Password'
             input(type='password' name='password' required).form-control
