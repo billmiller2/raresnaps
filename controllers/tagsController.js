@@ -97,3 +97,39 @@ exports.add = (req, res, next) => {
     })
 }
 
+exports.tagOfDay = (req, res, next) => {
+    Tag.findOne({ isTagOfDay: true }, (err, tag) => {
+        if (err) {
+            return next(err)
+        }
+
+        const setTagOfDay = () =>
+            Tag.findOne((err, tagOfDay) => {
+                tagOfDay.isTagOfDay = true
+
+                tagOfDay.save((err) => {
+                    if (err) {
+                        return next(err)
+                    }
+
+                    return res.status(200)
+                })
+            })
+        
+        if (tag) {
+            tag.isTagOfDay = false;
+
+            tag.save((err) => {
+                if (err) {
+                    return next(err)
+                }
+
+                setTagOfDay()
+
+            })
+        } else {
+            setTagOfDay()
+        }
+    })
+}
+
