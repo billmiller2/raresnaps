@@ -33,6 +33,7 @@ export const tagsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selected: [...state.selected, action.payload]
+                    .filter((value, index, self) => self.indexOf(value) === index)
             }
         case REMOVE_SELECTED_TAG:
             return {
