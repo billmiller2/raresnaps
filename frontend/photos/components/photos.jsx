@@ -24,7 +24,7 @@ export const Photos = (props) => {
     const { photos, since, isFetching, fetchPhotos, selected, tags } = props
 
     useEffect(() => {
-        if (fetchPhotos && !Object.keys(photos).length) {
+        if (fetchPhotos && !Object.keys(photos).length && !isFetching) {
             fetchPhotos(since, selected)
         }
     }, [since])
@@ -38,7 +38,9 @@ export const Photos = (props) => {
     useEffect(() => {
         window.onscroll = (e) => {
             const scroll = e.target.scrollingElement
-            const bottom = scroll.scrollHeight - scroll.scrollTop === scroll.clientHeight
+            const bottom = Math.abs(
+                scroll.scrollHeight - scroll.scrollTop - scroll.clientHeight
+            ) <= 3
             const path = window.location.pathname
 
             if (bottom && path === '/') {
