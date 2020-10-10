@@ -52,7 +52,7 @@ export const Photos = (props) => {
     for (const [id, photo] of Object.entries(photos)) {
         if (!selected.length || selected.every(tagId => photo.tags.includes(tagId))) {
             photoComponents.push(
-                <Col key={id} xs={12} md={4}>
+                <Col key={id} xs={12} sm={12} md={12} lg={4}>
                     <Link to={'/photos/view/' + id}>
                         <Photo photo={photo} />
                     </Link>
@@ -77,7 +77,7 @@ export const Photos = (props) => {
             </Col>
         </Row>
         <Row className='mb-5'>
-            <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+            <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                 { tags.length > 0 && 
                     tags.map(tag => 
                         <Tag 
