@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const usersController = require('../controllers/usersController')
-const usersValidator = require('../lib/validators/usersValidator')
-const authenticate = require('../lib/middleware/auth')
+const usersValidator = require('../middleware/validators/usersValidator')
+const authenticate = require('../middleware/auth')
 
 router.get('/login', usersController.loginForm)
 router.post('/login', usersValidator.login,  usersController.login)

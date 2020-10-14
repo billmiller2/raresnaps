@@ -3,8 +3,8 @@ const router = express.Router()
 const bodyParser = require('body-parser')
 
 const tagsController = require('../../controllers/tagsController')
-const authenticate = require('../../lib/middleware/auth')
-const tagsValidator = require('../../lib/validators/tagsValidator')
+const authenticate = require('../../middleware/auth')
+const tagsValidator = require('../../middleware/validators/tagsValidator')
 
 router.get('/', authenticate, tagsController.index)
 router.get('/search/:name', authenticate, bodyParser.json(), tagsController.search)

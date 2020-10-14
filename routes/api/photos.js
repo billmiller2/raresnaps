@@ -5,7 +5,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
 const photosController = require('../../controllers/photosController')
-const authenticate = require('../../lib/middleware/auth')
+const authenticate = require('../../middleware/auth')
 
 router.get('/:id', authenticate, photosController.show)
 router.get('/', authenticate, photosController.index)
