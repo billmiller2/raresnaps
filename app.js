@@ -26,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 app.use(logger('common', {
-    stream: fs.createWriteStream('./access.log', {flags: 'a'})
+    stream: fs.createWriteStream('./logs/access.log', {flags: 'a'})
 }));
 app.use(logger('dev'));
 app.use(express.json());
@@ -69,7 +69,7 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    fs.writeFile('./errors.log', err, function(err, data) {
+    fs.writeFile('./logs/errors.log', err, function(err, data) {
         if (err) {
             console.log(err)
         }
