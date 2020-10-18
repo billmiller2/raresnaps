@@ -54,7 +54,7 @@ export const Photos = (props) => {
     for (const [id, photo] of Object.entries(photos)) {
         if (!selected.length || selected.every(tagId => photo.tags.includes(tagId))) {
             photoComponents.push(
-                <Col key={id} xs={12} sm={12} md={12} lg={4}>
+                <Col key={id} xs={12} sm={12} md={6} lg={4}>
                     <Link to={'/photos/view/' + id}>
                         <Photo photo={photo} />
                     </Link>
@@ -67,36 +67,38 @@ export const Photos = (props) => {
 
     return (
         <>
-        <Row className='mb-3'>
-            <Col xs='12' className='d-flex flex-wrap justify-content-center'>
-                <SearchTag />
-            </Col>
-        </Row>
-        <Row className='mb-3'>
-            <Col xs='12' className='d-flex flex-wrap justify-content-center'>
-                <TagOfDayContainer />
-                <RandomTagContainer tags={tags} />
-            </Col>
-        </Row>
-        <Row className='mb-5'>
-            <Col xs={12} className='d-flex flex-wrap justify-content-center'>
-                { tags.length > 0 && 
-                    tags.map(tag => 
-                        <Tag 
-                            dismissible={true}
-                            key={tag._id}
-                            onClick={ (tagId) => dispatch(removeSelectedTag(tagId)) }
-                            tag={tag} />
-                    )
-                }
-            </Col>
-        </Row>
-        <Row className='d-flex flex-wrap align-items-center'>
-            { photoComponents }
-        </Row >
-        <LoadingContainer>
-            { isFetching && <Loading /> }
-        </LoadingContainer>
+        <div className='min-vh-100'>
+            <Row className='mb-3'>
+                <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+                    <SearchTag />
+                </Col>
+            </Row>
+            <Row className='mb-3'>
+                <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+                    <TagOfDayContainer />
+                    <RandomTagContainer tags={tags} />
+                </Col>
+            </Row>
+            <Row className='mb-5'>
+                <Col xs={12} className='d-flex flex-wrap justify-content-center'>
+                    { tags.length > 0 && 
+                        tags.map(tag => 
+                            <Tag 
+                                dismissible={true}
+                                key={tag._id}
+                                onClick={ (tagId) => dispatch(removeSelectedTag(tagId)) }
+                                tag={tag} />
+                        )
+                    }
+                </Col>
+            </Row>
+            <Row className='d-flex flex-wrap align-items-center'>
+                { photoComponents }
+            </Row >
+            <LoadingContainer>
+                { isFetching && <Loading /> }
+            </LoadingContainer>
+        </div>
         </>
     )
 }

@@ -40,6 +40,7 @@ export const Photo = (props) => {
     return (
         <img
             alt='photo'
+            className='mb-4'
             src={src}
             style={{ maxWidth: '100%', maxHeight: '100%' }} />
     )
