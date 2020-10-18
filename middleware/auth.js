@@ -5,13 +5,13 @@ module.exports = (req, res, next) => {
 
     if (!token) {
         res.redirect('/users/login')
+    } else {
+        jwt.verify(token, process.env.JWT_SECRET, (err) => {
+            if (err) {
+                res.redirect('/users/login')
+            } 
+        })
+
+        next()
     }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err) => {
-        if (err) {
-            res.redirect('/users/login')
-        }
-    })
-
-    next()
 }
