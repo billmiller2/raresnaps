@@ -66,7 +66,6 @@ export const Photos = (props) => {
     const dispatch = useDispatch()
 
     return (
-        <>
         <div className='min-vh-100'>
             <Row className='mb-3'>
                 <Col xs='12' className='d-flex flex-wrap justify-content-center'>
@@ -99,6 +98,5 @@ export const Photos = (props) => {
                 { isFetching && <Loading /> }
             </LoadingContainer>
         </div>
-        </>
     )
 }
