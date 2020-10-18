@@ -69,7 +69,16 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    fs.writeFile('./logs/errors.log', err, function(err, data) {
+
+    const date = new Date().toLocaleDateString({
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric'
+    });
+    const time = new Date().toLocaleTimeString('en-US')
+    const message = '[' + date + ' ' + time + '] ' + err.stack + "\n";
+
+    fs.writeFile('./logs/errors.log', message, { flag: 'a+' }, function(err, data) {
         if (err) {
             console.log(err)
         }
