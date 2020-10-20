@@ -41,6 +41,8 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "jest": "^26.5.3",
     "nodemon": "^2.0.4",
     "webpack": "^4.44.0",
