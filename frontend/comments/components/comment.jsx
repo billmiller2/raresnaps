@@ -19,21 +19,19 @@ export const CommentDiv = styled.div`
 
 export const Comment = (props) => {
     const { comment } = props
-    const createdAt = new Date(comment.createdAt)
-    const options = { 
-        month: 'short', 
-        day: 'numeric', 
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    }
 
-    const created = createdAt.toLocaleDateString('en-US', options)
-
-    return (
+    return comment && (
         <Div className='mr-1 mb-3'>
             <Small>
-                {created}
+                {
+                    new Date(comment.createdAt).toLocaleDateString('en-US', {
+                        month: 'short', 
+                        day: 'numeric', 
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                }
             </Small>
             <CommentDiv>
                 {decodeHtml(comment.comment)}
