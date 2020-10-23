@@ -8,7 +8,7 @@ import { decodeHtml, LightMauveButton } from '../../common'
 export const Tag = (props) => {
     const { tag, onClick, dismissible } = props
 
-    return (
+    return tag && (
         <Link to='/'>
             <LightMauveButton 
                 className='mr-1 mb-1'
