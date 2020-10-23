@@ -3,16 +3,16 @@ import styled from 'styled-components'
 
 import { decodeHtml } from '../../common'
 
-const Div = styled.div`
+export const Div = styled.div`
     border: 1px solid #f3e9e3;
     color: #a17188;
 `
-const Small = styled.small`
+export const Small = styled.small`
     display: block;
     padding-left: 15px;
     padding-top: 5px;
 `
-const CommentDiv = styled.div`
+export const CommentDiv = styled.div`
     padding: 15px;
     padding-top: 10px;
 `
