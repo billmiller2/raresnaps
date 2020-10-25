@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "local": "DEBUG=express:* npm run dev",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "aws-sdk": "^2.725.0",
