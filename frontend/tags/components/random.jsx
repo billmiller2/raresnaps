@@ -3,13 +3,7 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { fetchTags, randomTag } from '../'
-import { LightMauveButton } from '../../common'
-
-const Form = styled.form`
-    display: inline;
-    overflow: hidden;
-    white-space: nowrap;
-`
+import { Form, LightMauveButton } from '../../common'
 
 export const RandomTag = (props) => {
     useEffect(() => {
@@ -20,17 +14,17 @@ export const RandomTag = (props) => {
     const dispatch = useDispatch()
 
     return (
-        <Form 
+        <Form
             className='mr-2'
             onSubmit={(e) => {
                 e.preventDefault()
 
                 return dispatch(randomTag(tags, selected))
             }}>
-            <LightMauveButton 
+            <LightMauveButton
                 className='ladda-button'
                 data-style='expand-right'
-                id='randomTagButton' 
+                id='randomTagButton'
                 type="submit">
                 Try a Random Tag
             </LightMauveButton>

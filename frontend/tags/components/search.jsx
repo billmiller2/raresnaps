@@ -4,20 +4,14 @@ import * as Ladda from 'ladda'
 import styled from 'styled-components'
 
 import { searchTag } from '../'
-import { Input, LightMauveButton } from '../../common'
-
-const Form = styled.form`
-    display: inline;
-    overflow: hidden;
-    white-space: nowrap;
-`
+import { Form, Input, LightMauveButton } from '../../common'
 
 export const SearchTag = (props) => {
     const [tag, setTag] = useState('')
     const dispatch = useDispatch()
 
     return (
-        <Form 
+        <Form
             className='mr-2'
             onSubmit={(e) => {
                 e.preventDefault()
@@ -38,10 +32,10 @@ export const SearchTag = (props) => {
                 type='text'
                 value={tag}>
             </Input>
-            <LightMauveButton 
+            <LightMauveButton
                 className='ladda-button'
                 data-style='expand-right'
-                id='searchTagButton' 
+                id='searchTagButton'
                 type="submit">
                 Search Tag
             </LightMauveButton>
