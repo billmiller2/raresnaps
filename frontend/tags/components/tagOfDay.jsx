@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { fetchTags, selectTag } from '../'
 import { LightMauveButton } from '../../common'
 
-const Form = styled.form`
+export const Form = styled.form`
     display: inline;
     overflow: hidden;
     white-space: nowrap;
@@ -16,14 +16,14 @@ export const TagOfDay = (props) => {
     const dispatch = useDispatch()
 
     return (
-        <Form 
+        <Form
             className='mr-2'
             onSubmit={(e) => {
                 e.preventDefault()
 
                 return dispatch(selectTag(tagOfDay._id))
             }}>
-            <LightMauveButton 
+            <LightMauveButton
                 className='ladda-button'
                 data-style='expand-right'
                 type="submit">
