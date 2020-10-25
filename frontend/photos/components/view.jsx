@@ -12,10 +12,10 @@ export const ViewPhoto = () => {
 
     return (
         <Row>
-            <Col xs={12} md={6}>
+            <Col xs={12} lg={6}>
                 <PhotoContainer photoId={photoId} />
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} lg={6}>
                 <Row className='mb-3'>
                     <Col xs={12}>
                         <AddTagContainer photoId={photoId} />
