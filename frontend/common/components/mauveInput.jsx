@@ -15,8 +15,12 @@ export const Input = styled.input`
         background-color: #a17188;
         color: #ffffff;
     }
-    @media (max-width: 768px) {
-        max-width: 59%;
+    @media (max-device-width: 330px) {
+        max-width: 55%;
+    }
+    @media (max-device-width: 700px) and (min-device-width: 330px) {
+        margin-top: 10px;
+        max-width: 60%;
     }
 `
 
@@ -35,5 +39,8 @@ export const TextArea = styled.textarea`
     &::selection {
         background-color: #a17188;
         color: #ffffff;
+    }
+    @media (max-device-width: 700px) and (min-device-width: 330px) {
+        margin-top: 10px;
     }
 `
