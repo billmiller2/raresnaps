@@ -10,7 +10,7 @@ export const Tag = (props) => {
 
     return tag && (
         <Link to='/'>
-            <LightMauveButton 
+            <LightMauveButton
                 className='mr-1 mb-1'
                 onClick={() => onClick(tag._id) }>
                 { dismissible && decodeHtml('&#10006;  ') }
