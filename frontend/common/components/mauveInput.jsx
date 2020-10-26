@@ -15,6 +15,9 @@ export const Input = styled.input`
         background-color: #a17188;
         color: #ffffff;
     }
+    @media (max-width: 768px) {
+        max-width: 59%;
+    }
 `
 
 export const TextArea = styled.textarea`
