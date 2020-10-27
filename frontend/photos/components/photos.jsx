@@ -75,6 +75,10 @@ export const Photos = (props) => {
             <Row className='mb-3'>
                 <Col xs='12' className='d-flex flex-wrap justify-content-center'>
                     <TagOfDayContainer />
+                </Col>
+            </Row>
+            <Row className='mb-3'>
+                <Col xs='12' className='d-flex flex-wrap justify-content-center'>
                     <RandomTagContainer tags={tags} />
                 </Col>
             </Row>
