@@ -39,8 +39,8 @@ export const AddPhoto = (props) => {
                                 setId(Object.keys(action.payload.photos)[0])
                             })
                     }}>
-                    <div className='d-flex justify-content-center'>
-                        <Row>
+                    <Row>
+                        <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                             <LightMauveButton className='mb-3'>
                             <Input
                                 type='file'
@@ -55,8 +55,8 @@ export const AddPhoto = (props) => {
                                 type="submit">
                                 Upload Photo
                             </LightMauveButton>
-                        </Row>
-                    </div>
+                        </Col>
+                    </Row>
                 </form>
             </Col>
         </Row>

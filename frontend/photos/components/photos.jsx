@@ -76,12 +76,12 @@ export const Photos = (props) => {
     return (
         <div className='min-vh-100'>
             <Row className='mb-3'>
-                <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+                <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                     <SearchTag />
                 </Col>
             </Row>
             <Row className='mb-3'>
-                <Col xs='12' className='d-flex flex-wrap justify-content-center'>
+                <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                     <PaddedDiv>
                         <TagOfDayContainer />
                     </PaddedDiv>
