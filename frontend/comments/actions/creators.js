@@ -43,7 +43,13 @@ export const saveComment = (comment, photoId) =>
                    ))
                }
             })
-            .catch(error => alert(error.status + ' ' + error.statusText))
+            .catch(error => {
+                if (typeof error.status !== 'undefined') {
+                    return alert(error.status + ' ' + error.statusText)
+                } else {
+                    return alert(error)
+                }
+            })
     }
 
 export const receiveComment = (photoId, comments) => {

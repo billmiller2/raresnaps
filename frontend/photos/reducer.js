@@ -47,8 +47,12 @@ export const photosReducer = (state = initialState, action) => {
                 }
             }
         case UPDATE_COMMENTS:
+            const existing = (typeof state.photos[action.payload.photoId].comments !== 'undefined')
+                ? state.photos[action.payload.photoId].comments
+                : []
+
             const comments = [ 
-                ...state.photos[action.payload.photoId].comments, 
+                ...existing,
                 action.payload.comments 
             ]
 
