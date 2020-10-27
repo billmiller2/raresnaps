@@ -19,6 +19,14 @@ import {
 const LoadingContainer = styled.div`
     min-height: 60px;
 `
+const PaddedDiv = styled.div`
+    display: inline;
+
+    @media(max-width: 768px) {
+        display: block;
+        padding: 10px;
+    }
+`
 
 export const Photos = (props) => {
     const { photos, since, isFetching, fetchPhotos, selected, tags } = props
@@ -74,12 +82,12 @@ export const Photos = (props) => {
             </Row>
             <Row className='mb-3'>
                 <Col xs='12' className='d-flex flex-wrap justify-content-center'>
-                    <TagOfDayContainer />
-                </Col>
-            </Row>
-            <Row className='mb-3'>
-                <Col xs='12' className='d-flex flex-wrap justify-content-center'>
-                    <RandomTagContainer tags={tags} />
+                    <PaddedDiv>
+                        <TagOfDayContainer />
+                    </PaddedDiv>
+                    <PaddedDiv>
+                        <RandomTagContainer tags={tags} />
+                    </PaddedDiv>
                 </Col>
             </Row>
             <Row className='mb-5'>
