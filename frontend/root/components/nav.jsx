@@ -26,7 +26,7 @@ export const Nav = (props) =>
             raresnaps
         </Navbar.Brand>
         <BootstrapNav className='ml-auto'>
-            <Dropdown align='right'>
+            <Dropdown align='right' alignRight>
                 <Dropdown.Toggle style={{
                     backgroundColor: '#a17188',
                     borderColor: 'white'
