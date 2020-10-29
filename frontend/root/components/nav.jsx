@@ -9,11 +9,11 @@ import styled from 'styled-components'
 import { ADD_PHOTO_ROUTE } from '../../photos'
 import { LOGOUT_ROUTE } from '../../users'
 
-const MauveNav = styled(Navbar)`
+export const MauveNav = styled(Navbar)`
     background-color: #a17188;
 `
 
-const Item = styled(Dropdown.Item)`
+export const Item = styled(Dropdown.Item)`
     &:active {
         background-color: #a17188;
         color: #ffffff;
