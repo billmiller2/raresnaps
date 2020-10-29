@@ -7,11 +7,11 @@ import { AddPhoto } from './add.jsx'
 import { LightMauveButton } from '../../common'
 
 describe('Add Photo', () => {
-    it('renders a Row containing a Col containing a form', () => {
+    it('renders a Row containing a form containing a Row containing Col containing inputs', () => {
         const wrapper = shallow(<AddPhoto />)
 
-        expect(wrapper.find(Row).length).toEqual(1)
-        expect(wrapper.find(Col).length).toEqual(1)
+        expect(wrapper.find(Row).length).toEqual(2)
+        expect(wrapper.find(Col).length).toEqual(2)
         expect(wrapper.find('form').length).toEqual(1)
     })
 
