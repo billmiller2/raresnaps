@@ -7,6 +7,7 @@
     "dev": "nodemon ./bin/www",
     "local": "DEBUG=express:* npm run dev",
     "test": "jest",
+    "test-watch": "npm test -- --watch",
     "test-coverage": "jest --coverage",
     "webpack": "npx webpack --config ./webpack.config.js --watch"
   },

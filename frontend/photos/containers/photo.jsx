@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { fetchComments } from '../../comments'
 import { fetchPhoto, Photo } from '../../photos'
 
-const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state, props) => {
     const photo = state.photo.photos[props.photoId]
 
     return {
@@ -12,7 +12,7 @@ const mapStateToProps = (state, props) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
     return {
         fetchPhoto: (photoId) => dispatch(fetchPhoto(photoId)),
         fetchComments: (comments) => dispatch(fetchComments(comments))
