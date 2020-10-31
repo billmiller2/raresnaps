@@ -65,6 +65,8 @@ describe('creators', () => {
     })
 
     it('creates RECEIVE_COMMENTS after comments have been fetched', () => {
+        const commentId = '123'
+
         const comment = { 
             comment: 'go utes'
         }
