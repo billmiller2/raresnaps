@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock'
 
 import * as actions from './creators.js'
 import * as types from './types.js'
-import { PHOTO } from '../routes'
+import { PHOTO, PHOTOS } from '../routes'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -64,6 +64,45 @@ describe('creators', () => {
         }
 
         expect(actions.receivePhotos(photos)).toEqual(expectedAction)
+    })
+
+    it('creates RECEIVE_PHOTOS after photo has been fetched', () => {
+        const photoId = '123'
+        const anotherId = '321'
+
+        const photo = { 
+            comments: [],
+            data: 'someBase64',
+            tags: []
+        }
+
+        const anotherPhoto = { 
+            comments: [{ id: 'asdf' }],
+            data: 'anotherBase64',
+            tags: []
+        }
+
+        const expectedPayload = {
+            photos: {
+                [photoId]: photo,
+                [anotherId]: anotherPhoto
+            }
+        }
+
+        fetchMock.getOnce(PHOTOS, {
+            body: expectedPayload
+        })
+
+        const expectedActions = [
+            { type: types.REQUEST_PHOTOS },
+            { type: types.RECEIVE_PHOTOS, payload: expectedPayload },
+        ]
+
+        const store = mockStore({ photos: {} })
+
+        return store.dispatch(actions.fetchPhotos()).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
     })
 
     it('should create an update tags action', () => {
