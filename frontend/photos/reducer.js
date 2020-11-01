@@ -1,13 +1,6 @@
-import {
-    REQUEST_PHOTO,
-    RECEIVE_PHOTO,
-    REQUEST_PHOTOS,
-    RECEIVE_PHOTOS,
-    UPDATE_TAGS,
-    UPDATE_COMMENTS
-} from './actions'
+import * as types from './actions/types'
 
-let initialState = {
+export let initialState = {
     isFetching: false,
     since: '',
     photos: {}
@@ -15,14 +8,14 @@ let initialState = {
 
 export const photosReducer = (state = initialState, action) => {
     switch (action.type) {
-        case REQUEST_PHOTO:
-        case REQUEST_PHOTOS:
+        case types.REQUEST_PHOTO:
+        case types.REQUEST_PHOTOS:
             return {
                 ...state,
                 isFetching: true
             }
-        case RECEIVE_PHOTO:
-        case RECEIVE_PHOTOS:
+        case types.RECEIVE_PHOTO:
+        case types.RECEIVE_PHOTOS:
             return {
                 ...state,
                 isFetching: false,
@@ -32,9 +25,21 @@ export const photosReducer = (state = initialState, action) => {
                     ...action.payload.photos
                 }
             }
-        case UPDATE_TAGS:
+        case types.UPDATE_TAGS:
             const photoId = action.payload.photoId
-            const tags = [ ...state.photos[photoId].tags, action.payload.tags ]
+            
+            if (typeof state.photos[photoId] === 'undefined') {
+                return state
+            }
+
+            const existingTags = typeof state.photos[photoId].tags !== 'undefined'
+                ? state.photos[photoId].tags
+                : []
+
+            const tags = [ 
+                ...existingTags, 
+                action.payload.tags
+            ]
 
             return {
                 ...state,
@@ -46,7 +51,10 @@ export const photosReducer = (state = initialState, action) => {
                     }
                 }
             }
-        case UPDATE_COMMENTS:
+        case types.UPDATE_COMMENTS:
+            if (typeof state.photos[action.payload.photoId] === 'undefined') {
+                return state
+            }
             const existing = (typeof state.photos[action.payload.photoId].comments !== 'undefined')
                 ? state.photos[action.payload.photoId].comments
                 : []
