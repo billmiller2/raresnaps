@@ -1,19 +1,19 @@
-import { REQUEST_COMMENTS, RECEIVE_COMMENT, RECEIVE_COMMENTS } from './actions'
+import * as types from './actions/types'
 
-let initialState = {
+export let initialState = {
     isFetching: false,
     comments: {}
 }
 
 export const commentsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case REQUEST_COMMENTS:
+        case types.REQUEST_COMMENTS:
             return {
                 ...state,
                 isFetching: true
             }
-        case RECEIVE_COMMENT:
-        case RECEIVE_COMMENTS:
+        case types.RECEIVE_COMMENT:
+        case types.RECEIVE_COMMENTS:
             return {
                 ...state,
                 isFetching: false,
