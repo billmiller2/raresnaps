@@ -1,12 +1,7 @@
-import { 
-    RECEIVE_TAG, 
-    RECEIVE_TAGS,
-    REMOVE_SELECTED_TAG,
-    REQUEST_TAGS, 
-    SELECT_TAG
-} from './actions'
+import * as types from './actions/types'
 
-let initialState = {
+export let initialState = {
+    error: null,
     isFetching: false,
     tags: {},
     selected: []
@@ -14,13 +9,13 @@ let initialState = {
 
 export const tagsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case REQUEST_TAGS:
+        case types.REQUEST_TAGS:
             return {
                 ...state,
                 isFetching: true
             }
-        case RECEIVE_TAG:
-        case RECEIVE_TAGS:
+        case types.RECEIVE_TAG:
+        case types.RECEIVE_TAGS:
             return {
                 ...state,
                 isFetching: false,
@@ -29,7 +24,7 @@ export const tagsReducer = (state = initialState, action) => {
                     ...action.payload.tags
                 }
             }
-        case SELECT_TAG:
+        case types.SELECT_TAG:
             if (action.payload) {
                 return {
                     ...state,
@@ -37,7 +32,7 @@ export const tagsReducer = (state = initialState, action) => {
                         .filter((value, index, self) => self.indexOf(value) === index)
                 }
             }
-        case REMOVE_SELECTED_TAG:
+        case types.REMOVE_SELECTED_TAG:
             return {
                 ...state,
                 selected: state.selected.filter(tagId => tagId !== action.payload)
