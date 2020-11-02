@@ -57,7 +57,10 @@ export const photosReducer = (state = initialState, action) => {
             }
         case types.UPDATE_COMMENTS:
             if (typeof state.photos[action.payload.photoId] === 'undefined') {
-                return state
+                return {
+                    ...state,
+                    error: 'Cannot apply comment. Photo undefined in state'
+                }
             }
             const existing = (typeof state.photos[action.payload.photoId].comments !== 'undefined')
                 ? state.photos[action.payload.photoId].comments

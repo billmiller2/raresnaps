@@ -83,6 +83,47 @@ describe('photos reducer', () => {
             }
         }
 
-        expect(photosReducer(sampleState, actions.updateTags(photoId, tags))).toEqual(expectedState)
+        expect(photosReducer(sampleState, actions.updateTags(photoId, tags)))
+            .toEqual(expectedState)
+    })
+
+    it('should handle UPDATE_COMMENTS', () => {
+        const photoId = '32'
+        const comments = ['oneComment', 'anotherComment']
+
+        const errorState = {
+            ...initialState,
+            error: 'Cannot apply comment. Photo undefined in state'
+        }
+
+        // handle when photo is not in state
+        expect(photosReducer(undefined, actions.updateComments(photoId, comments)))
+            .toEqual(errorState)
+
+        const sampleState = {
+            ...initialState,
+            photos: {
+                ...initialState.photos,
+                [photoId]: {
+                    comments: []
+                }
+            }
+        }
+
+        const expectedState = {
+            error: null,
+            isFetching: false,
+            since: initialState.since,
+            photos: {
+                [photoId]: {
+                    comments: [
+                        comments
+                    ]
+                }
+            }
+        }
+
+        expect(photosReducer(sampleState, actions.updateComments(photoId, comments)))
+            .toEqual(expectedState)
     })
 })
