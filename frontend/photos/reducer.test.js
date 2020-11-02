@@ -8,6 +8,7 @@ describe('photos reducer', () => {
 
     it('should handle REQUEST_PHOTO', () => {
         expect(photosReducer(undefined, actions.requestPhoto())).toEqual({
+            error: null,
             since: '',
             isFetching: true,
             photos: {}
@@ -16,6 +17,7 @@ describe('photos reducer', () => {
 
     it('should handle REQUEST_PHOTOS', () => {
         expect(photosReducer(undefined, actions.requestPhotos())).toEqual({
+            error: null,
             since: '',
             isFetching: true,
             photos: {}
@@ -36,6 +38,7 @@ describe('photos reducer', () => {
             }
         }
         const expectedState = {
+            error: null,
             isFetching: false,
             since: since,
             photos: photo.photos
@@ -49,8 +52,13 @@ describe('photos reducer', () => {
         const photoId = '32'
         const tags = ['oneTag', 'anotherTag']
 
+        const errorState = {
+            ...initialState,
+            error: 'Cannot apply tag. Photo undefined in state'
+        }
+
         // handle when photo is not in state
-        expect(photosReducer(undefined, actions.updateTags(photoId, tags))).toEqual(initialState)
+        expect(photosReducer(undefined, actions.updateTags(photoId, tags))).toEqual(errorState)
 
         const sampleState = {
             ...initialState,
@@ -63,6 +71,7 @@ describe('photos reducer', () => {
         }
 
         const expectedState = {
+            error: null,
             isFetching: false,
             since: initialState.since,
             photos: {

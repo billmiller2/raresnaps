@@ -3,7 +3,8 @@ import * as types from './actions/types'
 export let initialState = {
     isFetching: false,
     since: '',
-    photos: {}
+    photos: {},
+    error: null
 }
 
 export const photosReducer = (state = initialState, action) => {
@@ -29,7 +30,10 @@ export const photosReducer = (state = initialState, action) => {
             const photoId = action.payload.photoId
             
             if (typeof state.photos[photoId] === 'undefined') {
-                return state
+                return {
+                    ...state,
+                    error: 'Cannot apply tag. Photo undefined in state'
+                }
             }
 
             const existingTags = typeof state.photos[photoId].tags !== 'undefined'
