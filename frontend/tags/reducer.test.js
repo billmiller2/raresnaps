@@ -40,4 +40,63 @@ describe('tags reducer', () => {
         expect(tagsReducer(undefined, actions.receiveTags(tag)))
             .toEqual(expectedState)
     })
+
+    it('should handle SELECT_TAG', () => {
+        // don't update state if empty tag is selected
+        expect(tagsReducer(undefined, actions.selectTag('')))
+            .toEqual(initialState)
+
+        const tagId = 'someId'
+        const anotherTagId = 'anotherId'
+
+        const state = {
+            ...initialState,
+            tags: {
+                [tagId]: {
+                    tag: 'aaron'
+                },
+                [anotherTagId]: {
+                    tag: 'daniel'
+                }
+            }
+        }
+
+        const expectedState = {
+            error: null,
+            isFetching: false,
+            selected: [tagId],
+            tags: state.tags
+        }
+
+        expect(tagsReducer(state, actions.selectTag(tagId)))
+            .toEqual(expectedState)
+    })
+
+    it('should handle REMOVE_SELECTED_TAG', () => {
+        const tagId = 'someId'
+        const anotherTagId = 'anotherId'
+
+        const state = {
+            ...initialState,
+            selected: [tagId, anotherTagId],
+            tags: {
+                [tagId]: {
+                    tag: 'aaron'
+                },
+                [anotherTagId]: {
+                    tag: 'daniel'
+                }
+            }
+        }
+
+        const expectedState = {
+            error: null,
+            isFetching: false,
+            selected: [tagId],
+            tags: state.tags
+        }
+
+        expect(tagsReducer(state, actions.removeSelectedTag(anotherTagId)))
+            .toEqual(expectedState)
+    })
 })

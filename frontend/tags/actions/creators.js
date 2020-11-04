@@ -1,30 +1,23 @@
-import { 
-    ADD_TAG, 
-    REQUEST_TAGS,
-    RECEIVE_TAGS,
-    RECEIVE_TAG,
-    SELECT_TAG,
-    REMOVE_SELECTED_TAG
-} from './'
+import * as types from './types'
 import { POST_TAG, TAGS, SEARCH } from '../routes'
 import { updateTags } from '../../photos'
 
 export const addTag = () => {
     return {
-        type: ADD_TAG
+        type: types.ADD_TAG
     }
 }
 
 export const selectTag = (tagId) => {
     return {
-        type: SELECT_TAG,
+        type: types.SELECT_TAG,
         payload: tagId
     }
 }
 
 export const removeSelectedTag = (tagId) => {
     return {
-        type: REMOVE_SELECTED_TAG,
+        type: types.REMOVE_SELECTED_TAG,
         payload: tagId
     }
 }
@@ -82,7 +75,7 @@ export const saveTag = (tag, photoId) =>
             .then(response => {
                 if (response) {
                     dispatch(updateTags(
-                        response.payload.photoId, 
+                        response.payload.photoId,
                         Object.keys(response.payload.tags)
                    ))
                }
@@ -92,7 +85,7 @@ export const saveTag = (tag, photoId) =>
 
 export const receiveTag = (photoId, tags) => {
     return {
-        type: RECEIVE_TAG,
+        type: types.RECEIVE_TAG,
         payload: {
             photoId: photoId,
             tags: tags
@@ -102,14 +95,14 @@ export const receiveTag = (photoId, tags) => {
 
 export const receiveTags = (tags) => {
     return {
-        type: RECEIVE_TAGS,
+        type: types.RECEIVE_TAGS,
         payload: tags
     }
 }
 
 export const requestTags = () => {
     return {
-        type: REQUEST_TAGS
+        type: types.REQUEST_TAGS
     }
 }
 
