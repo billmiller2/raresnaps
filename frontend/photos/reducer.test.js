@@ -85,6 +85,30 @@ describe('photos reducer', () => {
 
         expect(photosReducer(sampleState, actions.updateTags(photoId, tags)))
             .toEqual(expectedState)
+
+        const taglessState = {
+            ...initialState,
+            photos: {
+                ...initialState.photos,
+                [photoId]: {}
+            }
+        }
+
+        const expectedTaglessState = {
+            error: null,
+            isFetching: false,
+            since: initialState.since,
+            photos: {
+                [photoId]: {
+                    tags: [
+                        tags
+                    ]
+                }
+            }
+        }
+
+        expect(photosReducer(taglessState, actions.updateTags(photoId, tags)))
+            .toEqual(expectedTaglessState)
     })
 
     it('should handle UPDATE_COMMENTS', () => {
@@ -125,5 +149,29 @@ describe('photos reducer', () => {
 
         expect(photosReducer(sampleState, actions.updateComments(photoId, comments)))
             .toEqual(expectedState)
+
+        const commentlessState = {
+            ...initialState,
+            photos: {
+                ...initialState.photos,
+                [photoId]: {}
+            }
+        }
+
+        const expectedCommentlessState = {
+            error: null,
+            isFetching: false,
+            since: initialState.since,
+            photos: {
+                [photoId]: {
+                    comments: [
+                        comments
+                    ]
+                }
+            }
+        }
+
+        expect(photosReducer(commentlessState, actions.updateComments(photoId, comments)))
+            .toEqual(expectedCommentlessState)
     })
 })
