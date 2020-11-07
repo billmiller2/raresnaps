@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock'
 
 import * as actions from './creators.js'
 import * as types from './types.js'
-import { TAGS } from '../routes'
+import { SEARCH, TAGS } from '../routes'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -66,7 +66,51 @@ describe('creators', () => {
         expect(store.getActions()[0].payload).not.toEqual('')
     })
 
-    // search tag test
+    it('searches and returns tag if found', () => {
+        const tagId = '123'
+
+        const tag = {
+            tagId: tagId,
+            name: 'utes'
+        }
+
+        fetchMock.getOnce(SEARCH + tag.name, {
+            body: tag
+        })
+
+        const expectedActions = [
+            { type: types.SELECT_TAG, payload: tagId },
+        ]
+
+        const store = mockStore({ tags: {} })
+
+        return store.dispatch(actions.searchTag(tag.name)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+
+    it('searches and alerts if tag not found', () => {
+        const tagId = '123'
+
+        const tag = {
+            tagId: tagId,
+            name: 'utes'
+        }
+
+        fetchMock.getOnce(SEARCH + tag.name, {
+            body: {}
+        })
+
+        const store = mockStore({ tags: {} })
+
+        jest.spyOn(window, 'alert').mockImplementation(() => {})
+
+        return store.dispatch(actions.searchTag(tag.name)).then(() => {
+            expect(store.getActions()).toEqual([])
+            expect(window.alert).toBeCalledWith('Tag not found')
+        })
+    })
+
     // save tag test
 
     it('should create a recieve tag action', () => {
