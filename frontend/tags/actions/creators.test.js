@@ -44,7 +44,28 @@ describe('creators', () => {
         expect(actions.removeSelectedTag(tagId)).toEqual(expectedAction)
     })
 
-    // random tag test
+    it('should create a random tag action', () => {
+        const iversonId = '3'
+        const selected = iversonId
+        const tags = {
+            ['23']: {
+                name: 'jordan'
+            },
+            ['45']: {
+                name: 'mitchell'
+            },
+            [iversonId]: {
+                name: 'iverson'
+            }
+        }
+        const store = mockStore({ tags: tags })
+
+        store.dispatch(actions.randomTag(tags, selected))
+
+        expect(store.getActions()[0].type).toEqual(types.SELECT_TAG)
+        expect(store.getActions()[0].payload).not.toEqual('')
+    })
+
     // search tag test
     // save tag test
 
