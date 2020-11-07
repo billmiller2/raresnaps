@@ -38,6 +38,15 @@ describe('Tags Container', () => {
         expect(mapStateToProps(state, props)).toEqual({
             tags: [expectedTags]
         })
+
+        const altProps = {
+            photoId: '111'
+        }
+
+        // handle when photo is not in state
+        expect(mapStateToProps(state, altProps)).toEqual({
+            tags: []
+        })
     })
 
     it('maps dispatch to props', () => {
