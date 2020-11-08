@@ -157,6 +157,27 @@ describe('creators', () => {
         })
     })
 
+    it('handles error when saving tag', () => {
+        const tagId = '123'
+
+        const tag = {
+            tagId: tagId,
+            name: 'utes'
+        }
+
+        const photoId = '232'
+        fetchMock.postOnce(POST_TAG, 500)
+
+        const store = mockStore({ tags: {} })
+
+        jest.spyOn(window, 'alert').mockImplementation(() => {})
+
+        return store.dispatch(actions.saveTag(tag, photoId)).then(() => {
+            expect(store.getActions()).toEqual([])
+            expect(window.alert).toBeCalledWith('500 Internal Server Error')
+        })
+    })
+
     it('should create a recieve tag action', () => {
         const photoId = '123'
         const tags = [
