@@ -5,7 +5,7 @@ import { AddComment, saveComment } from '../'
 
 const mapStateToProps = (state) => state
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (comment, photoId) => dispatch(saveComment(comment, photoId))
     }
