@@ -17,7 +17,7 @@ describe('creators', () => {
     it('creates RECEIVE_PHOTO after photo has been fetched', () => {
         const photoId = '123'
 
-        const photo = { 
+        const photo = {
             comments: [],
             data: 'someBase64',
             tags: []
@@ -70,13 +70,13 @@ describe('creators', () => {
         const photoId = '123'
         const anotherId = '321'
 
-        const photo = { 
+        const photo = {
             comments: [],
             data: 'someBase64',
             tags: []
         }
 
-        const anotherPhoto = { 
+        const anotherPhoto = {
             comments: [{ id: 'asdf' }],
             data: 'anotherBase64',
             tags: []
@@ -101,6 +101,136 @@ describe('creators', () => {
         const store = mockStore({ photos: {} })
 
         return store.dispatch(actions.fetchPhotos()).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+
+    it('creates RECEIVE_PHOTOS after photo has been fetched with since param', () => {
+        const photoId = '123'
+        const anotherId = '321'
+
+        const photo = {
+            comments: [],
+            data: 'someBase64',
+            tags: []
+        }
+
+        const anotherPhoto = {
+            comments: [{ id: 'asdf' }],
+            data: 'anotherBase64',
+            tags: []
+        }
+
+        const expectedPayload = {
+            photos: {
+                [photoId]: photo,
+                [anotherId]: anotherPhoto
+            }
+        }
+
+        const since = '2012'
+
+        fetchMock.getOnce(PHOTOS + '?since=' + since, {
+            body: expectedPayload
+        })
+
+        const expectedActions = [
+            { type: types.REQUEST_PHOTOS },
+            { type: types.RECEIVE_PHOTOS, payload: expectedPayload },
+        ]
+
+        const store = mockStore({ photos: {} })
+
+        return store.dispatch(actions.fetchPhotos(since)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+
+    it('creates RECEIVE_PHOTOS after photo has been fetched with tagIds param', () => {
+        const photoId = '123'
+        const anotherId = '321'
+
+        const photo = {
+            comments: [],
+            data: 'someBase64',
+            tags: []
+        }
+
+        const anotherPhoto = {
+            comments: [{ id: 'asdf' }],
+            data: 'anotherBase64',
+            tags: []
+        }
+
+        const expectedPayload = {
+            photos: {
+                [photoId]: photo,
+                [anotherId]: anotherPhoto
+            }
+        }
+
+        const tagId = '11'
+        const anotherTagId = '21'
+
+        const tagIds = [tagId, anotherTagId]
+
+        fetchMock.getOnce(PHOTOS + `?tags[]=${tagId}&tags[]=${anotherTagId}`, {
+            body: expectedPayload
+        })
+
+        const expectedActions = [
+            { type: types.REQUEST_PHOTOS },
+            { type: types.RECEIVE_PHOTOS, payload: expectedPayload },
+        ]
+
+        const store = mockStore({ photos: {} })
+
+        return store.dispatch(actions.fetchPhotos(null, tagIds)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+
+    it('creates RECEIVE_PHOTOS after photo has been fetched with since and tagIds param', () => {
+        const photoId = '123'
+        const anotherId = '321'
+
+        const photo = {
+            comments: [],
+            data: 'someBase64',
+            tags: []
+        }
+
+        const anotherPhoto = {
+            comments: [{ id: 'asdf' }],
+            data: 'anotherBase64',
+            tags: []
+        }
+
+        const expectedPayload = {
+            photos: {
+                [photoId]: photo,
+                [anotherId]: anotherPhoto
+            }
+        }
+
+        const since = '2020'
+        const tagId = '11'
+        const anotherTagId = '21'
+
+        const tagIds = [tagId, anotherTagId]
+
+        fetchMock.getOnce(PHOTOS + `?since=${since}&tags[]=${tagId}&tags[]=${anotherTagId}`, {
+            body: expectedPayload
+        })
+
+        const expectedActions = [
+            { type: types.REQUEST_PHOTOS },
+            { type: types.RECEIVE_PHOTOS, payload: expectedPayload },
+        ]
+
+        const store = mockStore({ photos: {} })
+
+        return store.dispatch(actions.fetchPhotos(since, tagIds)).then(() => {
             expect(store.getActions()).toEqual(expectedActions)
         })
     })
