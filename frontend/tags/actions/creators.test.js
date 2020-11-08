@@ -4,7 +4,8 @@ import fetchMock from 'fetch-mock'
 
 import * as actions from './creators.js'
 import * as types from './types.js'
-import { SEARCH, TAGS } from '../routes'
+import { POST_TAG, SEARCH, TAGS } from '../routes'
+import { UPDATE_TAGS } from '../../photos/'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -111,7 +112,50 @@ describe('creators', () => {
         })
     })
 
-    // save tag test
+    it('saves a new tag', () => {
+        const tagId = '123'
+
+        const tag = {
+            tagId: tagId,
+            name: 'utes'
+        }
+
+        const photoId = '232'
+
+        fetchMock.postOnce(POST_TAG, {
+            body: {
+                photoId: photoId,
+                tags: {
+                    [tagId]: tag
+                }
+            }
+        })
+
+        const store = mockStore({ tags: {} })
+
+        const expectedActions = [
+            {
+                type: types.RECEIVE_TAG,
+                payload: {
+                    photoId: photoId,
+                    tags: {
+                        [tagId]: tag
+                    }
+                }
+            },
+            {
+                type: UPDATE_TAGS,
+                payload: {
+                    photoId: photoId,
+                    tags: [tagId]
+                }
+            }
+        ]
+
+        return store.dispatch(actions.saveTag(tag, photoId)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
 
     it('should create a recieve tag action', () => {
         const photoId = '123'
