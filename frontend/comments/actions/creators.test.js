@@ -4,7 +4,8 @@ import fetchMock from 'fetch-mock'
 
 import * as actions from './creators.js'
 import * as types from './types.js'
-import { COMMENTS } from '../routes'
+import { COMMENTS, POST_COMMENT } from '../routes'
+import { UPDATE_COMMENTS } from '../../photos/'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -22,8 +23,72 @@ describe('creators', () => {
         expect(actions.addComment()).toEqual(expectedAction)
     })
 
-    // save comment test
-    
+    it('saves a new comment', () => {
+        const commentId = '123'
+
+        const comment = {
+            commentId: commentId,
+            comment: 'lookin good aaron'
+        }
+
+        const photoId = '232'
+
+        fetchMock.postOnce(POST_COMMENT, {
+            body: {
+                photoId: photoId,
+                comments: {
+                    [commentId]: comment
+                }
+            }
+        })
+
+        const store = mockStore({ comments: {} })
+
+        const expectedActions = [
+            {
+                type: types.RECEIVE_COMMENT,
+                payload: {
+                    photoId: photoId,
+                    comments: {
+                        [commentId]: comment
+                    }
+                }
+            },
+            {
+                type: UPDATE_COMMENTS,
+                payload: {
+                    photoId: photoId,
+                    comments: [commentId]
+                }
+            }
+        ]
+
+        return store.dispatch(actions.saveComment(comment, photoId)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions)
+        })
+    })
+
+    it('handles error when saving comment', () => {
+        const commentId = '123'
+
+        const comment = {
+            commentId: commentId,
+            comment: 'looking good daniel'
+        }
+
+        const photoId = '232'
+        fetchMock.postOnce(POST_COMMENT, 500)
+
+        const store = mockStore({ comments: {} })
+
+        jest.spyOn(window, 'alert').mockImplementation(() => {})
+
+        return store.dispatch(actions.saveComment(comment, photoId)).then(() => {
+            expect(store.getActions()).toEqual([])
+            expect(window.alert).toBeCalledWith('500 Internal Server Error')
+        })
+    })
+
     it('should create a recieve comment action', () => {
         const photoId = '123'
         const comments = [
@@ -42,7 +107,7 @@ describe('creators', () => {
     })
 
     it('should create a recieve comments action', () => {
-        const comments = { 
+        const comments = {
             '123': {
                 comment: 'looking good bud'
              }
@@ -67,13 +132,13 @@ describe('creators', () => {
     it('creates RECEIVE_COMMENTS after comments have been fetched', () => {
         const commentId = '123'
 
-        const comment = { 
+        const comment = {
             comment: 'go utes'
         }
 
         const anotherCommentId = '321'
 
-        const anotherComment = { 
+        const anotherComment = {
             name: 'utah utes are good'
         }
 
