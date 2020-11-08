@@ -8,7 +8,7 @@ export const AddTag = (props) => {
     const [tag, setTag] = useState('')
 
     return (
-        <form 
+        <form
             onSubmit={(e) => {
                 e.preventDefault()
                 const submit = Ladda.create(document.querySelector('#addTagButton'))
@@ -28,14 +28,13 @@ export const AddTag = (props) => {
                 type='text'
                 value={tag}>
             </Input>
-            <LightMauveButton 
+            <LightMauveButton
                 className='ladda-button'
                 data-style='expand-right'
-                id='addTagButton' 
+                id='addTagButton'
                 type="submit">
                 Add Tag
             </LightMauveButton>
         </form>
     )
 }
-
