@@ -33,4 +33,16 @@ describe('Tag', () => {
 
         expect(wrapper.find(Link).length).toEqual(0)
     })
+
+    it('calls onClick from props when clicked', () => {
+        const tagId = '111'
+        const tag = { _id: tagId, name: 'aaron' }
+        const onClick = jest.fn(() => {})
+        const wrapper = shallow(<Tag onClick={onClick} tag={tag} />)
+        const button = wrapper.find(LightMauveButton)
+
+        button.simulate('click')
+
+        expect(onClick).toBeCalledWith(tagId)
+    })
 })
