@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Spinner from 'react-bootstrap/Spinner'
 import styled from 'styled-components'
 
-const MauveSpinner = styled(Spinner)`
+export const MauveSpinner = styled(Spinner)`
     color: #a17188;
 `
 
@@ -14,4 +14,3 @@ export const Loading = () => (
         </MauveSpinner>
     </Row>
 )
-
