@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { mapStateToProps } from './photo.jsx'
+import { mapStateToProps, mapDispatchToProps } from './photo.jsx'
 
 describe('Add Photo Container', () => {
     it('maps state to props', () => {
@@ -24,12 +24,17 @@ describe('Add Photo Container', () => {
         })
     })
 
-    //it('maps dispatch to props', () => {
-        //const dispatch = jest.fn()
+    it('maps dispatch to props', () => {
+        const dispatch = jest.fn()
 
-        //expect(mapDispatchToProps(state, props)).toEqual({
-            //photo: photo,
-            //isFetching: state.photo.isFetching
-        //})
-    //})
+        const photoId = '11'
+
+        mapDispatchToProps(dispatch).fetchPhoto(photoId)
+
+        expect(dispatch.mock.calls.length).toEqual(1)
+
+        mapDispatchToProps(dispatch).fetchComments([])
+
+        expect(dispatch.mock.calls.length).toEqual(2)
+    })
 })
