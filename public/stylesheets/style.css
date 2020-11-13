@@ -5,3 +5,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.mauve {
+    background-color: #a17188 !important;
+    border-color: #a17188 !important;
+}
+
+.light-mauve {
+    color: #a17188 !important;
+}

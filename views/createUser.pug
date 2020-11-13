@@ -37,9 +37,9 @@ block content
               div.invalid-feedback#confMatchInvalid= "password confirmation does not match"
               div.valid-feedback#confMatchValid= "password confirmation matches"
 
-          button(type='submit').btn.btn-primary= 'Create'
+          button(type='submit' class='mauve').btn.btn-primary= 'Create'
         hr
-        a.btn.btn-link.btn-light(href="/users/login")= 'Login'
+        a.btn.btn-link.btn-light(href="/users/login" class='light-mauve')= 'Login'
 
   script.
     function validatePassword() {
