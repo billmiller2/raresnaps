@@ -26,7 +26,7 @@ exports.index = (req, res, next) => {
         }
 
         const getParams = {
-            Bucket: 'dev-raresnaps',
+            Bucket: process.env.ENVIRONMENT === 'production' ? 'raresnaps' : 'dev-raresnaps'
         }
 
         const photoCount = data.length
