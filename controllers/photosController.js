@@ -82,7 +82,7 @@ exports.show = (req, res, next) => {
         }
 
         const getParams = {
-            Bucket: 'dev-raresnaps',
+            Bucket: process.env.ENVIRONMENT === 'production' ? 'raresnaps' : 'dev-raresnaps',
             Key: photo.key
         }
 
@@ -111,7 +111,7 @@ exports.add = (req, res, next) => {
     const key = (+new Date()).toString()
     const params = {
         Body: Buffer.from(req.file.buffer, 'binary'),
-        Bucket: 'dev-raresnaps',
+        Bucket: process.env.ENVIRONMENT === 'production' ? 'raresnaps' : 'dev-raresnaps',
         Key: key
     }
 
