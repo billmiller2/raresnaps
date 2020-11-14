@@ -62,7 +62,7 @@ block content
     function validateLength() {
         var password = document.getElementById('createPassword')
 
-        if (password.value.length !== 8) {
+        if (password.value.length < 8) {
             password.classList.add('is-invalid')
             password.classList.remove('is-valid')
             return false
