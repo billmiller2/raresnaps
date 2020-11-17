@@ -46,18 +46,38 @@ exports.index = (req, res, next) => {
                         return next(err)
                     }
 
-                    photos[photoId] = {
-                        comments: comments,
-                        data: data.Body.toString('base64'),
-                        tags: tags
-                    }
+                    //photos[photoId] = {
+                        //comments: comments,
+                        //data: data.Body.toString('base64'),
+                        //tags: tags
+                    //}
 
-                    if (Object.keys(photos).length === photoCount) {
-                        res.status(200).send({ 
-                            photos: photos,
-                            since: since
+                    const sharp = require('sharp')
+                    const resized = {}
+
+                    sharp(data.Body)
+                        .resize(200, 200)
+                        .toBuffer()
+                        .then(data => {
+                            photos[photoId] = {
+                                comments: comments,
+                                data: data.toString('base64'),
+                                tags: tags
+                            }
+
+                            if (Object.keys(photos).length === photoCount) {
+                                res.status(200).send({ 
+                                    photos: photos,
+                                    since: since
+                                })
+                            }
                         })
-                    }
+                        .catch(err => console.log(err))
+
+                    //res.status(200).send({ 
+                        //photos: photos,
+                        //since: since
+                    //})
                 })
             }
         } else {
