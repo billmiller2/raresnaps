@@ -20,6 +20,7 @@ var app = express();
 var sessionStore = new session.MemoryStore
 
 var db = require('./db.js')
+db.connect()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

@@ -2,6 +2,13 @@ require('dotenv').config({ path: __dirname + '/.env' })
 
 var mongoose = require('mongoose')
 var mongoDB = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@127.0.0.1:27017/raresnaps-dev`
-mongoose.connect(mongoDB, { useNewUrlParser: true })
-var db = mongoose.connection
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+var db
+
+module.exports = {
+    connect: () => mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then(
+            () => { db = mongoose.connection },
+            err => console.log(err)
+        ),
+    getDb: () => db
+}
