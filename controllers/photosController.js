@@ -47,7 +47,6 @@ exports.index = (req, res, next) => {
                     }
 
                     const sharp = require('sharp')
-                    const resized = {}
 
                     sharp(data.Body)
                         .resize(400)
