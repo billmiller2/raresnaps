@@ -9,8 +9,8 @@
     "test": "jest",
     "test-watch": "npm test -- --watch",
     "test-coverage": "jest --coverage",
-    "webpack": "npx webpack --config ./webpack.config.js --watch",
-    "webpack-prod": "npx webpack --config ./webpack.prod.config.js"
+    "webpack": "npx webpack --env NODE_ENV=local --config ./webpack.config.js --watch",
+    "webpack-prod": "npx webpack --env NODE_ENV=production --config ./webpack.prod.config.js"
   },
   "dependencies": {
     "aws-sdk": "^2.725.0",
