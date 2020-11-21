@@ -46,17 +46,12 @@ exports.index = (req, res, next) => {
                         return next(err)
                     }
 
-                    //photos[photoId] = {
-                        //comments: comments,
-                        //data: data.Body.toString('base64'),
-                        //tags: tags
-                    //}
-
                     const sharp = require('sharp')
                     const resized = {}
 
                     sharp(data.Body)
-                        .resize(200, 200)
+                        .resize(400)
+                        .withMetadata()
                         .toBuffer()
                         .then(data => {
                             photos[photoId] = {
@@ -73,11 +68,6 @@ exports.index = (req, res, next) => {
                             }
                         })
                         .catch(err => console.log(err))
-
-                    //res.status(200).send({ 
-                        //photos: photos,
-                        //since: since
-                    //})
                 })
             }
         } else {
