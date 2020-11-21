@@ -39,34 +39,24 @@ exports.index = (req, res, next) => {
                 const comments = data[i].comments
                 const tags = data[i].tags
 
-                getParams.Key = data[i].key
+                getParams.Key = data[i].key + '-sm'
 
                 s3.getObject(getParams, function(err, data) {
                     if (err) {
                         return next(err)
                     }
+                    photos[photoId] = {
+                        comments: comments,
+                        data: data.Body.toString('base64'),
+                        tags: tags
+                    }
 
-                    const sharp = require('sharp')
-
-                    sharp(data.Body)
-                        .resize(400)
-                        .withMetadata()
-                        .toBuffer()
-                        .then(data => {
-                            photos[photoId] = {
-                                comments: comments,
-                                data: data.toString('base64'),
-                                tags: tags
-                            }
-
-                            if (Object.keys(photos).length === photoCount) {
-                                res.status(200).send({ 
-                                    photos: photos,
-                                    since: since
-                                })
-                            }
+                    if (Object.keys(photos).length === photoCount) {
+                        res.status(200).send({ 
+                            photos: photos,
+                            since: since
                         })
-                        .catch(err => console.log(err))
+                    }
                 })
             }
         } else {
@@ -118,11 +108,12 @@ exports.show = (req, res, next) => {
 
 exports.add = (req, res, next) => {
     const key = (+new Date()).toString()
-    const params = {
+    let params = {
         Body: Buffer.from(req.file.buffer, 'binary'),
         Bucket: process.env.ENVIRONMENT === 'production' ? 'raresnaps' : 'dev-raresnaps',
         Key: key
     }
+    const fullSize = params.Body
 
     s3.putObject(params, function(err, data) {
         if (err) {
@@ -138,12 +129,26 @@ exports.add = (req, res, next) => {
                 return next(err)
             }
 
-            res.status(200).send({ photos: {
-                [photo._id]: {
-                    data: params.Body.toString('base64'),
-                    tags: []
-                }
-            }})
+            const sharp = require('sharp')
+
+            sharp(fullSize)
+                .resize(400)
+                .withMetadata()
+                .toBuffer()
+                .then(data => {
+                    params.Key = key + '-sm'
+                    params.Body = data
+
+                    s3.putObject(params, function(err, data) {
+                        res.status(200).send({ photos: {
+                            [photo._id]: {
+                                data: fullSize.toString('base64'),
+                                tags: []
+                            }
+                        }})
+                    })
+                })
+                .catch(err => console.log(err))
         })
     })
 }
