@@ -8,6 +8,7 @@ describe('photos reducer', () => {
 
     it('should handle REQUEST_PHOTO', () => {
         expect(photosReducer(undefined, actions.requestPhoto())).toEqual({
+            allFetched: false,
             error: null,
             since: '',
             isFetching: true,
@@ -17,6 +18,7 @@ describe('photos reducer', () => {
 
     it('should handle REQUEST_PHOTOS', () => {
         expect(photosReducer(undefined, actions.requestPhotos())).toEqual({
+            allFetched: false,
             error: null,
             since: '',
             isFetching: true,
@@ -38,6 +40,7 @@ describe('photos reducer', () => {
             }
         }
         const expectedState = {
+            allFetched: false,
             error: null,
             isFetching: false,
             since: since,
@@ -71,6 +74,7 @@ describe('photos reducer', () => {
         }
 
         const expectedState = {
+            allFetched: false,
             error: null,
             isFetching: false,
             since: initialState.since,
@@ -95,6 +99,7 @@ describe('photos reducer', () => {
         }
 
         const expectedTaglessState = {
+            allFetched: false,
             error: null,
             isFetching: false,
             since: initialState.since,
@@ -135,6 +140,7 @@ describe('photos reducer', () => {
         }
 
         const expectedState = {
+            allFetched: false,
             error: null,
             isFetching: false,
             since: initialState.since,
@@ -159,6 +165,7 @@ describe('photos reducer', () => {
         }
 
         const expectedCommentlessState = {
+            allFetched: false,
             error: null,
             isFetching: false,
             since: initialState.since,

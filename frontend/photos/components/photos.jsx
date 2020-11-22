@@ -29,10 +29,10 @@ const PaddedDiv = styled.div`
 `
 
 export const Photos = (props) => {
-    const { photos, since, isFetching, fetchPhotos, selected, tags } = props
+    const { allFetched, photos, since, isFetching, fetchPhotos, selected, tags } = props
 
     useEffect(() => {
-        if (fetchPhotos && !Object.keys(photos).length && !isFetching) {
+        if (fetchPhotos && !Object.keys(photos).length && !isFetching && !allFetched) {
             fetchPhotos(since, selected)
         }
     }, [since])
@@ -51,7 +51,7 @@ export const Photos = (props) => {
             ) <= 3
             const path = window.location.pathname
 
-            if (bottom && path === '/') {
+            if (bottom && path === '/' && !isFetching && !allFetched) {
                 fetchPhotos(since, selected)
             }
         }

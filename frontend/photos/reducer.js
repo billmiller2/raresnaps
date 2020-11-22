@@ -1,6 +1,7 @@
 import * as types from './actions/types'
 
 export let initialState = {
+    allFetched: false,
     isFetching: false,
     since: '',
     photos: {},
@@ -19,6 +20,7 @@ export const photosReducer = (state = initialState, action) => {
         case types.RECEIVE_PHOTOS:
             return {
                 ...state,
+                allFetched: (Object.entries(action.payload.photos).length === 0),
                 isFetching: false,
                 since: action.payload.since,
                 photos: {

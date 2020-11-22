@@ -4,7 +4,7 @@ import { fetchPhotos } from '../../photos/actions'
 import { Photos } from '../components'
 
 const mapStateToProps = (state) => {
-    const { since } = state.photo
+    const { allFetched, since } = state.photo
     const { selected } = state.tag
 
     let tags = []
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
     })
 
     return {
+        allFetched,
         since,
         selected,
         tags
