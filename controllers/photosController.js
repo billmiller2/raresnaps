@@ -52,8 +52,14 @@ exports.index = (req, res, next) => {
                     }
 
                     if (Object.keys(photos).length === photoCount) {
+                        const sorted = {}
+
+                        Object.keys(photos).sort().reverse().forEach(key =>
+                            sorted[key] = photos[key]
+                        )
+
                         res.status(200).send({ 
-                            photos: photos,
+                            photos: sorted,
                             since: since
                         })
                     }
