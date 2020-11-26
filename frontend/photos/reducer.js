@@ -17,7 +17,6 @@ export const photosReducer = (state = initialState, action) => {
                 isFetching: true
             }
         case types.RECEIVE_PHOTO:
-        case types.RECEIVE_PHOTOS:
             return {
                 ...state,
                 allFetched: (Object.entries(action.payload.photos).length === 0),
@@ -26,6 +25,25 @@ export const photosReducer = (state = initialState, action) => {
                 photos: {
                     ...state.photos,
                     ...action.payload.photos
+                }
+            }
+        case types.RECEIVE_PHOTOS:
+            const photoPayload = {}
+
+            Object.keys(action.payload.photos).forEach(key => {
+                if (typeof state.photos[key] === 'undefined') {
+                    photoPayload[key] = action.payload.photos[key]
+                }
+            })
+
+            return {
+                ...state,
+                allFetched: (Object.entries(action.payload.photos).length === 0),
+                isFetching: false,
+                since: action.payload.since,
+                photos: {
+                    ...state.photos,
+                    ...photoPayload
                 }
             }
         case types.UPDATE_TAGS:
