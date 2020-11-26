@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store'
 const mockStore = configureMockStore()
 
 describe('Photos Container', () => {
-    let wrapper, store, tagOfDay, since, selected
+    let wrapper, store, tagOfDay, since, selectedTags
 
     beforeEach(() => {
         const tagId = '111'
@@ -17,14 +17,14 @@ describe('Photos Container', () => {
         }
 
         since = '2010'
-        selected = [tagId]
+        selectedTags = [tagId]
 
         const initialState = {
             photo: {
                 since: since
             },
             tag: {
-                selected: selected,
+                selected: selectedTags,
                 tags: {
                     [tagId]: tagOfDay,
                     ['anotherId']: {
@@ -45,7 +45,7 @@ describe('Photos Container', () => {
     it('should map state to props', () => {
         const expectedProps = {
             since: since,
-            selected: selected,
+            selectedTags: selectedTags,
             tags: [tagOfDay]
         }
 

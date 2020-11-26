@@ -33,7 +33,7 @@ export const RootComponent = (props)  => {
                     <ViewPhoto />
                 </Route>
                 <Route path='/'>
-                    <PhotosContainer photos={photo.photos} isFetching={photo.isFetching} />
+                    <PhotosContainer />
                 </Route>
             </Switch>
         </Container>

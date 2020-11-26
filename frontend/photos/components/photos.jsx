@@ -29,11 +29,11 @@ const PaddedDiv = styled.div`
 `
 
 export const Photos = (props) => {
-    const { allFetched, photos, since, isFetching, fetchPhotos, selected, tags } = props
+    const { allFetched, photos, since, isFetching, fetchPhotos, selectedTags, tags } = props
 
     useEffect(() => {
-        fetchPhotos('', selected)
-    }, [JSON.stringify(selected)])
+        fetchPhotos('', selectedTags)
+    }, [JSON.stringify(selectedTags)])
 
     useEffect(() => {
         window.onscroll = (e) => {
@@ -44,7 +44,7 @@ export const Photos = (props) => {
             const path = window.location.pathname
 
             if (bottom && path === '/' && !isFetching && !allFetched) {
-                fetchPhotos(since, selected)
+                fetchPhotos(since, selectedTags)
             }
         }
     })
@@ -52,7 +52,7 @@ export const Photos = (props) => {
     let photoComponents = []
 
     for (const [id, photo] of Object.entries(photos)) {
-        if (!selected.length || selected.every(tagId => photo.tags.includes(tagId))) {
+        if (!selectedTags.length || selectedTags.every(tagId => photo.tags.includes(tagId))) {
             photoComponents.push(
                 <Col key={id} xs={12} sm={12} md={12} lg={4}>
                     <Link to={'/photos/view/' + id}>
