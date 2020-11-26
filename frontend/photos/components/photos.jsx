@@ -32,12 +32,6 @@ export const Photos = (props) => {
     const { allFetched, photos, since, isFetching, fetchPhotos, selected, tags } = props
 
     useEffect(() => {
-        if (fetchPhotos && !Object.keys(photos).length && !isFetching && !allFetched) {
-            fetchPhotos(since, selected)
-        }
-    }, [since])
-
-    useEffect(() => {
         if (selected) {
             fetchPhotos('', selected)
         }
