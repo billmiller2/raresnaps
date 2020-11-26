@@ -32,9 +32,7 @@ export const Photos = (props) => {
     const { allFetched, photos, since, isFetching, fetchPhotos, selected, tags } = props
 
     useEffect(() => {
-        if (selected) {
-            fetchPhotos('', selected)
-        }
+        fetchPhotos('', selected)
     }, [JSON.stringify(selected)])
 
     useEffect(() => {
