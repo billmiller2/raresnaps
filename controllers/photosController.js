@@ -1,6 +1,7 @@
 const aws = require('aws-sdk');
 const s3 = new aws.S3();
 const { Photo } = require('../models/photo.js')
+const ExifImage = require('exif').ExifImage
 
 exports.index = (req, res, next) => {
     let photos = {}
@@ -46,25 +47,33 @@ exports.index = (req, res, next) => {
                     if (err) {
                         return next(err)
                     }
+
                     photos[photoId] = {
                         comments,
                         createdAt,
                         data: data.Body.toString('base64'),
+                        originalCreatedDate: '',
                         tags
                     }
 
-                    if (Object.keys(photos).length === photoCount) {
-                        const sorted = {}
+                    new ExifImage({ image: data.Body }, function(err, exifData) {
+                        if (exifData && typeof exifData.exif.DateTimeOriginal !== 'undefined') {
+                            photos[photoId].originalCreatedDate = exifData.exif.DateTimeOriginal
+                        }
 
-                        Object.keys(photos).sort().reverse().forEach(key =>
-                            sorted[key] = photos[key]
-                        )
+                        if (Object.keys(photos).length === photoCount) {
+                            const sorted = {}
 
-                        res.status(200).send({ 
-                            photos: sorted,
-                            since: since
-                        })
-                    }
+                            Object.keys(photos).sort().reverse().forEach(key =>
+                                sorted[key] = photos[key]
+                            )
+
+                            res.status(200).send({ 
+                                photos: sorted,
+                                since: since
+                            })
+                        }
+                    })
                 })
             }
         } else {
@@ -98,19 +107,28 @@ exports.show = (req, res, next) => {
                 return err
             }
 
-            let objectData = data.Body.toString('base64')
-            let response = { 
-                photos: {
-                    [photo._id]: {
-                        comments: photo.comments,
-                        createdAt: photo.createdAt,
-                        data: objectData,
-                        tags: photo.tags
+            new ExifImage({ image: data.Body }, function(err, exifData) {
+                let originalCreatedDate = ''
+
+                if (exifData && typeof exifData.exif.DateTimeOriginal !== 'undefined') {
+                    originalCreatedDate = exifData.exif.DateTimeOriginal
+                }
+
+                let objectData = data.Body.toString('base64')
+                let response = { 
+                    photos: {
+                        [photo._id]: {
+                            comments: photo.comments,
+                            createdAt: photo.createdAt,
+                            data: objectData,
+                            originalCreatedDate,
+                            tags: photo.tags
+                        }
                     }
                 }
-            }
 
-            res.status(200).send(response)
+                res.status(200).send(response)
+            })
         })
     })
 }
