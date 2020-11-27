@@ -56,24 +56,18 @@ exports.index = (req, res, next) => {
                         tags
                     }
 
-                    new ExifImage({ image: data.Body }, function(err, exifData) {
-                        if (exifData && typeof exifData.exif.DateTimeOriginal !== 'undefined') {
-                            photos[photoId].originalCreatedDate = exifData.exif.DateTimeOriginal
-                        }
+                    if (Object.keys(photos).length === photoCount) {
+                        const sorted = {}
 
-                        if (Object.keys(photos).length === photoCount) {
-                            const sorted = {}
+                        Object.keys(photos).sort().reverse().forEach(key =>
+                            sorted[key] = photos[key]
+                        )
 
-                            Object.keys(photos).sort().reverse().forEach(key =>
-                                sorted[key] = photos[key]
-                            )
-
-                            res.status(200).send({ 
-                                photos: sorted,
-                                since: since
-                            })
-                        }
-                    })
+                        res.status(200).send({ 
+                            photos: sorted,
+                            since: since
+                        })
+                    }
                 })
             }
         } else {
@@ -170,6 +164,7 @@ exports.add = (req, res, next) => {
                         res.status(200).send({ photos: {
                             [photo._id]: {
                                 data: fullSize.toString('base64'),
+                                originalCreatedDate: '',
                                 tags: []
                             }
                         }})
