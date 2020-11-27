@@ -38,6 +38,7 @@ exports.index = (req, res, next) => {
                 const photoId = data[i]._id
                 const comments = data[i].comments
                 const tags = data[i].tags
+                const createdAt = data[i].createdAt
 
                 getParams.Key = data[i].key + '-sm'
 
@@ -46,9 +47,10 @@ exports.index = (req, res, next) => {
                         return next(err)
                     }
                     photos[photoId] = {
-                        comments: comments,
+                        comments,
+                        createdAt,
                         data: data.Body.toString('base64'),
-                        tags: tags
+                        tags
                     }
 
                     if (Object.keys(photos).length === photoCount) {
@@ -101,6 +103,7 @@ exports.show = (req, res, next) => {
                 photos: {
                     [photo._id]: {
                         comments: photo.comments,
+                        createdAt: photo.createdAt,
                         data: objectData,
                         tags: photo.tags
                     }
