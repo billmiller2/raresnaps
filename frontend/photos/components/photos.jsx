@@ -40,7 +40,7 @@ export const Photos = (props) => {
             const scroll = e.target.scrollingElement
             const bottom = Math.abs(
                 scroll.scrollHeight - scroll.scrollTop - scroll.clientHeight
-            ) <= 3
+            ) <= 1500
             const path = window.location.pathname
 
             if (bottom && path === '/' && !isFetching && !allFetched) {
