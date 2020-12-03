@@ -21,7 +21,6 @@ export const photosReducer = (state = initialState, action) => {
                 ...state,
                 allFetched: (Object.entries(action.payload.photos).length === 0),
                 isFetching: false,
-                since: action.payload.since,
                 photos: {
                     ...state.photos,
                     ...action.payload.photos
