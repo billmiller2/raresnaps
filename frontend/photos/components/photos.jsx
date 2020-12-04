@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
@@ -30,12 +30,17 @@ const PaddedDiv = styled.div`
 
 export const Photos = (props) => {
     const { allFetched, photos, since, isFetching, fetchPhotos, selectedTags, tags } = props
+    const [sincePlaceholder, setSincePlaceholder] = useState(since)
 
     useEffect(() => {
         if (selectedTags.length > 0) {
+            if (sincePlaceholder.length === 0) {
+                setSincePlaceholder(since)
+            }
             fetchPhotos('', selectedTags)
         } else {
-            fetchPhotos(since, selectedTags)
+            fetchPhotos(sincePlaceholder, selectedTags)
+            setSincePlaceholder('')
         }
     }, [JSON.stringify(selectedTags)])
 
