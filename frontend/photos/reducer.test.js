@@ -26,7 +26,30 @@ describe('photos reducer', () => {
         })
     })
 
-    it('should handle RECEIVE_PHOTO and RECEIVE_PHOTOS', () => {
+    it('should handle RECEIVE_PHOTO', () => {
+        const photoId = '32'
+        const photo = {
+            photos: {
+                [photoId]: {
+                    data: '',
+                    comments: [],
+                    tags: []
+                }
+            }
+        }
+
+        const expectedState = {
+            allFetched: false,
+            error: null,
+            isFetching: false,
+            since: '',
+            photos: photo.photos
+        }
+
+        expect(photosReducer(undefined, actions.receivePhoto(photo))).toEqual(expectedState)
+    })
+
+    it('should handle RECEIVE_PHOTOS', () => {
         const since = '123'
         const photoId = '32'
         const photo = {
@@ -39,6 +62,7 @@ describe('photos reducer', () => {
                 }
             }
         }
+
         const expectedState = {
             allFetched: false,
             error: null,
@@ -47,7 +71,6 @@ describe('photos reducer', () => {
             photos: photo.photos
         }
 
-        expect(photosReducer(undefined, actions.receivePhoto(photo))).toEqual(expectedState)
         expect(photosReducer(undefined, actions.receivePhotos(photo))).toEqual(expectedState)
     })
 
