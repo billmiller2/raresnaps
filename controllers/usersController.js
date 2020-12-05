@@ -62,7 +62,7 @@ exports.login = (req, res, next) => {
         })
     }
 
-    Group.findOne({ name: req.body.group }, (err, group) => {
+    Group.findOne({ name: req.body.group.toLowerCase() }, (err, group) => {
         if (!group) {
             return res.status(422).render('login.pug', {
                 title: 'raresnaps login',
