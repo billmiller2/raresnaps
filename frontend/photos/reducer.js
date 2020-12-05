@@ -61,7 +61,7 @@ export const photosReducer = (state = initialState, action) => {
 
             const tags = [ 
                 ...existingTags, 
-                action.payload.tags
+                ...action.payload.tags
             ]
 
             return {
