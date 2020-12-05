@@ -29,7 +29,7 @@ exports.create = (req, res, next) => {
                 }
 
                 const user = new User({
-                    username: req.body.username,
+                    username: req.body.username.toLowerCase(),
                     password: hash
                 })
 
@@ -69,7 +69,7 @@ exports.login = (req, res, next) => {
                 errors: [{ msg: 'Invalid Group' }]
             })
         } else {
-            const payload = { username: req.body.username }
+            const payload = { username: req.body.username.toLowerCase() }
             const options = { expiresIn: '1d' }
             const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
                 if (err) {
