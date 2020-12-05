@@ -103,7 +103,7 @@ describe('photos reducer', () => {
             since: initialState.since,
             photos: {
                 [photoId]: {
-                    tags: ...tags
+                    tags
                 }
             }
         }
@@ -126,9 +126,7 @@ describe('photos reducer', () => {
             since: initialState.since,
             photos: {
                 [photoId]: {
-                    tags: [
-                        tags
-                    ]
+                    tags
                 }
             }
         }
