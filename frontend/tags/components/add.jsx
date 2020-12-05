@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import * as Ladda from 'ladda'
 
 import { Input, LightMauveButton } from '../../common'
+import { saveTag } from '../../tags/actions'
 
 export const AddTag = (props) => {
-    const { onSubmit, photoId } = props
+    const { photoId } = props
     const [tag, setTag] = useState('')
+
+    const dispatch = useDispatch()
+    const onSubmit = (tag, photoId) => dispatch(saveTag(tag, photoId))
 
     return (
         <form
