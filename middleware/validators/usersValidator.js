@@ -6,7 +6,7 @@ const { User } = require('../../models/user')
 exports.create = createUserValidator = [
     body('group').not().isEmpty().escape().trim(),
     body('username').not().isEmpty().escape().trim().custom(value => {
-        return User.findOne({ username: value.toLowerCase() }).exec()
+        return User.findOne({ username: value }).exec()
             .then(user => {
                 if (user) {
                     return Promise.reject('username is taken')
@@ -26,7 +26,7 @@ exports.create = createUserValidator = [
 
 exports.login = [
     body('username').not().isEmpty().escape().trim().custom((value, { req }) => {
-        return User.findOne({ username: value.toLowerCase() }).exec()
+        return User.findOne({ username: value }).exec()
             .then(user => {
                 if (!user) {
                     return Promise.reject('username not found')
