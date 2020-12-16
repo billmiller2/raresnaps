@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as Ladda from 'ladda'
 import styled from 'styled-components'
 
 import { searchTag } from '../'
-import { Form, Input, LightMauveButton } from '../../common'
+import { Form, getSuggestions, Input, LightMauveButton, Suggest } from '../../common'
 
 export const SearchTag = (props) => {
     const [tag, setTag] = useState('')
+    const [suggestedTags, setSuggestedTags] = useState([])
     const dispatch = useDispatch()
+    const tags = useSelector(state => state.tag.tags)
 
     return (
         <Form
@@ -27,7 +29,10 @@ export const SearchTag = (props) => {
             }}>
             <Input
                 className='mr-2'
-                onChange={(e) => setTag(e.target.value.trimLeft())}
+                onChange={(e) => {
+                    setSuggestedTags(getSuggestions(tags, e.target.value))
+                    setTag(e.target.value.trimLeft())
+                }}
                 required
                 type='text'
                 value={tag}>
@@ -39,6 +44,11 @@ export const SearchTag = (props) => {
                 type="submit">
                 Search Tag
             </LightMauveButton>
+            <Suggest
+                input={tag}
+                suggestions={suggestedTags}
+                setInput={setTag}
+                setSuggestions={setSuggestedTags} />
         </Form>
     )
 }

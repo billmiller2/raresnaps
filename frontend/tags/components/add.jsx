@@ -1,37 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Ladda from 'ladda'
-import styled from 'styled-components'
 
-import { Input, LightMauveButton } from '../../common'
+import { getSuggestions, Input, LightMauveButton, Suggest } from '../../common'
 import { saveTag } from '../../tags/actions'
-
-const Ul = styled.ul`
-    border 1px solid;
-    color: #a17188 !important;
-    list-style-type: none;
-    max-width: 220px;
-    padding-left: 0px;
-
-    @media (max-device-width: 330px) {
-        max-width: 55%;
-    }
-    @media (max-device-width: 700px) and (min-device-width: 330px) {
-        max-width: 60%;
-    }
-`
-const Li = styled.li`
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-top: 5px;
-
-    &:hover {
-        background-color: #a17188;
-        color: #ffffff;
-        border-color: #a17188;
-        box-shadow: 0 0 10px !important;
-    }
-`
 
 export const AddTag = (props) => {
     const { photoId } = props
@@ -60,11 +32,7 @@ export const AddTag = (props) => {
                 className='mr-2'
                 id='tagInput'
                 onChange={(e) => {
-                    setSuggestedTags(
-                        Object.values(tags)
-                            .filter(tag => tag.name.startsWith(e.target.value.toLowerCase()))
-                            .slice(0, 3)
-                    )
+                    setSuggestedTags(getSuggestions(tags, e.target.value))
                     setTag(e.target.value.trimLeft())
                 }}
                 required
@@ -78,22 +46,11 @@ export const AddTag = (props) => {
                 type="submit">
                 Add Tag
             </LightMauveButton>
-            {tag !== '' && suggestedTags.length > 0 &&
-                <Ul>
-                    {suggestedTags.map(suggestedTag => {
-                        return (
-                            <Li className='text-left'
-                                key={suggestedTag.name}
-                                onClick={() => {
-                                    setTag(suggestedTag.name)
-                                    setSuggestedTags([])
-                                }}>
-                                {suggestedTag.name}
-                            </Li>
-                        )
-                    })}
-                </Ul>
-            }
+            <Suggest
+                input={tag}
+                suggestions={suggestedTags}
+                setInput={setTag}
+                setSuggestions={setSuggestedTags} />
         </form>
     )
 }
