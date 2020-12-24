@@ -26,7 +26,7 @@ exports.create = createUserValidator = [
 
 exports.login = [
     body('username').not().isEmpty().escape().trim().custom((value, { req }) => {
-        return User.findOne({ username: value }).exec()
+        return User.findOne({ usernameLowercase: value.toLowerCase() }).exec()
             .then(user => {
                 if (!user) {
                     return Promise.reject('username not found')

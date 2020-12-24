@@ -30,6 +30,7 @@ exports.create = (req, res, next) => {
 
                 const user = new User({
                     username: req.body.username,
+                    usernameLowercase: req.body.username.toLowerCase(),
                     password: hash
                 })
 
@@ -69,15 +70,21 @@ exports.login = (req, res, next) => {
                 errors: [{ msg: 'Invalid Group' }]
             })
         } else {
-            const payload = { username: req.body.username }
-            const options = { expiresIn: '1d' }
-            const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
+            User.findOne({ usernameLowercase: req.body.username.toLowerCase() }, (err, user) => {
                 if (err) {
-                    next(err)
+                    return next(err)
                 }
 
-                res.cookie('token', token)
-                res.redirect(303, '/')
+                const payload = { username: user.username }
+                const options = { expiresIn: '1d' }
+                const token = jwt.sign(payload, process.env.JWT_SECRET, options, (err, token) => {
+                    if (err) {
+                        next(err)
+                    }
+
+                    res.cookie('token', token)
+                    res.redirect(303, '/')
+                })
             })
         }
     })
