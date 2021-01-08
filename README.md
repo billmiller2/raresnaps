@@ -3,7 +3,9 @@ raresnaps is a photo sharing application intended for small groups.
 
 ## local development
 `node v14.12.0`
+
 `npm 6.14.7`
+
 `MongoDB shell version v4.4.1`
 
 1. clone repo
