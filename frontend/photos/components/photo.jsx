@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Loading } from '../../common'
 
 export const Photo = (props) => {
-    const { photo, isFetching, fetchPhoto, fetchComments } = props
+    const { photo, fetchPhoto, fetchComments, isFetching } = props
     const { photoId } = useParams()
 
     useEffect(() => {

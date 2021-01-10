@@ -1,25 +1,19 @@
-import { connect } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import { fetchComments } from '../../comments'
-import { fetchPhoto, Photo } from '../../photos'
+import { fetchPhoto, Photo } from '../'
 
-export const mapStateToProps = (state, props) => {
-    const photo = state.photo.photos[props.photoId]
+export const PhotoContainer = (props) => {
+    const { photoId } = props
+    const dispatch = useDispatch()
 
-    return {
-        photo: photo,
-        isFetching: state.photo.isFetching
-    }
+    return (
+        <Photo
+            fetchPhoto={(photoId) => dispatch(fetchPhoto(photoId))}
+            fetchComments={(comments) => dispatch(fetchComments(comments))}
+            isFetching={useSelector(state => state.photo.isFetching)}
+            photo={useSelector(state => state.photo.photos[photoId])} />
+    )
 }
-
-export const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchPhoto: (photoId) => dispatch(fetchPhoto(photoId)),
-        fetchComments: (comments) => dispatch(fetchComments(comments))
-    }
-}
-
-export const PhotoContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Photo)

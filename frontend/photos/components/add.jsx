@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
@@ -7,6 +8,7 @@ import * as Ladda from 'ladda'
 import styled from 'styled-components'
 
 import { LightMauveButton } from '../../common'
+import { uploadPhoto } from '../'
 
 const Input = styled.input`
     &:required {
@@ -14,10 +16,11 @@ const Input = styled.input`
     }
 `
 
-export const AddPhoto = (props) => {
-    const { onSubmit } = props
+export const AddPhoto = () => {
     const [file, setValue] = useState('')
     const [id, setId] = useState(0)
+    const dispatch = useDispatch()
+    const onSubmit = (file) => dispatch(uploadPhoto(file))
 
     if (id) {
         return <Redirect to={'/photos/view/' + id} />
@@ -51,6 +54,7 @@ export const AddPhoto = (props) => {
                             <LightMauveButton
                                 className='ml-1 mb-3 ladda-button'
                                 data-style='expand-right'
+                                data-testid='addPhotoButton'
                                 id='addPhotoButton'
                                 type="submit">
                                 Upload Photo

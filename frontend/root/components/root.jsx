@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Nav } from './'
 import {
     ADD_PHOTO_ROUTE,
-    AddPhotoContainer,
+    AddPhoto,
     PhotosContainer,
     VIEW_PHOTO_ROUTE,
     ViewPhoto
@@ -27,7 +27,7 @@ export const RootComponent = (props)  => {
             <hr />
             <Switch>
                 <Route path={ADD_PHOTO_ROUTE}>
-                    <AddPhotoContainer />
+                    <AddPhoto />
                 </Route>
                 <Route path={VIEW_PHOTO_ROUTE}>
                     <ViewPhoto />

@@ -1,23 +1,62 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
+import { screen, render, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom'
 
 import { AddPhoto } from './add.jsx'
-import { LightMauveButton } from '../../common'
+import { Input, LightMauveButton } from '../../common'
+
+const mockStore = configureStore()
+const mockOnSubmit = jest.fn((tag, photoId) => Promise.resolve())
+
+jest.mock('react-redux', () => {
+    return {
+        ...jest.requireActual('react-redux'),
+        useDispatch: () => mockOnSubmit
+    }
+})
+
+jest.mock('../', () => {
+    return {
+        uploadPhoto: () => jest.fn()
+    }
+})
 
 describe('Add Photo', () => {
-    it('renders a Row containing a form containing a Row containing Col containing inputs', () => {
-        const wrapper = shallow(<AddPhoto />)
+    it('renders a LightMauveButton to upload photo', () => {
+        const store = mockStore({
+            tag: {
+                tags: {}
+            }
+        })
 
-        expect(wrapper.find(Row).length).toEqual(2)
-        expect(wrapper.find(Col).length).toEqual(2)
-        expect(wrapper.find('form').length).toEqual(1)
+        const { queryByTestId } = render(
+            <Provider store={store}>
+                <AddPhoto />
+            </Provider>
+        )
+
+        expect(queryByTestId('addPhotoButton')).toHaveTextContent('Upload Photo')
     })
 
-    it('renders an input button and a submit button', () => {
-        const wrapper = shallow(<AddPhoto />)
+    it('calls onSubmit when submitted', () => {
+        const store = mockStore({
+            tag: {
+                tags: {}
+            }
+        })
 
-        expect(wrapper.find(LightMauveButton).length).toEqual(2)
+        const { queryByTestId, queryByText } = render(
+            <Provider store={store}>
+                <AddPhoto />
+            </Provider>
+        )
+
+        const submit = queryByText('Upload Photo')
+
+        fireEvent.click(submit)
+
+        expect(mockOnSubmit).toHaveBeenCalled()
     })
 })
