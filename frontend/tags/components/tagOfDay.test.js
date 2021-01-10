@@ -52,6 +52,31 @@ describe('Tag of Day', () => {
         expect(screen.getByRole('button')).toHaveTextContent('The Tag of the Day is aaron')
     })
 
+    it('renders a LightMauveButton without tag of day when none exists', () => {
+        const store = mockStore({
+            tag: {
+                tags: {
+                    someId: {
+                        isTagOfDay: false,
+                        name: 'aaron'
+                    },
+                    anotherId: {
+                        isTagOfDay: false,
+                        name: 'chad'
+                    }
+                }
+            }
+        })
+
+        render(
+            <Provider store={store}>
+                <TagOfDay />
+            </Provider>
+        )
+
+        expect(screen.getByRole('button')).toHaveTextContent('The Tag of the Day is')
+    })
+
     it('calls onSubmit when submitted', () => {
         const store = mockStore({
             tag: {
