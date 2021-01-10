@@ -8,11 +8,12 @@ import { AddTag } from './add.jsx'
 import { Input, LightMauveButton } from '../../common'
 
 const mockStore = configureStore()
+const mockOnSubmit = jest.fn((tag, photoId) => Promise.resolve())
 
 jest.mock('react-redux', () => {
     return {
         ...jest.requireActual('react-redux'),
-        useDispatch: () => jest.fn((tag, photoId) => Promise.resolve())
+        useDispatch: () => mockOnSubmit
     }
 })
 
@@ -52,11 +53,30 @@ describe('Add Tag', () => {
             </Provider>
         )
 
-        const submit = queryByText('Add Tag')
         const input = queryByTestId('tagInput')
 
         fireEvent.change(input, { target: { value: 'aaron' } })
 
         expect(input.value).toBe('aaron')
+    })
+
+    it('calls onSubmit when submitted', () => {
+        const store = mockStore({
+            tag: {
+                tags: {}
+            }
+        })
+
+        const { queryByTestId, queryByText } = render(
+            <Provider store={store}>
+                <AddTag />
+            </Provider>
+        )
+
+        const submit = queryByText('Add Tag')
+
+        fireEvent.click(submit)
+
+        expect(mockOnSubmit).toHaveBeenCalled()
     })
 })
