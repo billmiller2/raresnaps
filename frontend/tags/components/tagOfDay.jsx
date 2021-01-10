@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { fetchTags, selectTag } from '../'
@@ -11,8 +11,10 @@ export const Form = styled.form`
     white-space: nowrap;
 `
 
-export const TagOfDay = (props) => {
-    const { tagOfDay } = props
+export const TagOfDay = () => {
+    const tagOfDay = useSelector(state =>
+        Object.values(state.tag.tags).find(tag => tag.isTagOfDay) || ''
+    )
     const dispatch = useDispatch()
 
     return (

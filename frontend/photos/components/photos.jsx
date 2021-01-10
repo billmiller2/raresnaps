@@ -11,7 +11,7 @@ import {
     Tag,
     SearchTag,
     RandomTag,
-    TagOfDayContainer,
+    TagOfDay,
     selectTag,
     removeSelectedTag
 } from '../../tags'
@@ -84,7 +84,7 @@ export const Photos = (props) => {
             <Row className='mb-3'>
                 <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                     <PaddedDiv>
-                        <TagOfDayContainer />
+                        <TagOfDay />
                     </PaddedDiv>
                     <PaddedDiv>
                         <RandomTag />
