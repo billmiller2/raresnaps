@@ -1,14 +1,24 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import { screen, render, fireEvent } from '@testing-library/react'
+import { act, screen, render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { AddPhoto } from './add.jsx'
 import { Input, LightMauveButton } from '../../common'
 
 const mockStore = configureStore()
-const mockOnSubmit = jest.fn((tag, photoId) => Promise.resolve())
+const mockPromiseResolve = Promise.resolve({
+    payload: {
+        photos: {
+            someId: {
+                data: 'data'
+            }
+        }
+    }
+})
+const mockOnSubmit = jest.fn((tag, photoId) => mockPromiseResolve)
 
 jest.mock('react-redux', () => {
     return {
@@ -40,16 +50,38 @@ describe('Add Photo', () => {
         expect(queryByTestId('addPhotoButton')).toHaveTextContent('Upload Photo')
     })
 
-    it('calls onSubmit when submitted', () => {
+    it('updates the input value when a file is selected', () => {
         const store = mockStore({
             tag: {
                 tags: {}
             }
         })
 
-        const { queryByTestId, queryByText } = render(
+        const { queryByTestId } = render(
             <Provider store={store}>
                 <AddPhoto />
+            </Provider>
+        )
+
+        const input = queryByTestId('fileInput')
+
+        fireEvent.change(input, { target: { files: [ 'testFile' ] }})
+
+        expect(input.files).toEqual(['testFile'])
+    })
+
+    it('calls onSubmit when submitted', async () => {
+        const store = mockStore({
+            tag: {
+                tags: {}
+            }
+        })
+
+        const { queryByText } = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <AddPhoto />
+                </BrowserRouter>
             </Provider>
         )
 
@@ -58,5 +90,7 @@ describe('Add Photo', () => {
         fireEvent.click(submit)
 
         expect(mockOnSubmit).toHaveBeenCalled()
+
+        await act(() => mockPromiseResolve)
     })
 })

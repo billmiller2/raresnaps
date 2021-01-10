@@ -46,6 +46,7 @@ export const AddPhoto = () => {
                         <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                             <LightMauveButton className='mb-3'>
                             <Input
+                                data-testid='fileInput'
                                 type='file'
                                 accept="image/png, image/jpeg"
                                 onChange={(e) => setValue(e.target.files[0])}
