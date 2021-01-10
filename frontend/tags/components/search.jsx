@@ -29,6 +29,7 @@ export const SearchTag = (props) => {
             }}>
             <Input
                 className='mr-2'
+                data-testid='searchTagInput'
                 onChange={(e) => {
                     setSuggestedTags(getSuggestions(tags, e.target.value))
                     setTag(e.target.value.trimLeft())
