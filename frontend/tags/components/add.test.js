@@ -47,7 +47,7 @@ describe('Add Tag', () => {
             }
         })
 
-        const { queryByTestId, queryByText } = render(
+        const { queryByTestId } = render(
             <Provider store={store}>
                 <AddTag />
             </Provider>
