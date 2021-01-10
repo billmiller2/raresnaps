@@ -10,7 +10,7 @@ import { Loading } from '../../common'
 import {
     Tag,
     SearchTag,
-    RandomTagContainer,
+    RandomTag,
     TagOfDayContainer,
     selectTag,
     removeSelectedTag
@@ -87,7 +87,7 @@ export const Photos = (props) => {
                         <TagOfDayContainer />
                     </PaddedDiv>
                     <PaddedDiv>
-                        <RandomTagContainer tags={tags} />
+                        <RandomTag />
                     </PaddedDiv>
                 </Col>
             </Row>

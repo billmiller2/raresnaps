@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { fetchTags, randomTag } from '../'
 import { Form, LightMauveButton } from '../../common'
 
-export const RandomTag = (props) => {
+export const RandomTag = () => {
     useEffect(() => {
         fetchTags()
     }, [])
 
-    const { selected, tags } = props
+    const selected = useSelector(state => state.tag.selected)
+    const tags = useSelector(state => state.tag.tags)
     const dispatch = useDispatch()
 
     return (
