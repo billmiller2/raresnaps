@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as Ladda from 'ladda'
 
 import { getSuggestions, Input, LightMauveButton, Suggest } from '../../common'
-import { saveTag } from '../../tags/actions'
+import { saveTag } from '../actions'
 
 export const AddTag = (props) => {
     const { photoId } = props
@@ -30,6 +30,7 @@ export const AddTag = (props) => {
             }}>
             <Input
                 className='mr-2'
+                data-testid='tagInput'
                 id='tagInput'
                 onChange={(e) => {
                     setSuggestedTags(getSuggestions(tags, e.target.value))

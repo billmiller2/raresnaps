@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import { screen, render } from '@testing-library/react'
+import { screen, render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 import { AddTag } from './add.jsx'
@@ -9,27 +9,54 @@ import { Input, LightMauveButton } from '../../common'
 
 const mockStore = configureStore()
 
+jest.mock('react-redux', () => {
+    return {
+        ...jest.requireActual('react-redux'),
+        useDispatch: () => jest.fn((tag, photoId) => Promise.resolve())
+    }
+})
+
+jest.mock('../actions', () => {
+    return {
+        saveTag: (tag, photoId) => jest.fn()
+    }
+})
+
 describe('Add Tag', () => {
     it('renders a form containing an Input and a LightMauveButton', () => {
-        const onSubmit = () => {}
-        const store = mockStore({})
+        const store = mockStore({
+            tag: {
+                tags: {}
+            }
+        })
 
         render(
             <Provider store={store}>
-                <AddTag onSubmit={onSubmit} />
+                <AddTag />
             </Provider>
         )
 
         expect(screen.getByRole('button')).toHaveTextContent('Add Tag')
     })
 
-    //it('calls onSubmit when submitted', () => {
-        //const onSubmit = jest.fn((tag, photoId) => Promise.resolve())
-        //const store = mockStore({})
-        //render(
-            //<Provider store={store}>
-                //<AddTag onSubmit={onSubmit} />
-            //</Provider>
-        //)
-    //})
+    it('updates input on change', () => {
+        const store = mockStore({
+            tag: {
+                tags: {}
+            }
+        })
+
+        const { queryByTestId, queryByText } = render(
+            <Provider store={store}>
+                <AddTag />
+            </Provider>
+        )
+
+        const submit = queryByText('Add Tag')
+        const input = queryByTestId('tagInput')
+
+        fireEvent.change(input, { target: { value: 'aaron' } })
+
+        expect(input.value).toBe('aaron')
+    })
 })
