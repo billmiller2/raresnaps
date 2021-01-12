@@ -31,17 +31,11 @@ export const Photo = (props) => {
         return <span>Not Found</span>
     }
 
-    let src = ''
-
-    if (photo) {
-        src = `data:image/png;base64, ${photo.data}`
-    }
-
     return (
         <img
             alt='photo'
             className='mb-4'
-            src={src}
+            src={`data:image/png;base64, ${photo.data}`}
             style={{ maxWidth: '100%', maxHeight: '100%' }} />
     )
 }
