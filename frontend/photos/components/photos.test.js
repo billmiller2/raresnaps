@@ -41,7 +41,7 @@ jest.mock('react-router-dom', () => {
 })
 
 describe('Photos', () => {
-    it('renders the search tag button', () => {
+    it('renders the search tag button and random tag button', () => {
         const store = mockStore({
             photo: {
                 photos: {}
@@ -75,5 +75,6 @@ describe('Photos', () => {
         )
         
         expect(getByText('Search Tag')).toBeInTheDocument()
+        expect(getByText('Try a Random Tag')).toBeInTheDocument()
     })
 })

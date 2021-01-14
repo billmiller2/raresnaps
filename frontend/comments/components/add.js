@@ -23,6 +23,7 @@ export const AddComment = (props) => {
             }}>
             <TextArea
                 className='mr-2'
+                data-testid='addCommentInput'
                 onChange={(e) => setComment(e.target.value.trimLeft())}
                 required
                 value={comment}>
