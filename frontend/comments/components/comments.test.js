@@ -1,24 +1,55 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
+import { act, screen, render, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom'
 
-import { Comment } from './comment.jsx'
-import { Comments } from './comments.jsx'
+import { Comments } from './comments'
+
+const mockStore = configureStore()
 
 describe('Comments', () => {
-    it('renders a comment component for each comment in props', () => {
-        const comments = [
-            { _id: '123', createdAt: '2020-01-01', comment: 'Lookin good bud' },
-            { _id: '1234', createdAt: '2020-01-02', comment: 'Lookin great bud' }
-        ]
-        const wrapper = shallow(<Comments comments={comments} />)
+    it("renders a photo's comments", () => {
+        const photoId = '123'
+        const firstComment = {
+            _id: '23',
+            comment: 'lookin good bud',
+            createdAt: '2020-01-01'
+        }
 
-        expect(wrapper.find(Comment).length).toEqual(2)
-    })
+        const secondComment = {
+            _id: '43',
+            comment: 'here there, bud',
+            createdAt: '2020-01-01'
+        }
 
-    it('does not render if comments is undefined', () => {
-        const wrapper = shallow(<Comments />)
+        const store = mockStore({
+            comment: {
+                comments: {
+                    [firstComment._id]: firstComment,
+                    [secondComment._id]: secondComment
+                }
+            },
+            photo: {
+                photos: {
+                    [photoId]: {
+                        comments: [
+                            firstComment._id,
+                            secondComment._id
+                        ]
+                    }
+                }
+            }
+        })
 
-        expect(wrapper.find(Comment).length).toEqual(0)
+        const { getByText } = render(
+            <Provider store={store}>
+                <Comments photoId={photoId} />
+            </Provider>
+        )
+
+        expect(getByText(firstComment.comment)).toBeInTheDocument()
+        expect(getByText(secondComment.comment)).toBeInTheDocument()
     })
 })
-
