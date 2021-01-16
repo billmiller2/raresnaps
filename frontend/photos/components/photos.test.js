@@ -18,6 +18,7 @@ const mockPromiseResolve = Promise.resolve({
     }
 })
 const mockOnSubmit = jest.fn((tag, photoId) => mockPromiseResolve)
+const mockRemoveTag = jest.fn()
 
 jest.mock('react-redux', () => {
     return {
@@ -30,6 +31,13 @@ jest.mock('react-redux', () => {
 jest.mock('../', () => {
     return {
         uploadPhoto: () => jest.fn()
+    }
+})
+
+jest.mock('../../tags', () => {
+    return {
+        ...jest.requireActual('../../tags'),
+        removeTag: (tagId) => mockRemoveTag
     }
 })
 

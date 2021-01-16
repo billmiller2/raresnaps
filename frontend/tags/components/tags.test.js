@@ -1,24 +1,49 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import configureStore from 'redux-mock-store'
+import { act, screen, render, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom'
 
 import { Tag } from './tag.jsx'
 import { Tags } from './tags.jsx'
 
+const mockStore = configureStore()
+
 describe('Tags', () => {
     it('renders a tag component for each tag in props', () => {
-        const tags = [
-            { _id: '123', createdAt: '2020-01-01', tag: 'aaron' },
-            { _id: '1234', createdAt: '2020-01-02', tag: 'daniel' }
-        ]
-        const wrapper = shallow(<Tags tags={tags} />)
+        const photoId = '22'
+        const tagId = '23'
+        const tagName = 'aaron'
 
-        expect(wrapper.find(Tag).length).toEqual(2)
-    })
+        const store = mockStore({
+            photo: {
+                photos: {
+                    [photoId]: {
+                        tags: [tagId]
+                    }
+                }
+            },
+            tag: {
+                tags: {
+                    [tagId]: {
+                        _id: tagId,
+                        name: tagName
+                    }
+                }
+            }
+        })
 
-    it('does not render if tags is undefined', () => {
-        const wrapper = shallow(<Tags />)
+        const { queryByText } = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Tags photoId={photoId} />
+                </BrowserRouter>
+            </Provider>
+        )
 
-        expect(wrapper.find(Tag).length).toEqual(0)
+        expect(queryByText(tagName)).toBeTruthy()
+        expect(queryByText('badName')).toBeFalsy()
     })
 })
 
