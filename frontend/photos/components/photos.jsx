@@ -94,7 +94,7 @@ export const Photos = (props) => {
             <Row className='mb-5'>
                 <Col xs={12} className='d-flex flex-wrap justify-content-center'>
                     { tags.length > 0 &&
-                        tags.map(tag =>
+                        tags.map(tag => 
                             <Tag
                                 dismissible={true}
                                 key={tag._id}

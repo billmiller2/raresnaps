@@ -120,4 +120,56 @@ describe('Photos', () => {
         expect(queryByAltText(photos[anotherPhotoId].createdAt)).toBeTruthy()
         expect(queryByAltText('badAltText')).toBeFalsy()
     })
+
+    it('renders tag when selected', () => {
+        const photoId = '123'
+        const anotherPhotoId = '321'
+        const store = mockStore({
+            photo: {
+                photos: {}
+            }
+        })
+        const tagId = '22'
+
+        const photos = {
+            [photoId]: {
+                createdAt: '2020-01-01',
+                data: 'data',
+                tags: []
+            },
+            [anotherPhotoId]: {
+                createdAt: '2020-01-02',
+                data: 'moredata',
+                tags: [tagId]
+            }
+        }
+
+        const fetchPhotos = jest.fn()
+        const tagName = 'bobby'
+
+        const tags = [
+            { _id: tagId, name: tagName },
+            { _id: 'tagId', name: 'another' }
+        ]
+        const selectedTags = [
+            { _id: tagId, name: tagName }
+        ]
+
+        const { queryByText } = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Photos
+                        fetchPhotos={fetchPhotos}
+                        photos={photos}
+                        selectedTags={selectedTags}
+                        since=''
+                        tags={tags}
+                        isFetching={false} />
+                </BrowserRouter>
+            </Provider>
+        )
+
+        expect(queryByText(tagName, { exact: false })).toBeInTheDocument()
+        expect(queryByText('badTag', { exact: false })).not.toBeInTheDocument()
+    })
 })
