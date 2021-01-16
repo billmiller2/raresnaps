@@ -42,6 +42,9 @@ jest.mock('react-router-dom', () => {
 
 describe('Photos', () => {
     it('renders the search tag button and random tag button', () => {
+        const someId = '123'
+        const anotherId = '44'
+
         const store = mockStore({
             photo: {
                 photos: {}
@@ -76,5 +79,45 @@ describe('Photos', () => {
         
         expect(getByText('Search Tag')).toBeInTheDocument()
         expect(getByText('Try a Random Tag')).toBeInTheDocument()
+    })
+
+    it('renders alt text for photos passed through props', () => {
+        const photoId = '123'
+        const anotherPhotoId = '321'
+        const store = mockStore({
+            photo: {
+                photos: {}
+            }
+        })
+
+        const photos = {
+            [photoId]: {
+                createdAt: '2020-01-01',
+                data: 'data'
+            },
+            [anotherPhotoId]: {
+                createdAt: '2020-01-02',
+                data: 'moredata'
+            }
+        }
+
+        const fetchPhotos = jest.fn()
+
+        const { queryByAltText } = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Photos
+                        fetchPhotos={fetchPhotos}
+                        photos={photos}
+                        selectedTags={[]}
+                        tags={[]}
+                        isFetching={false} />
+                </BrowserRouter>
+            </Provider>
+        )
+
+        expect(queryByAltText(photos[photoId].createdAt)).toBeTruthy()
+        expect(queryByAltText(photos[anotherPhotoId].createdAt)).toBeTruthy()
+        expect(queryByAltText('badAltText')).toBeFalsy()
     })
 })

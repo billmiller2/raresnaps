@@ -33,7 +33,7 @@ export const Photo = (props) => {
 
     return (
         <img
-            alt='photo'
+            alt={photo.createdAt}
             className='mb-4'
             src={`data:image/png;base64, ${photo.data}`}
             style={{ maxWidth: '100%', maxHeight: '100%' }} />
