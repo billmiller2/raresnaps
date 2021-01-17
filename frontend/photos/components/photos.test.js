@@ -18,7 +18,7 @@ const mockPromiseResolve = Promise.resolve({
     }
 })
 const mockOnSubmit = jest.fn((tag, photoId) => mockPromiseResolve)
-const mockRemoveTag = jest.fn()
+const mockRemoveSelectedTag = jest.fn((tagId) => {})
 
 jest.mock('react-redux', () => {
     return {
@@ -37,7 +37,7 @@ jest.mock('../', () => {
 jest.mock('../../tags', () => {
     return {
         ...jest.requireActual('../../tags'),
-        removeTag: (tagId) => mockRemoveTag
+        removeSelectedTag: () => mockRemoveSelectedTag()
     }
 })
 
@@ -179,5 +179,62 @@ describe('Photos', () => {
 
         expect(queryByText(tagName, { exact: false })).toBeInTheDocument()
         expect(queryByText('badTag', { exact: false })).not.toBeInTheDocument()
+    })
+
+    it('removes tag when clicked', async () => {
+        const photoId = '123'
+        const anotherPhotoId = '321'
+        const store = mockStore({
+            photo: {
+                photos: {}
+            }
+        })
+        const tagId = '22'
+
+        const photos = {
+            [photoId]: {
+                createdAt: '2020-01-01',
+                data: 'data',
+                tags: []
+            },
+            [anotherPhotoId]: {
+                createdAt: '2020-01-02',
+                data: 'moredata',
+                tags: [tagId]
+            }
+        }
+
+        const fetchPhotos = jest.fn()
+        const tagName = 'bobby'
+
+        const tags = [
+            { _id: tagId, name: tagName },
+            { _id: 'tagId', name: 'another' }
+        ]
+        const selectedTags = [
+            { _id: tagId, name: tagName }
+        ]
+
+        const { queryByText } = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Photos
+                        fetchPhotos={fetchPhotos}
+                        photos={photos}
+                        selectedTags={selectedTags}
+                        since=''
+                        tags={tags}
+                        isFetching={false} />
+                </BrowserRouter>
+            </Provider>
+        )
+
+        const tagButton = queryByText(tagName, { exact: false})
+
+        expect(tagButton).toBeInTheDocument()
+
+        fireEvent.click(tagButton)
+
+        expect(mockRemoveSelectedTag).toHaveBeenCalled()
     })
 })
