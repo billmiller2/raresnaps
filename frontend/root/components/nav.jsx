@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import styled from 'styled-components'
 
 import { ADD_PHOTO_ROUTE } from '../../photos'
+import { VIEW_TAGS_ROUTE } from '../../tags'
 import { LOGOUT_ROUTE } from '../../users'
 
 export const MauveNav = styled(Navbar)`
@@ -37,6 +38,9 @@ export const Nav = (props) =>
                 <Dropdown.Menu>
                     <Item href={ ADD_PHOTO_ROUTE }>
                         Add Photo
+                    </Item>
+                    <Item href={ VIEW_TAGS_ROUTE }>
+                        View Tags
                     </Item>
                     <Dropdown.Divider />
                     <Item href={ LOGOUT_ROUTE }>

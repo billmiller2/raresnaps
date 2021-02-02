@@ -11,7 +11,11 @@ import {
     VIEW_PHOTO_ROUTE,
     ViewPhoto
 } from '../../photos'
-import { fetchTags } from '../../tags'
+import {
+    fetchTags,
+    VIEW_TAGS_ROUTE,
+    ViewTags
+} from '../../tags'
 
 export const RootComponent = (props)  => {
     const { user, photo } = { ...props }
@@ -31,6 +35,9 @@ export const RootComponent = (props)  => {
                 </Route>
                 <Route path={VIEW_PHOTO_ROUTE}>
                     <ViewPhoto />
+                </Route>
+                <Route path={VIEW_TAGS_ROUTE}>
+                    <ViewTags />
                 </Route>
                 <Route path='/'>
                     <PhotosContainer />

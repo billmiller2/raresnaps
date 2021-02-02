@@ -10,6 +10,7 @@ require('dotenv').config()
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var photosRouter = require('./routes/photos');
+var tagsRouter = require('./routes/tags');
 
 var apiCommentsRouter = require('./routes/api/comments');
 var apiPhotosRouter = require('./routes/api/photos');
@@ -55,6 +56,7 @@ app.use('/public/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/photos', photosRouter);
+app.use('/tags', tagsRouter);
 app.use('/api/comments', apiCommentsRouter);
 app.use('/api/photos', apiPhotosRouter);
 app.use('/api/tags', apiTagsRouter);
