@@ -2,42 +2,41 @@ import React from 'react'
 import BootstrapNav from 'react-bootstrap/Nav'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Navbar from 'react-bootstrap/Navbar'
-
-import { shallow } from 'enzyme'
+import { act, screen, render, fireEvent } from '@testing-library/react'
+import '@testing-library/jest-dom'
 
 import { Item, MauveNav, Nav } from './nav.jsx'
 import { ADD_PHOTO_ROUTE } from '../../photos'
 import { LOGOUT_ROUTE } from '../../users'
 
 describe('Nav', () => {
-    it('renders a MauveNav containing a Navbar.Brand', () => {
-        const wrapper = shallow(<Nav />)
+    it('renders a navbar with the raresnaps brand', () => {
+        const { queryByText } = render(<Nav />)
 
-        expect(wrapper.find(MauveNav).length).toEqual(1)
-        expect(wrapper.find(Navbar.Brand).length).toEqual(1)
+        expect(queryByText('raresnaps')).toBeTruthy()
     })
 
-    it('renders a BootstrapNav containing a Dropdown', () => {
-        const wrapper = shallow(<Nav />)
+    it('renders a dropdown button with the username', () => {
+        const username = 'bill'
+        const { queryByText } = render(<Nav username={username} />)
 
-        expect(wrapper.find(BootstrapNav).length).toEqual(1)
-        expect(wrapper.find(BootstrapNav).children(Dropdown).length).toEqual(1)
+        expect(queryByText(username)).toBeTruthy()
     })
 
-    it('renders a Dropdown containing a toggle and a menu', () => {
-        const wrapper = shallow(<Nav />)
+    it('renders a expands the dropdown when the username button is clicked', () => {
+        const username = 'bill'
+        const { queryByText } = render(<Nav username={username} />)
 
-        expect(wrapper.find(Dropdown).children(Dropdown.Toggle).length).toEqual(1)
-        expect(wrapper.find(Dropdown).children(Dropdown.Menu).length).toEqual(1)
-    })
+        const dropdown = queryByText(username)
 
-    it('renders a Dropdown Menu containing an add photo link and a logout link', () => {
-        const wrapper = shallow(<Nav />)
+        expect(queryByText('Add Photo')).toBeFalsy()
+        expect(queryByText('View Tags')).toBeFalsy()
+        expect(queryByText('Logout')).toBeFalsy()
 
-        expect(wrapper.find(Dropdown.Menu).children(Item).length).toEqual(2)
-        expect(wrapper.find(Dropdown.Menu).children(Item).first().prop('href'))
-            .toEqual(ADD_PHOTO_ROUTE)
-        expect(wrapper.find(Dropdown.Menu).children(Item).last().prop('href'))
-            .toEqual(LOGOUT_ROUTE)
+        fireEvent.click(dropdown)
+
+        expect(queryByText('Add Photo')).toBeTruthy()
+        expect(queryByText('View Tags')).toBeTruthy()
+        expect(queryByText('Logout')).toBeTruthy()
     })
 })
