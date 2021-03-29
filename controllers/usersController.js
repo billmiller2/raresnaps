@@ -51,7 +51,10 @@ exports.create = (req, res, next) => {
     })
 }
 
-exports.loginForm = (req, res) => res.render('login.pug', { title: 'raresnaps login' })
+exports.loginForm = (req, res) => res.render('login.pug', {
+    group: req.query.group,
+    title: 'raresnaps login'
+})
 
 exports.login = (req, res, next) => {
     const errors = validationResult(req)

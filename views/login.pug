@@ -7,7 +7,7 @@ block content
         form(action='/users/login' method='post')
           div.form-group
             label(for='group')= 'Group'
-            input(type='text' name='group' required autofocus).form-control
+            input(type='text' value=`${group || ''}` name='group' required autofocus).form-control
 
             label(for='username')= 'Username'
             input(type='text' name='username' required).form-control
