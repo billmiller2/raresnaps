@@ -141,26 +141,26 @@ exports.add = (req, res, next) => {
             return next(err)
         }
 
-        const photo = new Photo({
-            key: key
-        })
+        const sharp = require('sharp')
 
-        photo.save((err) => {
-            if (err) {
-                return next(err)
-            }
+        sharp(fullSize)
+            .resize(400)
+            .withMetadata()
+            .toBuffer()
+            .then(data => {
+                params.Key = key + '-sm'
+                params.Body = data
 
-            const sharp = require('sharp')
+                s3.putObject(params, function(err, data) {
+                    const photo = new Photo({
+                        key: key
+                    })
 
-            sharp(fullSize)
-                .resize(400)
-                .withMetadata()
-                .toBuffer()
-                .then(data => {
-                    params.Key = key + '-sm'
-                    params.Body = data
+                    photo.save((err) => {
+                        if (err) {
+                            return next(err)
+                        }
 
-                    s3.putObject(params, function(err, data) {
                         res.status(200).send({ photos: {
                             [photo._id]: {
                                 data: fullSize.toString('base64'),
@@ -169,8 +169,9 @@ exports.add = (req, res, next) => {
                             }
                         }})
                     })
+
                 })
-                .catch(err => console.log(err))
-        })
+            })
+            .catch(err => console.log(err))
     })
 }
