@@ -152,6 +152,10 @@ exports.add = (req, res, next) => {
                 params.Body = data
 
                 s3.putObject(params, function(err, data) {
+                    if (err) {
+                        return next(err)
+                    }
+
                     const photo = new Photo({
                         key: key
                     })
